@@ -109,11 +109,9 @@ module FastNeurons
         # 活性化関数への入力値 z に活性化関数を適用するメソッド
         # rowの次の層への入力値@a[row+1]
         def a_compute(row)
-            node = @a[row+1]
             @z[row].each_with_index do |data,i|
-              node[i] = Sigmoid.call(data) # Sigmoidの計算
+              @a[row+1][i] = Sigmoid.call(data) # Sigmoidの計算
             end
-
         end
 
         # 順方向に計算
@@ -190,16 +188,8 @@ module FastNeurons
           puts "z=#{@z[row]}"
         end
 
-        # mnistのデータをasciiで出力
-        def ascii_print(inputs)
-
-          output = inputs.each_slice(28).map do |row|
-            row.map do |darkness|
-              darkness < 64 ?  " " : ( darkness < 128 ? "・" : "X" )
-            end.join
-          end.join("\n")
-
-          puts output
+        def outputs
+          @a[@neuron_columns.size]
         end
 
         def run(time)
@@ -209,8 +199,6 @@ module FastNeurons
             propagate # 順方向計算
             backpropagate # 誤差逆伝搬の計算
           end
-          ascii_print(@a[0].map {|pixel| pixel*255}) # 教師データを出力
-          ascii_print(@a[@neuron_columns.size].map {|pixel| pixel*255}) # 学習したデータを出力
         end
     end
 end

@@ -34,6 +34,17 @@ class Mnist_input
     }
   end
 
+  # mnistのデータをasciiで出力
+  def ascii_print(inputs)
+    inputs = inputs.map {|pixel| pixel*255}
+    output = inputs.each_slice(28).map do |row|
+      row.map do |darkness|
+        darkness < 64 ?  " " : ( darkness < 128 ? "・" : "X" )
+      end.join
+    end.join("\n")
+    puts output
+  end
+
 end
 
 puts "Loading images"
@@ -45,14 +56,16 @@ nn = FastNeurons::NN.new([784,15,784]) # ネットワークの作成
 nn.randomize # ネットワークの初期化
 
 imgs = images.map { |image| mnist.byte_to_float(image).flatten }
-data = imgs.zip(imgs)
 
 puts "Runnning..."
-1000.times do
-  data.each do |img,expected_img|
+100.times do
+  imgs.each.with_index do |inputs,index|
     # expected_img = mnist.byte_to_float(img).flatten
     #puts "#{expected_img}"
-    nn.input(img,expected_img) # 入力データと教師データの入力
+    nn.input(inputs,inputs) # 入力データと教師データの入力
     nn.run(100) # 実行
+
+    mnist.ascii_print(inputs) # 教師データを出力
+    mnist.ascii_print(nn.outputs) # 学習したデータを出力
   end
 end
