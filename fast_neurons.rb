@@ -91,8 +91,8 @@ module FastNeurons
         def input(*values,t)
             # The inputs are stored into a[0] as a NMatrix vector.
             # a[0]にはニューラルネットワークへの入力値をNMatrixの行列として格納
-            @a[0] = N[values.flatten].transpose
-            @T = N[t.flatten].transpose
+            @a[0] = N[values.flatten,dtype: :float64].transpose
+            @T = N[t.flatten,dtype: :float64].transpose
         end
 
         # z = inputs * weights + biases
