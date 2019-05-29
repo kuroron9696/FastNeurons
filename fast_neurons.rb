@@ -67,11 +67,17 @@ module FastNeurons
             # Create random fast matrices for the biases.
             # NMatrixの配列を作成 バイアス
             @biases = @biases_geometry.map { |geo| NMatrix.random(geo,:dtype => :float64)}
+            @biases.size.times do |i|
+              @biases[i] -= 0.5
+            end
             puts "@biases: #{@biases}"
             # Create random fast matrices for the weights.
             # NMatrixの配列を作成 重み
-              @weights = @weights_geometry.map do |geo|
+            @weights = @weights_geometry.map do |geo|
                 NMatrix.random(geo,:dtype => :float64)
+            end
+            @weights.size.times do |i|
+              @weights[i] -= 0.5
             end
             puts "@weights: #{@weights}"
         end

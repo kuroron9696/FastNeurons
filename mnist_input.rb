@@ -59,12 +59,12 @@ imgs = images.map { |image| mnist.byte_to_float(image).flatten }
 
 puts "Runnning..."
 count = 0
-1.times do
+10.times do
   imgs.each.with_index do |inputs,index|
     # expected_img = mnist.byte_to_float(img).flatten
     #puts "#{expected_img}"
     count += 1
-    break if count >= 10
+    break if count >= 1000
     nn.input(inputs,inputs) # 入力データと教師データの入力
     nn.run(1) # 実行
 
@@ -81,7 +81,7 @@ count = 0
     count += 1
     break if count >= 10
     nn.input(inputs,inputs)
-    #nn.propagate
+    nn.propagate
 
     mnist.ascii_print(inputs)
     mnist.ascii_print(nn.outputs)
