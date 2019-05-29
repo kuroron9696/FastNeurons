@@ -58,14 +58,32 @@ nn.randomize # ネットワークの初期化
 imgs = images.map { |image| mnist.byte_to_float(image).flatten }
 
 puts "Runnning..."
-100.times do
+count = 0
+1.times do
   imgs.each.with_index do |inputs,index|
     # expected_img = mnist.byte_to_float(img).flatten
     #puts "#{expected_img}"
+    count += 1
+    break if count >= 10
     nn.input(inputs,inputs) # 入力データと教師データの入力
-    nn.run(100) # 実行
+    nn.run(1) # 実行
 
     mnist.ascii_print(inputs) # 教師データを出力
     mnist.ascii_print(nn.outputs) # 学習したデータを出力
+  end
+end
+
+puts "Understood!"
+gets
+count = 0
+1.times do
+  imgs.each_with_index do |inputs,index|
+    count += 1
+    break if count >= 10
+    nn.input(inputs,inputs)
+    #nn.propagate
+
+    mnist.ascii_print(inputs)
+    mnist.ascii_print(nn.outputs)
   end
 end

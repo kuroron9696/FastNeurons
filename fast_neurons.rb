@@ -66,12 +66,12 @@ module FastNeurons
         def randomize
             # Create random fast matrices for the biases.
             # NMatrixの配列を作成 バイアス
-            @biases = @biases_geometry.map { |geo| NMatrix.random(geo) }
+            @biases = @biases_geometry.map { |geo| NMatrix.random(geo,:dtype => :float64)}
             puts "@biases: #{@biases}"
             # Create random fast matrices for the weights.
             # NMatrixの配列を作成 重み
               @weights = @weights_geometry.map do |geo|
-                NMatrix.random(geo)
+                NMatrix.random(geo,:dtype => :float64)
             end
             puts "@weights: #{@weights}"
         end
@@ -91,8 +91,8 @@ module FastNeurons
         def input(*values,t)
             # The inputs are stored into a[0] as a NMatrix vector.
             # a[0]にはニューラルネットワークへの入力値をNMatrixの行列として格納
-            @a[0] = N[values.flatten,dtype: :float64].transpose
-            @T = N[t.flatten,dtype: :float64].transpose
+            @a[0] = N[values.flatten,:dtype => :float64].transpose
+            @T = N[t.flatten,:dtype => :float64].transpose
         end
 
         # z = inputs * weights + biases
@@ -102,7 +102,7 @@ module FastNeurons
         # 活性化関数への入力値を計算するメソッド
         # 引数:row 現在の層のインデックス →　現在が何層目かを表す。
         def z_compute(row)
-          @z[row] = NMatrix::BLAS.gemm(@weights[row],@a[row],@biases[row])
+            @z[row] = NMatrix::BLAS.gemm(@weights[row],@a[row],@biases[row])
         end
 
         # Apply activating function to z
@@ -122,6 +122,10 @@ module FastNeurons
               z_compute(i)
               a_compute(i)
             end
+
+            puts @a[@neuron_columns.size-1]
+            #puts @z[@neuron_columns.size-1]
+            #puts @a[@neuron_columns.size]
         end
         # backpropagation用メソッド
         # 変数：重み、バイアス　定数、入力、状態
@@ -193,8 +197,8 @@ module FastNeurons
         end
 
         def run(time)
-          biases # バイアスの初期化
-          weights # 重みの初期化
+          #biases # バイアスの初期化
+          #weights # 重みの初期化
           time.times do |trial|
             propagate # 順方向計算
             backpropagate # 誤差逆伝搬の計算
