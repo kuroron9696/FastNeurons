@@ -101,6 +101,12 @@ module FastNeurons
             @T = N[t.flatten,:dtype => :float64].transpose
         end
 
+        # 隠れ層への入力を行うメソッド
+        # 主な用途は学習後のネットワークの確認
+        def hidden_input(row,*values)
+            @a[row] = N[values.flatten,:dtype => :float64].transpose
+        end
+
         # z = inputs * weights + biases
         # z = 入力値×重み+バイアス
         # zは長さの違う配列を複数持つ配列
@@ -120,7 +126,7 @@ module FastNeurons
             end
         end
 
-        # 順方向に計算
+        # 入力層から順方向に計算するメソッド
         # 最初に入力されたニューラルネットワークの層の回数計算する
         def propagate
             # 変数：入力、状態　定数：重み、バイアス
@@ -129,10 +135,21 @@ module FastNeurons
               a_compute(i)
             end
 
-            puts @a[@neuron_columns.size-1]
+            #puts @a[@neuron_columns.size-1]
             #puts @z[@neuron_columns.size-1]
             #puts @a[@neuron_columns.size]
         end
+
+        # 隠れ層から出力層への計算のみを行うメソッド
+        # 主な用途は学習後のネットワークの確認
+        # 引数 : 計算を開始したい層のインデックス (1 から @neuron_columns.size-1 まで)
+        def hidden_propagate(row)
+          (row).upto(@neuron_columns.size-1) do |i|
+            z_compute(i)
+            a_compute(i)
+          end
+        end
+
         # backpropagation用メソッド
         # 変数：重み、バイアス　定数、入力、状態
         # 活性関数(ここではシグモイド関数)の微分は簡単なので足し算と掛け算で実装できる

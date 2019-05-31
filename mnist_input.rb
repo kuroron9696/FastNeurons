@@ -80,10 +80,12 @@ count = 0
   imgs.each_with_index do |inputs,index|
     count += 1
     break if count >= 10
-    nn.input(inputs,inputs)
-    nn.propagate
+    #nn.input(inputs,inputs)
+    #nn.propagate
+    nn.hidden_input(1,15.times.map{rand()})
+    nn.hidden_propagate(1)
 
-    mnist.ascii_print(inputs)
+    #mnist.ascii_print(inputs)
     mnist.ascii_print(nn.outputs)
   end
 end
