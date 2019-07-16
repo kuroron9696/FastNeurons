@@ -90,24 +90,6 @@ module FastNeurons
             @weights.map { |mat| mat.to_a }
         end
 
-        def biases_input(*values)
-          #@biases = N[values.flatten(2),:dtype => :float64].transpose
-          @biases = values[0]
-          @biases.size.times do |i|
-            @biases[i] -= 0.5
-          end
-          puts "@biases: #{@biases}"
-        end
-
-        def weights_input(*values)
-          #@weights = N[values.flatten(2),:dtype => :float64].transpose
-          @weights = values[0]
-          @weights.size.times do |i|
-            @weights[i] -= 0.5
-          end
-          puts "@weights: #{@weights}"
-        end
-
         def biases_geometry
           @biases_geometry
         end
@@ -249,6 +231,20 @@ module FastNeurons
             propagate # 順方向計算
             backpropagate # 誤差逆伝搬の計算
           end
+        end
+
+        # 学習したネットワークを保存するメソッド
+        def network_save(filename)
+        end
+
+        # 学習したネットワークを読み出すメソッド
+        def network_load(path)
+          file = File.open(path)
+          ###仮置き####
+          @neuron_columns = values
+          @weights = value
+          @biases = value
+          ######
         end
     end
 end
