@@ -235,16 +235,26 @@ module FastNeurons
 
         # 学習したネットワークを保存するメソッド
         def network_save(filename)
+          File.open(filename,"w+") do |f|
+            f.puts("neuron_columns")
+            f.puts(@neuron_columns)
+            f.puts("weights")
+            f.puts(@weights)
+            f.puts("biases")
+            f.puts(@biases)
+          end
         end
 
         # 学習したネットワークを読み出すメソッド
-        def network_load(path)
-          file = File.open(path)
+        def network_load(filename)
+          File.open(filename,"r+") do |f|
+            puts(f.read)
           ###仮置き####
-          @neuron_columns = values
-          @weights = value
-          @biases = value
+          #@neuron_columns = values
+          #@weights = value
+          #@biases = value
           ######
+          end
         end
     end
 end

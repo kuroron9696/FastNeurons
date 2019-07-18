@@ -75,6 +75,8 @@ count = 0
   end
 end
 
+nn.network_save("network.txt")
+
 puts "Understood!"
 gets
 count = 0
@@ -91,3 +93,5 @@ count = 0
     mnist.ascii_print(nn.outputs)
   end
 end
+
+nn.network_load("network.txt")
