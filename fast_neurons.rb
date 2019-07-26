@@ -64,6 +64,7 @@ module FastNeurons
 
         # Set up the NN to random values.
         def randomize
+            #puts @neuron_columns
             # Create random fast matrices for the biases.
             # NMatrixの配列を作成 バイアス
             @biases = @biases_geometry.map { |geo| NMatrix.random(geo,:dtype => :float64) }
@@ -236,10 +237,19 @@ module FastNeurons
         # 学習したネットワークを保存するメソッド
         def network_save(filename)
           File.open(filename,"w+") do |f|
+            f.write(@columns)
+            f.write("\n")
             f.write(@neuron_columns)
             f.write("\n")
-            f.puts(@weights[0])
-            f.puts(@biases[0])
+
+            @neuron_columns.size.times do |i|
+              f.puts(@biases[i])
+            end
+
+            @neuron_columns.size.times do |i|
+              f.puts(@weights[i])
+            end
+
           end
         end
 
@@ -250,12 +260,7 @@ module FastNeurons
             @data.push(f.gets)
             @data.push(f.gets)
             @data.push(f.gets)
-            puts @data[0]
-          ###仮置き####
-          #@neuron_columns = values
-          #@weights = value
-          #@biases = value
-          ######
+            #puts @data
           end
         end
     end
