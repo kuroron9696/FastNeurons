@@ -53,8 +53,6 @@ images = mnist.load_images
 
 puts "Initializing network"
 nn = FastNeurons::NN.new([784,15,784]) # ネットワークの作成
-#nn.biases_input(nn.biases_geometry.map { |geo| NMatrix.random(geo,:dtype => :float64)})
-#nn.weights_input(nn.weights_geometry.map{ |geo| NMatrix.random(geo,:dtype => :float64)})
 nn.randomize # ネットワークの初期化
 
 imgs = images.map { |image| mnist.byte_to_float(image).flatten }
