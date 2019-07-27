@@ -67,14 +67,16 @@ module FastNeurons
             #puts @neuron_columns
             # Create random fast matrices for the biases.
             # NMatrixの配列を作成 バイアス
-            @biases = @biases_geometry.map { |geo| NMatrix.random(geo,:dtype => :float64) }
+            @biases = @biases_geometry.map { |geo| NMatrix.random(geo,:dtype => :float64)}
             @biases.size.times do |i|
               @biases[i] -= 0.5
             end
             puts "@biases: #{@biases}"
             # Create random fast matrices for the weights.
             # NMatrixの配列を作成 重み
-            @weights = @weights_geometry.map{ |geo| NMatrix.random(geo,:dtype => :float64) }
+            @weights = @weights_geometry.map do |geo|
+                NMatrix.random(geo,:dtype => :float64)
+            end
             @weights.size.times do |i|
               @weights[i] -= 0.5
             end
@@ -90,14 +92,7 @@ module FastNeurons
         def weights
             @weights.map { |mat| mat.to_a }
         end
-
-        def biases_geometry
-          @biases_geometry
-        end
-
-        def weights_geometry
-          @weights_geometry
-        end
+      
         # NNへの入力を取得
         # 引数: *vaules→入力 t→教師信号
         def input(*values,t)
