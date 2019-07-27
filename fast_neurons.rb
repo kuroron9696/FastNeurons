@@ -228,8 +228,6 @@ module FastNeurons
           File.open(filename,"w+") do |f|
             f.write(@columns)
             f.write("\n")
-            f.write(@neuron_columns)
-            f.write("\n")
 
             @neuron_columns.size.times do |i|
               f.puts(@biases[i])
@@ -246,7 +244,7 @@ module FastNeurons
         def network_load(filename)
           File.open(filename,"r+") do |f|
             @columns = f.gets.chomp!.split(',').map!{ |item| item.delete("/[\-]/").gsub(" ","").to_i}
-            @neuron_columns = f.gets.chomp!.split(',').map!{ |item| item.delete("/[\-]/").gsub(" ","").to_i}
+            initialize(@columns)
 
             @biases = []
             @neuron_columns.size.times do |i|
@@ -255,10 +253,9 @@ module FastNeurons
             puts "#{@biases}"
 
             @weights = []
-            @weights_geometry = @neuron_columns.zip(@columns[0..-2])
             @neuron_columns.size.times do |i|
-              sliced = f.gets.chomp!.split(',').map!{ |item| item.delete("/[\-]/").gsub(" ","").to_f}.to_a
-              @weights.push(NMatrix.new(@weights_geometry[i],sliced,dtype: :float64))
+              weights_array = f.gets.chomp!.split(',').map!{ |item| item.delete("/[\-]/").gsub(" ","").to_f}.to_a
+              @weights.push(NMatrix.new(@weights_geometry[i],weights_array))
             end
             puts "#{@weights}"
           end
