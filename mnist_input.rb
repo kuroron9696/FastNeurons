@@ -53,7 +53,8 @@ images = mnist.load_images
 
 puts "Initializing network"
 nn = FastNeurons::NN.new([784,15,784]) # ネットワークの作成
-nn.randomize # ネットワークの初期化
+#nn.randomize # ネットワークの初期化
+nn.network_load("network.txt") # ネットワークの読み込み
 
 imgs = images.map { |image| mnist.byte_to_float(image).flatten }
 
@@ -64,7 +65,7 @@ count = 0
     # expected_img = mnist.byte_to_float(img).flatten
     #puts "#{expected_img}"
     count += 1
-    break if count >= 1000
+    break if count >= 10000
     nn.input(inputs,inputs) # 入力データと教師データの入力
     nn.run(1) # 実行
 
@@ -74,7 +75,9 @@ count = 0
 end
 
 puts "Understood!"
+nn.network_save("network.txt")
 gets
+
 count = 0
 1.times do
   imgs.each_with_index do |inputs,index|

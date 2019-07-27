@@ -58,12 +58,13 @@ module FastNeurons
 
             @ones_vector = @columns.map{ |i| NVector.ones(i) }  #シグモイドの微分値計算用の列ベクトルを生成 ※全要素が1の列ベクトル
             @idn_geometry = @weights_geometry.clone # @idn生成用の配列
-            @idn = @idn_geometry.map { |g| NMatrix.eye([g[0],g[0]]) } # 正方行列の生成
+            @idn = @idn_geometry.map{ |g| NMatrix.eye([g[0],g[0]]) } # 正方行列の生成
         end
 
 
         # Set up the NN to random values.
         def randomize
+            #puts @neuron_columns
             # Create random fast matrices for the biases.
             # NMatrixの配列を作成 バイアス
             @biases = @biases_geometry.map { |geo| NMatrix.random(geo,:dtype => :float64)}
@@ -91,7 +92,7 @@ module FastNeurons
         def weights
             @weights.map { |mat| mat.to_a }
         end
-
+      
         # NNへの入力を取得
         # 引数: *vaules→入力 t→教師信号
         def input(*values,t)
@@ -225,6 +226,47 @@ module FastNeurons
           time.times do |trial|
             propagate # 順方向計算
             backpropagate # 誤差逆伝搬の計算
+          end
+        end
+
+        # 学習したネットワークを保存するメソッド
+        def network_save(filename)
+          File.open(filename,"w+") do |f|
+            f.write(@columns)
+            f.write("\n")
+            f.write(@neuron_columns)
+            f.write("\n")
+
+            @neuron_columns.size.times do |i|
+              f.puts(@biases[i])
+            end
+
+            @neuron_columns.size.times do |i|
+              f.puts(@weights[i])
+            end
+
+          end
+        end
+
+        # 学習したネットワークを読み出すメソッド
+        def network_load(filename)
+          File.open(filename,"r+") do |f|
+            @columns = f.gets.chomp!.split(',').map!{ |item| item.delete("/[\-]/").gsub(" ","").to_i}
+            @neuron_columns = f.gets.chomp!.split(',').map!{ |item| item.delete("/[\-]/").gsub(" ","").to_i}
+
+            @biases = []
+            @neuron_columns.size.times do |i|
+              @biases.push(N[f.gets.chomp!.split(',').map!{ |item| item.delete("/[\-]/").gsub(" ","").to_f}].transpose)
+            end
+            puts "#{@biases}"
+
+            @weights = []
+            @weights_geometry = @neuron_columns.zip(@columns[0..-2])
+            @neuron_columns.size.times do |i|
+              sliced = f.gets.chomp!.split(',').map!{ |item| item.delete("/[\-]/").gsub(" ","").to_f}.to_a
+              @weights.push(NMatrix.new(@weights_geometry[i],sliced,dtype: :float64))
+            end
+            puts "#{@weights}"
           end
         end
     end
