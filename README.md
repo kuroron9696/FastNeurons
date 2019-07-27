@@ -1,6 +1,6 @@
 # FNforRuby
-Neural Network Library for Ruby
+This is a neural network library for Ruby named FastNeurons.
 
-function
+# Function(currently)
 ・learning
 ・save&load learned network
