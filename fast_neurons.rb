@@ -58,7 +58,7 @@ module FastNeurons
 
             @ones_vector = @columns.map{ |i| NVector.ones(i) }  #シグモイドの微分値計算用の列ベクトルを生成 ※全要素が1の列ベクトル
             @idn_geometry = @weights_geometry.clone # @idn生成用の配列
-            @idn = @idn_geometry.map { |g| NMatrix.eye([g[0],g[0]]) } # 正方行列の生成
+            @idn = @idn_geometry.map{ |g| NMatrix.eye([g[0],g[0]]) } # 正方行列の生成
         end
 
 
@@ -256,11 +256,22 @@ module FastNeurons
         # 学習したネットワークを読み出すメソッド
         def network_load(filename)
           File.open(filename,"r+") do |f|
-            @data = []
-            @data.push(f.gets)
-            @data.push(f.gets)
-            @data.push(f.gets)
-            #puts @data
+            @columns = f.gets.chomp!.split(',').map!{ |item| item.delete("/[\-]/").gsub(" ","").to_i}
+            @neuron_columns = f.gets.chomp!.split(',').map!{ |item| item.delete("/[\-]/").gsub(" ","").to_i}
+
+            @biases = []
+            @neuron_columns.size.times do |i|
+              @biases.push(N[f.gets.chomp!.split(',').map!{ |item| item.delete("/[\-]/").gsub(" ","").to_f}].transpose)
+            end
+            puts "#{@biases}"
+
+            @weights = []
+            @weights_geometry = @neuron_columns.zip(@columns[0..-2])
+            @neuron_columns.size.times do |i|
+              sliced = f.gets.chomp!.split(',').map!{ |item| item.delete("/[\-]/").gsub(" ","").to_f}.to_a
+              @weights.push(NMatrix.new(@weights_geometry[i],sliced,dtype: :float64))
+            end
+            puts "#{@weights}"
           end
         end
     end

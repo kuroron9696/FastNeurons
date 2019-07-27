@@ -2,8 +2,6 @@ require 'nmatrix'
 require_relative 'fast_neurons'
 #nn = FastNeurons::NN.new([2,3,3,2]) # ネットワークの作成
 #nn.randomize
-a = N[[2,2]]
-b = a.map{|geo| NMatrix.new([1,geo],1.0)}
 File.open("sample.txt", "w+") do |f|
 
 end
@@ -14,14 +12,15 @@ File.open("network.txt","r+") do |f|
 
   biases = []
   neuron_columns.size.times do |i|
-    biases.append(N[f.gets.chomp!.split(',').map!{ |item| item.delete("/[\-]/").gsub(" ","").to_f}].transpose)
+    biases.push(N[f.gets.chomp!.split(',').map!{ |item| item.delete("/[\-]/").gsub(" ","").to_f}].transpose)
   end
   puts "#{biases}"
 
   weights = []
+  weights_geometry = neuron_columns.zip(columns[0..-2])
   neuron_columns.size.times do |i|
-    temp = f.gets.chomp!.split(',').map!{ |item| item.delete("/[\-]/").gsub(" ","").to_f}.each_slice(columns[i]).to_a
-    weights.append(N[temp])
+    sliced = f.gets.chomp!.split(',').map!{ |item| item.delete("/[\-]/").gsub(" ","").to_f}.to_a
+    weights.push(NMatrix.new(weights_geometry[i],sliced,dtype: :float64))
   end
   puts "#{weights}"
 end
