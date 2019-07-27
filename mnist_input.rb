@@ -65,7 +65,7 @@ count = 0
     # expected_img = mnist.byte_to_float(img).flatten
     #puts "#{expected_img}"
     count += 1
-    break if count >= 10000
+    break if count >= 100
     nn.input(inputs,inputs) # 入力データと教師データの入力
     nn.run(1) # 実行
 

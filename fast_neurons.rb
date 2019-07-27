@@ -31,17 +31,17 @@ module FastNeurons
 
             # Creates the geometry of the bias matrices
             @biases_geometry = @neuron_columns.map { |col| [col,1] }
-            #puts "biases geometry: #{@biases_geometry}"
+
 
             # Create the geometry of the weight matrices
             @weights_geometry = @neuron_columns.zip(@columns[0..-2])
-            #puts "weights geometry: #{@weights_geometry}"
+
 
             # Create the geometry of the linear results (z)
             # NOTE: shoud be the same as the biaises.
             # 活性化関数を適用する前の計算値を格納
             @z = @biases_geometry.clone
-            #puts "@z: #{@z}"
+
             # Create the geomet ry of the neurons statuses.
             # NOTE: includes the input values of the NN, hence uses @columns
             # NOTE: a[0] ARE the input values
@@ -64,7 +64,7 @@ module FastNeurons
 
         # Set up the NN to random values.
         def randomize
-            #puts @neuron_columns
+
             # Create random fast matrices for the biases.
             # NMatrixの配列を作成 バイアス
             @biases = @biases_geometry.map { |geo| NMatrix.random(geo,:dtype => :float64)}
@@ -92,7 +92,7 @@ module FastNeurons
         def weights
             @weights.map { |mat| mat.to_a }
         end
-      
+
         # NNへの入力を取得
         # 引数: *vaules→入力 t→教師信号
         def input(*values,t)
@@ -135,10 +135,6 @@ module FastNeurons
               z_compute(i)
               a_compute(i)
             end
-
-            #puts @a[@neuron_columns.size-1]
-            #puts @z[@neuron_columns.size-1]
-            #puts @a[@neuron_columns.size]
         end
 
         # 隠れ層から出力層への計算のみを行うメソッド
@@ -221,8 +217,6 @@ module FastNeurons
         end
 
         def run(time)
-          #biases # バイアスの初期化
-          #weights # 重みの初期化
           time.times do |trial|
             propagate # 順方向計算
             backpropagate # 誤差逆伝搬の計算
