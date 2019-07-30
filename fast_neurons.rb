@@ -224,7 +224,7 @@ module FastNeurons
         end
 
         # 学習したネットワークを保存するメソッド
-        def network_save(filename)
+        def save_network(filename)
           File.open(filename,"w+") do |f|
             f.write(@columns)
             f.write("\n")
@@ -241,7 +241,7 @@ module FastNeurons
         end
 
         # 学習したネットワークを読み出すメソッド
-        def network_load(filename)
+        def load_network(filename)
           File.open(filename,"r+") do |f|
             @columns = f.gets.chomp!.split(',').map!{ |item| item.delete("/[\-]/").gsub(" ","").to_i}
             initialize(@columns)

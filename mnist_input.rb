@@ -54,7 +54,7 @@ images = mnist.load_images
 puts "Initializing network"
 nn = FastNeurons::NN.new([784,15,784]) # ネットワークの作成
 #nn.randomize # ネットワークの初期化
-nn.network_load("network.txt") # ネットワークの読み込み
+nn.load_network("network.txt") # ネットワークの読み込み
 
 imgs = images.map { |image| mnist.byte_to_float(image).flatten }
 
@@ -75,7 +75,7 @@ count = 0
 end
 
 puts "Understood!"
-nn.network_save("network.txt")
+nn.save_network("network.txt")
 gets
 
 count = 0
