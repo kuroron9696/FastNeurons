@@ -59,6 +59,8 @@ nn.load_network("network.txt") # ネットワークの読み込み
 imgs = images.map { |image| mnist.byte_to_float(image).flatten }
 
 puts "Runnning..."
+
+# 学習
 count = 0
 10.times do
   imgs.each.with_index do |inputs,index|
@@ -75,20 +77,12 @@ count = 0
 end
 
 puts "Understood!"
-nn.save_network("network.txt")
+#nn.save_network("network.txt")
 gets
 
-count = 0
-1.times do
-  imgs.each_with_index do |inputs,index|
-    count += 1
-    break if count >= 10
-    #nn.input(inputs,inputs)
-    #nn.propagate
-    nn.hidden_input(1,15.times.map{rand()})
-    nn.hidden_propagate(1)
-
-    #mnist.ascii_print(inputs)
-    mnist.ascii_print(nn.outputs)
-  end
+# 学習後の確認
+10.times do
+  nn.hidden_input(1,15.times.map{rand()})
+  nn.hidden_propagate(1)
+  mnist.ascii_print(nn.outputs)
 end
