@@ -38,7 +38,7 @@ module FastNeurons
 
 
             # Create the geometry of the linear results (z)
-            # NOTE: shoud be the same as the biaises.
+            # NOTE: shoud be the same as the biases.
             # 活性化関数を適用する前の計算値を格納
             @z = @biases_geometry.clone
 
