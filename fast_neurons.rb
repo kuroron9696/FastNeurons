@@ -2,6 +2,8 @@ require_relative 'idx_loader'
 require 'nmatrix'
 require 'zlib'
 require 'benchmark'
+require 'json'
+
 ##
 #      Simple and fast library for building neural networks.
 ########################################################################
@@ -225,36 +227,30 @@ module FastNeurons
 
         # 学習したネットワークを保存するメソッド
         def save_network(filename)
+          hash = {"@columns" => @columns,"@biases" => @biases,"@weights" => @weights}
           File.open(filename,"w+") do |f|
-            f.write(@columns)
-            f.write("\n")
-
-            @neuron_columns.size.times do |i|
-              f.puts(@biases[i])
-            end
-
-            @neuron_columns.size.times do |i|
-              f.puts(@weights[i])
-            end
-
+            f.puts(JSON.pretty_generate(hash))
           end
         end
 
         # 学習したネットワークを読み出すメソッド
         def load_network(filename)
           File.open(filename,"r+") do |f|
-            @columns = f.gets.chomp!.split(',').map!{ |item| item.delete("/[\-]/").gsub(" ","").to_i}
+            hash = JSON.load(f)
+            @columns = hash["@columns"]
             initialize(@columns)
 
+            biases_matrix = hash["@biases"].to_a
             @biases = []
             @neuron_columns.size.times do |i|
-              @biases.push(N[f.gets.chomp!.split(',').map!{ |item| item.delete("/[\-]/").gsub(" ","").to_f}].transpose)
+              @biases.push(N[biases_matrix[i].split(',').map!{ |item| item.delete("/[\-]/").gsub(" ","").to_f}].transpose)
             end
             puts "#{@biases}"
 
+            weights_matrix = hash["@weights"].to_a
             @weights = []
             @neuron_columns.size.times do |i|
-              weights_array = f.gets.chomp!.split(',').map!{ |item| item.delete("/[\-]/").gsub(" ","").to_f}.to_a
+              weights_array = weights_matrix[i].split(',').map!{ |item| item.delete("/[\-]/").gsub(" ","").to_f}.to_a
               @weights.push(NMatrix.new(@weights_geometry[i],weights_array))
             end
             puts "#{@weights}"
