@@ -1,4 +1,4 @@
-# FNforRuby
+# FastNeurons
 This is a neural network library for Ruby named FastNeurons.
 
 # Function(currently)
