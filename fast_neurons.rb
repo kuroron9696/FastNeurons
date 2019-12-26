@@ -1,7 +1,4 @@
-require_relative 'idx_loader'
 require 'nmatrix'
-require 'zlib'
-require 'benchmark'
 require 'json'
 
 ##
