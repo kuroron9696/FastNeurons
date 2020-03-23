@@ -1,5 +1,5 @@
-require_relative 'fast_neurons'
-require_relative 'mnist_loader'
+require_relative './lib/fast_neurons'
+require_relative './lib/mnist_loader'
 
 puts "Loading images"
 
