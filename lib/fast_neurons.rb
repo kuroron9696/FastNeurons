@@ -224,7 +224,7 @@ module FastNeurons
 
         # 学習したネットワークを保存するメソッド
         def save_network(filename)
-          hash = {"@columns" => @columns,"@biases" => @biases,"@weights" => @weights}
+          hash = {"columns" => @columns,"biases" => @biases,"weights" => @weights}
           File.open(filename,"w+") do |f|
             f.puts(JSON.pretty_generate(hash))
           end
@@ -234,17 +234,17 @@ module FastNeurons
         def load_network(filename)
           File.open(filename,"r+") do |f|
             hash = JSON.load(f)
-            @columns = hash["@columns"]
+            @columns = hash["columns"]
             initialize(@columns)
 
-            biases_matrix = hash["@biases"].to_a
+            biases_matrix = hash["biases"].to_a
             @biases = []
             @neuron_columns.size.times do |i|
               @biases.push(N[biases_matrix[i].split(',').map!{ |item| item.delete("/[\-]/").gsub(" ","").to_f}].transpose)
             end
             puts "#{@biases}"
 
-            weights_matrix = hash["@weights"].to_a
+            weights_matrix = hash["weights"].to_a
             @weights = []
             @neuron_columns.size.times do |i|
               weights_array = weights_matrix[i].split(',').map!{ |item| item.delete("/[\-]/").gsub(" ","").to_f}.to_a
