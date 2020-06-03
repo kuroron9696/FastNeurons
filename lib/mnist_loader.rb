@@ -1,46 +1,51 @@
 require_relative 'idx_loader'
 require 'zlib'
 
-# MNISTの画像データを入力するクラス
+# Loader of MNIST.
 class MNISTLoader
-  # 画像のパスを取得
+  # constructor
+  # @param [String] image_path path of images.
+  # @param [String] label_path path of labels.
   def initialize(image_path, label_path)
     @image_path = image_path
     @label_path = label_path
   end
 
-  # 画像読み込み
+  # Load images.
   def load_images
     @images = load_gzipped_idx_file(@image_path)
   end
 
-  # ラベル読み込み
+  # Load labels.
   def load_labels
     @labels = load_gzipped_idx_file(@label_path)
   end
 
-  # gzipped fileを読み込み
+  # Load gzipped file.
+  # @param [String] path file path
   def load_gzipped_idx_file(path)
     file = File.open(path,"rb")
     stream = Zlib::GzipReader.new(file)
     IdxLoader.load(stream)
   end
 
-  # ピクセルのbyte値をfloatに変換
-  def byte_to_float(inputs)
+  # Normalize pixel values to a continuous values from 0 ~ 255 to 0 ~ 1.
+  # @param [Array] inputs array of pixel values.
+  def normalize(inputs)
     return inputs.map{|pixel|
       pixel/256.0
     }
   end
 
-  # mnistのデータをasciiで出力
-  def ascii_print(inputs)
+  # Print ascii of MNIST.
+  # @param [Array] inputs array of pixel values
+  def print_ascii(inputs)
     inputs = inputs.map {|pixel| pixel*255}
-    output = inputs.each_slice(28).map do |row|
+    outputs = inputs.each_slice(28).map do |row|
       row.map do |darkness|
         darkness < 64 ?  " " : ( darkness < 128 ? "・" : "X" )
       end.join
     end.join("\n")
-    puts output
+    puts outputs
   end
 end
