@@ -3,42 +3,46 @@ require_relative './lib/mnist_loader'
 
 puts "Loading images"
 
-# MNISTの読み込み
+# Load MNIST.
 mnist = MNISTLoader.new("assets/t10k-images-idx3-ubyte.gz", "assets/t10k-labels-idx1-ubyte.gz")
 images = mnist.load_images
 
 puts "Initializing network"
 
-nn = FastNeurons::NN.new([784,15,784]) # ネットワークの作成
+# Make Neural Network.
+nn = FastNeurons::NN.new([784,15,784])
 
-#nn.randomize # ネットワークの初期化
+# Set up the parameters to random values.
+# nn.randomize
 
-nn.load_network("network.json") # 学習したネットワークの読み込み
+# Load learned network.
+nn.load_network("network.json")
 
-# pixel値を0 ～ 1の連続値に正規化
-imgs = images.map { |image| mnist.byte_to_float(image).flatten }
+# Normalize pixel values.
+imgs = images.map { |image| mnist.normalize(image).flatten }
 
 puts "Runnning..."
 
-# 学習
-# サンプルとしてオートエンコーダを構築
+# learning
+# An Autoencoder is shown below as a sample.
 1.times do
   imgs.each.with_index do |inputs,index|
 
-    nn.input(inputs,inputs) # 入力データと教師データの入力
-    nn.run(1) # 実行
+    nn.input(inputs,inputs) # Inputs input data and training data
+    nn.run(1) # propagate and backpropagate
 
-    mnist.ascii_print(inputs) # 教師データを出力
-    mnist.ascii_print(nn.outputs) # 学習したデータを出力
+    mnist.print_ascii(inputs) # Outputs training data
+    mnist.print_ascii(nn.get_outputs) # Outputs output of neural network
   end
 end
+
 puts "Understood!"
-nn.save_network("network.json") # 学習したネットワークを保存
+nn.save_network("network.json") # save learned network
 gets
 
-# 学習後の確認
+# confirmation of network
 10.times do
-  nn.hidden_input(1,15.times.map{rand()})
-  nn.hidden_propagate(1)
-  mnist.ascii_print(nn.outputs)
+  nn.input_hidden(1,15.times.map{rand()})
+  nn.propagate_from_hidden(1)
+  mnist.print_ascii(nn.get_outputs)
 end
