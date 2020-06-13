@@ -2,21 +2,28 @@ require 'nmatrix'
 require 'json'
 
 # Simple and fast library for building neural networks.
-# @since 1.0.0
+# @since 1.1.0
 # @author Ryota Sakai,Yusuke Tomimoto
 module FastNeurons
     # Describes a standard fully connected NN based on backpropagation.
     class NN
-        Sigmoid = proc { |x| 1 / (1 + Math::E**(-x)) }
+
+        # activation functions
+        Sigmoid = { antiderivative: proc{ |z| z.exp / (z.exp + 1) }, derivative: proc{ |a| (-a + 1) * a } }
+        Tanh = { antiderivative: proc{ |z| (z.exp - (-z).exp)/(z.exp + (-z).exp) }, derivative: proc{ |a| -(a * a) + 1 } }
+        ReLU = { antiderivative: proc{ |z| N[z.map{ |x| [0.0,x].max }.to_a.flatten].transpose }, derivative: proc{ |a| N[a.map{ |x| x > 0.0 ? 1.0 : 0.0 }.to_a.flatten].transpose } }
+
         # Creates a NN from columns giving each the size
         # of a column of neurons (input and output comprised).
         # If a block is given as argument, it will be used as
         # default transfer fuction (default: sigmoid)
         # constructor
         # @param [Array] columns the array showing the shape of a neural network
+        # @param [Symbol] activation_function the name of the activation function you want to use
+        # ':Sigmoid' or ':Tanh'
         # @example initialization of the neural network
         #   nn = FastNeurons::NN.new([784,15,784])
-        def initialize(*columns,&transfer)
+        def initialize(columns, activation_function = :Sigmoid)
 
             # training rate
             @training_rate = 0.1
@@ -28,8 +35,11 @@ module FastNeurons
             # inputs).
             @neuron_columns = @columns[1..-1]
 
-            # Set the default transfer function
-            @transfer = block_given? ? Sigmoid : transfer
+            # Set a key of activation functions' hash.
+            @key = activation_function
+
+            # Make a hash of activation_functions.
+            @activation_functions = { Sigmoid: Sigmoid, Tanh: Tanh, ReLU: ReLU }
 
             # Creates the geometry of the bias matrices
             @biases_geometry = @neuron_columns.map { |col| [col,1] }
@@ -73,7 +83,7 @@ module FastNeurons
         def randomize
 
             # Create random fast matrices for the biases.
-            @biases = @biases_geometry.map { |geo| NMatrix.random(geo,:dtype => :float64)}
+            @biases = @biases_geometry.map { |geo| NMatrix.random(geo, :dtype => :float64)}
 
             # Convert a range of biases from 0 ~ 1 to -0.5 ~ 0.5.
             @biases.size.times do |i|
@@ -83,7 +93,7 @@ module FastNeurons
 
             # Create random fast matrices for the weights.
             @weights = @weights_geometry.map do |geo|
-                NMatrix.random(geo,:dtype => :float64)
+                NMatrix.random(geo, :dtype => :float64)
             end
 
             # Convert a range of weights from 0 ~ 1 to -0.5 ~ 0.5.
@@ -108,10 +118,10 @@ module FastNeurons
         # @param [Array] t training data
         def input(*values,t)
             # The inputs are stored into a[0] as a NMatrix vector.
-            @a[0] = N[values.flatten,:dtype => :float64].transpose
+            @a[0] = N[values.flatten, :dtype => :float64].transpose
 
             # The training data is stored into T as a NMatrix vector.
-            @T = N[t.flatten,:dtype => :float64].transpose
+            @T = N[t.flatten, :dtype => :float64].transpose
         end
 
         # Input to the hidden layer.
@@ -119,7 +129,7 @@ module FastNeurons
         # @param [Int] row the number of the hidden layer you want to input
         # @param [Array] values inputs of the hidden layer
         def input_hidden(row,*values)
-            @a[row] = N[values.flatten,:dtype => :float64].transpose
+            @a[row] = N[values.flatten, :dtype => :float64].transpose
         end
 
         # Compute multiply accumulate of inputs, weights and biases.
@@ -135,10 +145,7 @@ module FastNeurons
         # Apply activation function to z.
         # @param [Int] row the number of layer currently computing
         def compute_a(row)
-            @z[row].each_with_index do |data,i|
-              # Apply Sigmoid to z
-              @a[row+1][i] = Sigmoid.call(data)
-            end
+          @a[row+1] = @activation_functions[@key][:antiderivative].call(@z[row])
         end
 
         # Compute Feed Forward Neural Network.
@@ -163,14 +170,14 @@ module FastNeurons
 
         # Compute backpropagation.
         def backpropagate
-            differentiate_sigmoid(@neuron_columns.size-1)
+            differentiate_a(@neuron_columns.size-1)
             @delta[@neuron_columns.size-1] = @g_dash[@neuron_columns.size-1]*(@a[@neuron_columns.size] - @T)
             NMatrix::BLAS.gemm(@delta[@neuron_columns.size-1],@a[@neuron_columns.size-1].transpose,@loss_derivate_weights[@neuron_columns.size-1],1.0,0.0)
             @loss_derivate_biases[@neuron_columns.size-1] = @delta[@neuron_columns.size-1]
             update_weights(@neuron_columns.size-1)
             update_biases(@neuron_columns.size-1)
             (@neuron_columns.size-2).downto(0) do |i|
-              differentiate_sigmoid(i)
+              differentiate_a(i)
               compute_delta(i)
               differentiate_weights(i)
               differentiate_biases(i)
@@ -180,10 +187,9 @@ module FastNeurons
         end
 
         # Differentiate neurons statuses.
-        # Derivative of Sigmoid -> f'(x) = ( 1 - f(x) ) * f(x)
         # @param [Int] row the number of layer currently computing
-        def differentiate_sigmoid(row)
-          @g_dash[row] = (@ones_vector[row+1] - @a[row+1])  * @a[row+1]
+        def differentiate_a(row)
+          @g_dash[row] = @activation_functions[@key][:derivative].call(@a[row+1])
         end
 
         # Compute delta.
@@ -234,7 +240,7 @@ module FastNeurons
         # @param [String] path file path
         def save_network(path)
           # Make hash of parameters.
-          hash = {"columns" => @columns,"biases" => @biases,"weights" => @weights}
+          hash = { "activation_function" => @key, "columns" => @columns, "biases" => @biases, "weights" => @weights }
 
           # Save file.
           File.open(path,"w+") do |f|
@@ -244,16 +250,22 @@ module FastNeurons
 
         # Load learned network from JSON file.
         # @param [String] path file path
-        def load_network(path)
+        def load_network(path, activation_function = nil)
           # Open file.
           File.open(path,"r+") do |f|
 
             # Load hash from JSON file.
             hash = JSON.load(f)
+
+            # Set activation function.
+            # If activation function has not been set, it will be loaded from JSON file.
+            activation_function = activation_function.nil? ? hash["activation_function"].to_sym : activation_function
+
             # Set columns from hash.
             @columns = hash["columns"]
+
             # Initialize neural network.
-            initialize(@columns)
+            initialize(@columns, activation_function)
 
             # Load biases.
             biases_matrix = hash["biases"].to_a
