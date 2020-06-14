@@ -10,10 +10,10 @@ This is a neural network library by using NMatrix.
 - Supervised learning
 
 ## Activation Functions
-# operability confirmed
+### operability confirmed
 - Sigmoid
 
-# operability unconfirmed
+### operability unconfirmed
 - Tanh
 - ReLU
 - Leaky ReLU
