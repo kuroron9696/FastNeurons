@@ -10,13 +10,13 @@ images = mnist.load_images
 puts "Initializing network"
 
 # Make Neural Network.
-nn = FastNeurons::NN.new([784,15,784], :Tanh)
+nn = FastNeurons::NN.new([784,15,784],:Sigmoid)
 
 # Set up the parameters to random values.
-nn.randomize
+#nn.randomize
 
 # Load learned network.
-#nn.load_network("network.json")
+nn.load_network("network.json")
 
 # Normalize pixel values.
 imgs = images.map { |image| mnist.normalize(image).flatten }

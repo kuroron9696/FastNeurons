@@ -10,8 +10,10 @@ module FastNeurons
 
         # activation functions
         Sigmoid = { antiderivative: proc{ |z| z.exp / (z.exp + 1) }, derivative: proc{ |a| (-a + 1) * a } }
-        Tanh = { antiderivative: proc{ |z| (z.exp - (-z).exp)/(z.exp + (-z).exp) }, derivative: proc{ |a| -(a * a) + 1 } }
-        ReLU = { antiderivative: proc{ |z| N[z.map{ |x| [0.0,x].max }.to_a.flatten].transpose }, derivative: proc{ |a| N[a.map{ |x| x > 0.0 ? 1.0 : 0.0 }.to_a.flatten].transpose } }
+        Tanh = { antiderivative: proc{ |z| (z.exp - (-z).exp)/(z.exp + (-z).exp) }, derivative: proc{ |a| -(a ** 2) + 1 } }
+        ReLU = { antiderivative: proc{ |z| (z + z.abs) / 2.0 }, derivative: proc{ |z| N[z.map{ |x| x > 0.0 ? 1.0 : 0.0 }.to_a.flatten].transpose } }
+        LeakyReLU = { antiderivative: proc{ |z| N[z.map{ |x| x > 0.0 ? x : x * 0.01 }.to_a.flatten].transpose }, derivative: proc{ |z| N[z.map{ |x| x > 0.0 ? 1.0 : 0.01 }.to_a.flatten].transpose } }
+        Linear = { antiderivative: proc{ |z| z }, derivative: proc{ |a| NMatrix.ones_like(a) } }
 
         # Creates a NN from columns giving each the size
         # of a column of neurons (input and output comprised).
@@ -19,11 +21,13 @@ module FastNeurons
         # default transfer fuction (default: sigmoid)
         # constructor
         # @param [Array] columns the array showing the shape of a neural network
-        # @param [Symbol] activation_function the name of the activation function you want to use
-        # ':Sigmoid' or ':Tanh'
+        # @param [Symbol or Array] activation_function the name of the activation function you want to use
+        # ':Sigmoid', ':Tanh', ':ReLU', or ':LeakyReLU'
         # @example initialization of the neural network
         #   nn = FastNeurons::NN.new([784,15,784])
-        def initialize(columns, activation_function = :Sigmoid)
+        #   nn = FastNeurons::NN.new([784,15,784], :Sigmoid)
+        #   nn = FastNeurons::NN.new([784,15,784], [:Sigmoid, :Tanh])
+        def initialize(columns, activation_function = nil)
 
             # training rate
             @training_rate = 0.1
@@ -35,14 +39,36 @@ module FastNeurons
             # inputs).
             @neuron_columns = @columns[1..-1]
 
-            # Set a key of activation functions' hash.
-            @key = activation_function
+            # Make the array of keys of activation functions' hash.
+            @keys = Array.new(@neuron_columns.size)
 
-            # Make a hash of activation_functions.
-            @activation_functions = { Sigmoid: Sigmoid, Tanh: Tanh, ReLU: ReLU }
+            # Judge the arguments of activation functions.
+            if activation_function.kind_of?(Symbol)
+              # Set the activation function passed as a symbol in the argument to all layers.
+              @keys.map!{ |key| key = activation_function }
+            elsif activation_function.kind_of?(Array)
+              # Set the activation function passed as an array of symbol in the argument to correspond to layer.
+              if activation_function.size == @keys.size
+                @keys = activation_function
+              else
+                raise(ArgumentError, "The size of the activation functions' array does not match the number of hidden and output layers.\n")
+              end
+            else
+              # Set Sigmoid as default activation function.
+              @keys.map!{ |key| key = :Sigmoid }
+            end
+
+            # Make the hash of activation_functions.
+            @activation_functions = { Sigmoid: Sigmoid, Tanh: Tanh, ReLU: ReLU, LeakyReLU: LeakyReLU, Linear: Linear }
+
+            # Set the proc object of antiderivative of a specified activation function.
+            @antiderivatives = @keys.map{ |key| @activation_functions[key][:antiderivative] }.to_a
+
+            # Set the proc object of derivative of a specified activation function.
+            @derivatives = @keys.map{ |key| @activation_functions[key][:derivative] }.to_a
 
             # Creates the geometry of the bias matrices
-            @biases_geometry = @neuron_columns.map { |col| [col,1] }
+            @biases_geometry = @neuron_columns.map{ |col| [col,1] }
 
 
             # Create the geometry of the weight matrices
@@ -67,9 +93,6 @@ module FastNeurons
             # the arrays of derivatives.
             @loss_derivate_weights = @weights_geometry.map{ |g| NMatrix.new(g,0.0) }
             @loss_derivate_biases = @biases_geometry.map{ |g| NMatrix.new(g,0.0) }
-
-            # the vector that all elements is 1.(need for differentiate neurons statuses)
-            @ones_vector = @columns.map{ |i| NVector.ones(i) }
 
             # Create the geometry of identity matrix.
             @idn_geometry = @weights_geometry.clone
@@ -145,7 +168,7 @@ module FastNeurons
         # Apply activation function to z.
         # @param [Int] row the number of layer currently computing
         def compute_a(row)
-          @a[row+1] = @activation_functions[@key][:antiderivative].call(@z[row])
+          @a[row+1] = @antiderivatives[row].call(@z[row])
         end
 
         # Compute Feed Forward Neural Network.
@@ -189,7 +212,16 @@ module FastNeurons
         # Differentiate neurons statuses.
         # @param [Int] row the number of layer currently computing
         def differentiate_a(row)
-          @g_dash[row] = @activation_functions[@key][:derivative].call(@a[row+1])
+
+          # Judge the symbol of activation function.
+          if [:ReLU,:LeakyReLU].include?(@keys[row])
+            arr = @z[row]
+          else
+            arr = @a[row+1]
+          end
+
+          # Defferentiate array correspond to activation function.
+          @g_dash[row] = @derivatives[row].call(arr)
         end
 
         # Compute delta.
@@ -223,8 +255,15 @@ module FastNeurons
         end
 
         # Get outputs of neural network.
+        # @return [Array] @a[@neuron_columns.size] output of neural network
         def get_outputs
           return @a[@neuron_columns.size]
+        end
+
+        # Set training rate.
+        # @param [Float] rate training rate
+        def set_training_rate(rate = 0.1)
+          @training_rate = rate
         end
 
         # Compute feed forward propagation and backpropagation.
@@ -240,7 +279,7 @@ module FastNeurons
         # @param [String] path file path
         def save_network(path)
           # Make hash of parameters.
-          hash = { "activation_function" => @key, "columns" => @columns, "biases" => @biases, "weights" => @weights }
+          hash = { "columns" => @columns, "activation_function" => @keys, "biases" => @biases, "weights" => @weights }
 
           # Save file.
           File.open(path,"w+") do |f|
@@ -250,6 +289,7 @@ module FastNeurons
 
         # Load learned network from JSON file.
         # @param [String] path file path
+        # @param [Array or Symbol] activation_function the name of the activation function you want to use as a symbol or an array
         def load_network(path, activation_function = nil)
           # Open file.
           File.open(path,"r+") do |f|
@@ -257,12 +297,12 @@ module FastNeurons
             # Load hash from JSON file.
             hash = JSON.load(f)
 
-            # Set activation function.
-            # If activation function has not been set, it will be loaded from JSON file.
-            activation_function = activation_function.nil? ? hash["activation_function"].to_sym : activation_function
-
             # Set columns from hash.
             @columns = hash["columns"]
+
+            # Set activation function.
+            # If activation function has not been set, it will be loaded from JSON file.
+            activation_function = activation_function.nil? ? hash["activation_function"].map{ |elem| elem.to_sym } : activation_function
 
             # Initialize neural network.
             initialize(@columns, activation_function)
