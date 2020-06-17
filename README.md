@@ -19,7 +19,7 @@ end
 rbm = FastNeurons::RBM.new([6,5], :Bernoulli)
 inputs = [[1,1,1,0,0,0]]
 rbm.randomize
-inputs.each do |i|
+inputs.each do |input|
   rbm.input(input)
   rbm.run(1)
   puts rbm.get_outputs
