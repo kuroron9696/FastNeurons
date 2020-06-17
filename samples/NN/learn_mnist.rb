@@ -1,16 +1,19 @@
-require_relative './lib/fast_neurons'
-require_relative './lib/mnist_loader'
+require_relative '../../lib/fast_neurons'
+require_relative '../../lib/mnist_loader'
 
 puts "Loading images"
 
 # Load MNIST.
-mnist = MNISTLoader.new("assets/t10k-images-idx3-ubyte.gz", "assets/t10k-labels-idx1-ubyte.gz")
+mnist = MNISTLoader.new("../../assets/t10k-images-idx3-ubyte.gz", "../../assets/t10k-labels-idx1-ubyte.gz")
 images = mnist.load_images
 
 puts "Initializing network"
 
-# Make Neural Network.
-nn = FastNeurons::NN.new([784,15,784],[:Sigmoid, :Softplus])
+# Make a neural network.
+nn = FastNeurons::NN.new([784,15,784], :Sigmoid)
+
+# Set mini-batch size.
+nn.set_batch_size(5)
 
 # Set up the parameters to random values.
 nn.randomize
