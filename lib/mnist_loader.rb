@@ -31,9 +31,19 @@ class MNISTLoader
 
   # Normalize pixel values to a continuous values from 0 ~ 255 to 0 ~ 1.
   # @param [Array] inputs array of pixel values.
+  # @return [Array] array of normalized pixel values
   def normalize(inputs)
     return inputs.map{|pixel|
       pixel/256.0
+    }
+  end
+
+  # Binarize pixel values to a continuous values from 0 ~ 255 to 0,1.
+  # @param [Array] inputs array of pixel values.
+  # @return [Array] array of binarized pixel values
+  def binarize(inputs)
+    return inputs.map{|pixel|
+      pixel > 0.5 ? 1.0 : 0.0
     }
   end
 
