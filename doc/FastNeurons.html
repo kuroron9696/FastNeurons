@@ -119,7 +119,7 @@
       
         
         <div class='inline'>
-<p>1.0.0</p>
+<p>1.0</p>
 </div>
       
     </li>
@@ -132,11 +132,323 @@
     
   
     
-      <strong class="classes">Classes:</strong> <span class='object_link'><a href="FastNeurons/NN.html" title="FastNeurons::NN (class)">NN</a></span>
+      <strong class="classes">Classes:</strong> <span class='object_link'><a href="FastNeurons/NN.html" title="FastNeurons::NN (class)">NN</a></span>, <span class='object_link'><a href="FastNeurons/RBM.html" title="FastNeurons::RBM (class)">RBM</a></span>
     
   
 </p>
 
+  
+    <h2>
+      Constant Summary
+      <small><a href="#" class="constants_summary_toggle">collapse</a></small>
+    </h2>
+
+    <dl class="constants">
+      
+        <dt id="Linear-constant" class="">Linear =
+          <div class="docstring">
+  <div class="discussion">
+    
+<p>activation functions</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Since:</p>
+<ul class="since">
+  
+    <li>
+      
+      
+      
+      
+        
+        <div class='inline'>
+<p>1.0</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div>
+        </dt>
+        <dd><pre class="code"><span class='lbrace'>{</span> <span class='label'>antiderivative:</span> <span class='id identifier rubyid_method'>method</span><span class='lparen'>(</span><span class='symbol'>:linear</span><span class='rparen'>)</span><span class='comma'>,</span> <span class='label'>derivative:</span> <span class='id identifier rubyid_method'>method</span><span class='lparen'>(</span><span class='symbol'>:differentiate_linear</span><span class='rparen'>)</span> <span class='rbrace'>}</span></pre></dd>
+      
+        <dt id="Sigmoid-constant" class="">Sigmoid =
+          <div class="docstring">
+  <div class="discussion">
+    
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Since:</p>
+<ul class="since">
+  
+    <li>
+      
+      
+      
+      
+        
+        <div class='inline'>
+<p>1.0</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div>
+        </dt>
+        <dd><pre class="code"><span class='lbrace'>{</span> <span class='label'>antiderivative:</span> <span class='id identifier rubyid_method'>method</span><span class='lparen'>(</span><span class='symbol'>:sigmoid</span><span class='rparen'>)</span><span class='comma'>,</span> <span class='label'>derivative:</span> <span class='id identifier rubyid_method'>method</span><span class='lparen'>(</span><span class='symbol'>:differentiate_sigmoid</span><span class='rparen'>)</span> <span class='rbrace'>}</span></pre></dd>
+      
+        <dt id="Tanh-constant" class="">Tanh =
+          <div class="docstring">
+  <div class="discussion">
+    
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Since:</p>
+<ul class="since">
+  
+    <li>
+      
+      
+      
+      
+        
+        <div class='inline'>
+<p>1.0</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div>
+        </dt>
+        <dd><pre class="code"><span class='lbrace'>{</span> <span class='label'>antiderivative:</span> <span class='id identifier rubyid_method'>method</span><span class='lparen'>(</span><span class='symbol'>:tanh</span><span class='rparen'>)</span><span class='comma'>,</span> <span class='label'>derivative:</span> <span class='id identifier rubyid_method'>method</span><span class='lparen'>(</span><span class='symbol'>:differentiate_tanh</span><span class='rparen'>)</span> <span class='rbrace'>}</span></pre></dd>
+      
+        <dt id="ReLU-constant" class="">ReLU =
+          <div class="docstring">
+  <div class="discussion">
+    
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Since:</p>
+<ul class="since">
+  
+    <li>
+      
+      
+      
+      
+        
+        <div class='inline'>
+<p>1.0</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div>
+        </dt>
+        <dd><pre class="code"><span class='lbrace'>{</span> <span class='label'>antiderivative:</span> <span class='id identifier rubyid_method'>method</span><span class='lparen'>(</span><span class='symbol'>:relu</span><span class='rparen'>)</span><span class='comma'>,</span> <span class='label'>derivative:</span> <span class='id identifier rubyid_method'>method</span><span class='lparen'>(</span><span class='symbol'>:differentiate_relu</span><span class='rparen'>)</span> <span class='rbrace'>}</span></pre></dd>
+      
+        <dt id="LeakyReLU-constant" class="">LeakyReLU =
+          <div class="docstring">
+  <div class="discussion">
+    
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Since:</p>
+<ul class="since">
+  
+    <li>
+      
+      
+      
+      
+        
+        <div class='inline'>
+<p>1.0</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div>
+        </dt>
+        <dd><pre class="code"><span class='lbrace'>{</span> <span class='label'>antiderivative:</span> <span class='id identifier rubyid_method'>method</span><span class='lparen'>(</span><span class='symbol'>:leakyrelu</span><span class='rparen'>)</span><span class='comma'>,</span> <span class='label'>derivative:</span> <span class='id identifier rubyid_method'>method</span><span class='lparen'>(</span><span class='symbol'>:differentiate_leakyrelu</span><span class='rparen'>)</span> <span class='rbrace'>}</span></pre></dd>
+      
+        <dt id="Elu-constant" class="">Elu =
+          <div class="docstring">
+  <div class="discussion">
+    
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Since:</p>
+<ul class="since">
+  
+    <li>
+      
+      
+      
+      
+        
+        <div class='inline'>
+<p>1.0</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div>
+        </dt>
+        <dd><pre class="code"><span class='lbrace'>{</span> <span class='label'>antiderivative:</span> <span class='id identifier rubyid_method'>method</span><span class='lparen'>(</span><span class='symbol'>:elu</span><span class='rparen'>)</span><span class='comma'>,</span> <span class='label'>derivative:</span> <span class='id identifier rubyid_method'>method</span><span class='lparen'>(</span><span class='symbol'>:differentiate_elu</span><span class='rparen'>)</span> <span class='rbrace'>}</span></pre></dd>
+      
+        <dt id="SElu-constant" class="">SElu =
+          <div class="docstring">
+  <div class="discussion">
+    
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Since:</p>
+<ul class="since">
+  
+    <li>
+      
+      
+      
+      
+        
+        <div class='inline'>
+<p>1.0</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div>
+        </dt>
+        <dd><pre class="code"><span class='lbrace'>{</span> <span class='label'>antiderivative:</span> <span class='id identifier rubyid_method'>method</span><span class='lparen'>(</span><span class='symbol'>:selu</span><span class='rparen'>)</span><span class='comma'>,</span> <span class='label'>derivative:</span> <span class='id identifier rubyid_method'>method</span><span class='lparen'>(</span><span class='symbol'>:differentiate_selu</span><span class='rparen'>)</span> <span class='rbrace'>}</span></pre></dd>
+      
+        <dt id="Softplus-constant" class="">Softplus =
+          <div class="docstring">
+  <div class="discussion">
+    
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Since:</p>
+<ul class="since">
+  
+    <li>
+      
+      
+      
+      
+        
+        <div class='inline'>
+<p>1.0</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div>
+        </dt>
+        <dd><pre class="code"><span class='lbrace'>{</span> <span class='label'>antiderivative:</span> <span class='id identifier rubyid_method'>method</span><span class='lparen'>(</span><span class='symbol'>:softplus</span><span class='rparen'>)</span><span class='comma'>,</span> <span class='label'>derivative:</span> <span class='id identifier rubyid_method'>method</span><span class='lparen'>(</span><span class='symbol'>:sigmoid</span><span class='rparen'>)</span> <span class='rbrace'>}</span></pre></dd>
+      
+        <dt id="Swish-constant" class="">Swish =
+          <div class="docstring">
+  <div class="discussion">
+    
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Since:</p>
+<ul class="since">
+  
+    <li>
+      
+      
+      
+      
+        
+        <div class='inline'>
+<p>1.0</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div>
+        </dt>
+        <dd><pre class="code"><span class='lbrace'>{</span> <span class='label'>antiderivative:</span> <span class='id identifier rubyid_method'>method</span><span class='lparen'>(</span><span class='symbol'>:swish</span><span class='rparen'>)</span><span class='comma'>,</span> <span class='label'>derivative:</span> <span class='id identifier rubyid_method'>method</span><span class='lparen'>(</span><span class='symbol'>:differentiate_swish</span><span class='rparen'>)</span> <span class='rbrace'>}</span></pre></dd>
+      
+        <dt id="Mish-constant" class="">Mish =
+          <div class="docstring">
+  <div class="discussion">
+    
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Since:</p>
+<ul class="since">
+  
+    <li>
+      
+      
+      
+      
+        
+        <div class='inline'>
+<p>1.0</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div>
+        </dt>
+        <dd><pre class="code"><span class='lbrace'>{</span> <span class='label'>antiderivative:</span> <span class='id identifier rubyid_method'>method</span><span class='lparen'>(</span><span class='symbol'>:mish</span><span class='rparen'>)</span><span class='comma'>,</span> <span class='label'>derivative:</span> <span class='id identifier rubyid_method'>method</span><span class='lparen'>(</span><span class='symbol'>:differentiate_mish</span><span class='rparen'>)</span> <span class='rbrace'>}</span></pre></dd>
+      
+    </dl>
+  
 
 
 
@@ -144,11 +456,2300 @@
 
 
 
+  
+    <h2>
+      Class Method Summary
+      <small><a href="#" class="summary_toggle">collapse</a></small>
+    </h2>
+
+    <ul class="summary">
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#differentiate_elu-class_method" title="differentiate_elu (class method)">.<strong>differentiate_elu</strong>(z)  &#x21d2; NMatrix </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Differentiate elu function.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#differentiate_leakyrelu-class_method" title="differentiate_leakyrelu (class method)">.<strong>differentiate_leakyrelu</strong>(z)  &#x21d2; NMatrix </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Differentiate leaky relu function.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#differentiate_linear-class_method" title="differentiate_linear (class method)">.<strong>differentiate_linear</strong>(a)  &#x21d2; NMatrix </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Differentiate linear function.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#differentiate_mish-class_method" title="differentiate_mish (class method)">.<strong>differentiate_mish</strong>(z)  &#x21d2; NMatrix </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Differentiate mish function.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#differentiate_relu-class_method" title="differentiate_relu (class method)">.<strong>differentiate_relu</strong>(z)  &#x21d2; NMatrix </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Differentiate relu function.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#differentiate_selu-class_method" title="differentiate_selu (class method)">.<strong>differentiate_selu</strong>(z)  &#x21d2; NMatrix </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Differentiate selu function.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#differentiate_sigmoid-class_method" title="differentiate_sigmoid (class method)">.<strong>differentiate_sigmoid</strong>(a)  &#x21d2; NMatrix </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Differentiate sigmoid function.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#differentiate_swish-class_method" title="differentiate_swish (class method)">.<strong>differentiate_swish</strong>(z)  &#x21d2; NMatrix </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Differentiate swish function.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#differentiate_tanh-class_method" title="differentiate_tanh (class method)">.<strong>differentiate_tanh</strong>(a)  &#x21d2; NMatrix </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Differentiate tanh function.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#elu-class_method" title="elu (class method)">.<strong>elu</strong>(z)  &#x21d2; NMatrix </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Apply elu function to z.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#leakyrelu-class_method" title="leakyrelu (class method)">.<strong>leakyrelu</strong>(z)  &#x21d2; NMatrix </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Apply leaky relu function to z.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#linear-class_method" title="linear (class method)">.<strong>linear</strong>(z)  &#x21d2; NMatrix </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Apply linear function to z.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#mish-class_method" title="mish (class method)">.<strong>mish</strong>(z)  &#x21d2; NMatrix </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Apply mish function to z.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#relu-class_method" title="relu (class method)">.<strong>relu</strong>(z)  &#x21d2; NMatrix </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Apply relu function to z.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#selu-class_method" title="selu (class method)">.<strong>selu</strong>(z)  &#x21d2; NMatrix </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Apply selu function to z.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#sigmoid-class_method" title="sigmoid (class method)">.<strong>sigmoid</strong>(z)  &#x21d2; NMatrix </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Apply sigmoid function to z.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#softplus-class_method" title="softplus (class method)">.<strong>softplus</strong>(z)  &#x21d2; NMatrix </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Apply softplus function to z.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#swish-class_method" title="swish (class method)">.<strong>swish</strong>(z)  &#x21d2; NMatrix </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Apply swish function to z.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#tanh-class_method" title="tanh (class method)">.<strong>tanh</strong>(z)  &#x21d2; NMatrix </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Apply tanh function to z.</p>
+</div></span>
+  
+</li>
+
+      
+    </ul>
+  
+
+
+
+  <div id="class_method_details" class="method_details_list">
+    <h2>Class Method Details</h2>
+
+    
+      <div class="method_details first">
+  <h3 class="signature first" id="differentiate_elu-class_method">
+  
+    .<strong>differentiate_elu</strong>(z)  &#x21d2; <tt>NMatrix</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Differentiate elu function.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  <p class="tag_title">Parameters:</p>
+<ul class="param">
+  
+    <li>
+      
+        <span class='name'>z</span>
+      
+      
+        <span class='type'>(<tt>NMatrix</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>a vector of NMatrix containing neuron statuses</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>NMatrix</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>a vector of NMatrix that each elements are differentiated</p>
+</div>
+      
+    </li>
+  
+</ul>
+<p class="tag_title">Since:</p>
+<ul class="since">
+  
+    <li>
+      
+      
+      
+      
+        
+        <div class='inline'>
+<p>1.1</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+862
+863
+864</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'fast_neurons.rb', line 862</span>
+
+<span class='kw'>def</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_differentiate_elu'>differentiate_elu</span><span class='lparen'>(</span><span class='id identifier rubyid_z'>z</span><span class='rparen'>)</span>
+  <span class='kw'>return</span> <span class='const'>N</span><span class='lbracket'>[</span><span class='id identifier rubyid_z'>z</span><span class='period'>.</span><span class='id identifier rubyid_map'>map</span><span class='lbrace'>{</span> <span class='op'>|</span><span class='id identifier rubyid_x'>x</span><span class='op'>|</span> <span class='id identifier rubyid_x'>x</span> <span class='op'>&gt;</span> <span class='float'>0.0</span> <span class='op'>?</span> <span class='float'>1.0</span> <span class='op'>:</span> <span class='const'>Math</span><span class='period'>.</span><span class='id identifier rubyid_exp'>exp</span><span class='lparen'>(</span><span class='id identifier rubyid_x'>x</span><span class='rparen'>)</span> <span class='rbrace'>}</span><span class='period'>.</span><span class='id identifier rubyid_to_a'>to_a</span><span class='period'>.</span><span class='id identifier rubyid_flatten'>flatten</span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_transpose'>transpose</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="differentiate_leakyrelu-class_method">
+  
+    .<strong>differentiate_leakyrelu</strong>(z)  &#x21d2; <tt>NMatrix</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Differentiate leaky relu function.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  <p class="tag_title">Parameters:</p>
+<ul class="param">
+  
+    <li>
+      
+        <span class='name'>z</span>
+      
+      
+        <span class='type'>(<tt>NMatrix</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>a vector of NMatrix containing neuron statuses</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>NMatrix</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>a vector of NMatrix that each elements are differentiated</p>
+</div>
+      
+    </li>
+  
+</ul>
+<p class="tag_title">Since:</p>
+<ul class="since">
+  
+    <li>
+      
+      
+      
+      
+        
+        <div class='inline'>
+<p>1.1</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+854
+855
+856</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'fast_neurons.rb', line 854</span>
+
+<span class='kw'>def</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_differentiate_leakyrelu'>differentiate_leakyrelu</span><span class='lparen'>(</span><span class='id identifier rubyid_z'>z</span><span class='rparen'>)</span>
+  <span class='kw'>return</span> <span class='const'>N</span><span class='lbracket'>[</span><span class='id identifier rubyid_z'>z</span><span class='period'>.</span><span class='id identifier rubyid_map'>map</span><span class='lbrace'>{</span> <span class='op'>|</span><span class='id identifier rubyid_x'>x</span><span class='op'>|</span> <span class='id identifier rubyid_x'>x</span> <span class='op'>&gt;</span> <span class='float'>0.0</span> <span class='op'>?</span> <span class='float'>1.0</span> <span class='op'>:</span> <span class='float'>0.01</span> <span class='rbrace'>}</span><span class='period'>.</span><span class='id identifier rubyid_to_a'>to_a</span><span class='period'>.</span><span class='id identifier rubyid_flatten'>flatten</span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_transpose'>transpose</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="differentiate_linear-class_method">
+  
+    .<strong>differentiate_linear</strong>(a)  &#x21d2; <tt>NMatrix</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Differentiate linear function.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  <p class="tag_title">Parameters:</p>
+<ul class="param">
+  
+    <li>
+      
+        <span class='name'>a</span>
+      
+      
+        <span class='type'>(<tt>NMatrix</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>a vector of NMatrix containing neuron statuses</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>NMatrix</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>a vector of NMatrix that each elements are differentiated</p>
+</div>
+      
+    </li>
+  
+</ul>
+<p class="tag_title">Since:</p>
+<ul class="since">
+  
+    <li>
+      
+      
+      
+      
+        
+        <div class='inline'>
+<p>1.1</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+822
+823
+824</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'fast_neurons.rb', line 822</span>
+
+<span class='kw'>def</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_differentiate_linear'>differentiate_linear</span><span class='lparen'>(</span><span class='id identifier rubyid_a'>a</span><span class='rparen'>)</span>
+  <span class='kw'>return</span> <span class='const'>NMatrix</span><span class='period'>.</span><span class='id identifier rubyid_ones_like'>ones_like</span><span class='lparen'>(</span><span class='id identifier rubyid_a'>a</span><span class='rparen'>)</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="differentiate_mish-class_method">
+  
+    .<strong>differentiate_mish</strong>(z)  &#x21d2; <tt>NMatrix</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Differentiate mish function.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  <p class="tag_title">Parameters:</p>
+<ul class="param">
+  
+    <li>
+      
+        <span class='name'>z</span>
+      
+      
+        <span class='type'>(<tt>NMatrix</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>a vector of NMatrix containing neuron statuses</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>NMatrix</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>a vector of NMatrix that each elements are differentiated</p>
+</div>
+      
+    </li>
+  
+</ul>
+<p class="tag_title">Since:</p>
+<ul class="since">
+  
+    <li>
+      
+      
+      
+      
+        
+        <div class='inline'>
+<p>1.1</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+889
+890
+891
+892
+893</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'fast_neurons.rb', line 889</span>
+
+<span class='kw'>def</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_differentiate_mish'>differentiate_mish</span><span class='lparen'>(</span><span class='id identifier rubyid_z'>z</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_omega'>omega</span> <span class='op'>=</span> <span class='lparen'>(</span><span class='id identifier rubyid_z'>z</span> <span class='op'>+</span> <span class='int'>1</span><span class='rparen'>)</span> <span class='op'>*</span> <span class='int'>4</span> <span class='op'>+</span> <span class='lparen'>(</span><span class='id identifier rubyid_z'>z</span> <span class='op'>*</span> <span class='int'>2</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_exp'>exp</span> <span class='op'>*</span> <span class='int'>4</span> <span class='op'>+</span> <span class='lparen'>(</span><span class='id identifier rubyid_z'>z</span> <span class='op'>*</span> <span class='int'>3</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_exp'>exp</span> <span class='op'>+</span> <span class='lparen'>(</span><span class='id identifier rubyid_z'>z</span> <span class='op'>*</span> <span class='int'>4</span> <span class='op'>+</span> <span class='int'>6</span><span class='rparen'>)</span> <span class='op'>*</span> <span class='id identifier rubyid_z'>z</span><span class='period'>.</span><span class='id identifier rubyid_exp'>exp</span>
+  <span class='id identifier rubyid_delta'>delta</span> <span class='op'>=</span> <span class='id identifier rubyid_z'>z</span><span class='period'>.</span><span class='id identifier rubyid_exp'>exp</span> <span class='op'>*</span> <span class='int'>2</span> <span class='op'>+</span> <span class='lparen'>(</span><span class='id identifier rubyid_z'>z</span> <span class='op'>*</span> <span class='int'>2</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_exp'>exp</span> <span class='op'>+</span> <span class='int'>2</span>
+  <span class='kw'>return</span> <span class='lparen'>(</span><span class='id identifier rubyid_z'>z</span><span class='period'>.</span><span class='id identifier rubyid_exp'>exp</span> <span class='op'>*</span> <span class='id identifier rubyid_omega'>omega</span><span class='rparen'>)</span> <span class='op'>/</span> <span class='lparen'>(</span><span class='id identifier rubyid_delta'>delta</span> <span class='op'>**</span> <span class='int'>2</span><span class='rparen'>)</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="differentiate_relu-class_method">
+  
+    .<strong>differentiate_relu</strong>(z)  &#x21d2; <tt>NMatrix</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Differentiate relu function.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  <p class="tag_title">Parameters:</p>
+<ul class="param">
+  
+    <li>
+      
+        <span class='name'>z</span>
+      
+      
+        <span class='type'>(<tt>NMatrix</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>a vector of NMatrix containing neuron statuses</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>NMatrix</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>a vector of NMatrix that each elements are differentiated</p>
+</div>
+      
+    </li>
+  
+</ul>
+<p class="tag_title">Since:</p>
+<ul class="since">
+  
+    <li>
+      
+      
+      
+      
+        
+        <div class='inline'>
+<p>1.1</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+846
+847
+848</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'fast_neurons.rb', line 846</span>
+
+<span class='kw'>def</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_differentiate_relu'>differentiate_relu</span><span class='lparen'>(</span><span class='id identifier rubyid_z'>z</span><span class='rparen'>)</span>
+  <span class='kw'>return</span> <span class='const'>N</span><span class='lbracket'>[</span><span class='id identifier rubyid_z'>z</span><span class='period'>.</span><span class='id identifier rubyid_map'>map</span><span class='lbrace'>{</span> <span class='op'>|</span><span class='id identifier rubyid_x'>x</span><span class='op'>|</span> <span class='id identifier rubyid_x'>x</span> <span class='op'>&gt;</span> <span class='float'>0.0</span> <span class='op'>?</span> <span class='float'>1.0</span> <span class='op'>:</span> <span class='float'>0.0</span> <span class='rbrace'>}</span><span class='period'>.</span><span class='id identifier rubyid_to_a'>to_a</span><span class='period'>.</span><span class='id identifier rubyid_flatten'>flatten</span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_transpose'>transpose</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="differentiate_selu-class_method">
+  
+    .<strong>differentiate_selu</strong>(z)  &#x21d2; <tt>NMatrix</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Differentiate selu function.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  <p class="tag_title">Parameters:</p>
+<ul class="param">
+  
+    <li>
+      
+        <span class='name'>z</span>
+      
+      
+        <span class='type'>(<tt>NMatrix</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>a vector of NMatrix containing neuron statuses</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>NMatrix</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>a vector of NMatrix that each elements are differentiated</p>
+</div>
+      
+    </li>
+  
+</ul>
+<p class="tag_title">Since:</p>
+<ul class="since">
+  
+    <li>
+      
+      
+      
+      
+        
+        <div class='inline'>
+<p>1.1</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+870
+871
+872</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'fast_neurons.rb', line 870</span>
+
+<span class='kw'>def</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_differentiate_selu'>differentiate_selu</span><span class='lparen'>(</span><span class='id identifier rubyid_z'>z</span><span class='rparen'>)</span>
+  <span class='kw'>return</span> <span class='const'>N</span><span class='lbracket'>[</span><span class='id identifier rubyid_z'>z</span><span class='period'>.</span><span class='id identifier rubyid_map'>map</span><span class='lbrace'>{</span> <span class='op'>|</span><span class='id identifier rubyid_x'>x</span><span class='op'>|</span> <span class='id identifier rubyid_x'>x</span> <span class='op'>&gt;</span> <span class='float'>0.0</span> <span class='op'>?</span> <span class='const'><span class='object_link'><a href="top-level-namespace.html#SCALE-constant" title="SCALE (constant)">SCALE</a></span></span> <span class='op'>:</span> <span class='const'><span class='object_link'><a href="top-level-namespace.html#ALPHA-constant" title="ALPHA (constant)">ALPHA</a></span></span> <span class='op'>*</span> <span class='const'>Math</span><span class='period'>.</span><span class='id identifier rubyid_exp'>exp</span><span class='lparen'>(</span><span class='id identifier rubyid_x'>x</span><span class='rparen'>)</span> <span class='op'>*</span> <span class='const'><span class='object_link'><a href="top-level-namespace.html#SCALE-constant" title="SCALE (constant)">SCALE</a></span></span> <span class='rbrace'>}</span><span class='period'>.</span><span class='id identifier rubyid_to_a'>to_a</span><span class='period'>.</span><span class='id identifier rubyid_flatten'>flatten</span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_transpose'>transpose</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="differentiate_sigmoid-class_method">
+  
+    .<strong>differentiate_sigmoid</strong>(a)  &#x21d2; <tt>NMatrix</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Differentiate sigmoid function.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  <p class="tag_title">Parameters:</p>
+<ul class="param">
+  
+    <li>
+      
+        <span class='name'>a</span>
+      
+      
+        <span class='type'>(<tt>NMatrix</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>a vector of NMatrix containing neuron statuses</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>NMatrix</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>a vector of NMatrix that each elements are differentiated</p>
+</div>
+      
+    </li>
+  
+</ul>
+<p class="tag_title">Since:</p>
+<ul class="since">
+  
+    <li>
+      
+      
+      
+      
+        
+        <div class='inline'>
+<p>1.1</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+830
+831
+832</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'fast_neurons.rb', line 830</span>
+
+<span class='kw'>def</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_differentiate_sigmoid'>differentiate_sigmoid</span><span class='lparen'>(</span><span class='id identifier rubyid_a'>a</span><span class='rparen'>)</span>
+  <span class='kw'>return</span> <span class='lparen'>(</span><span class='op'>-</span><span class='id identifier rubyid_a'>a</span> <span class='op'>+</span> <span class='float'>1.0</span><span class='rparen'>)</span> <span class='op'>*</span> <span class='id identifier rubyid_a'>a</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="differentiate_swish-class_method">
+  
+    .<strong>differentiate_swish</strong>(z)  &#x21d2; <tt>NMatrix</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Differentiate swish function.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  <p class="tag_title">Parameters:</p>
+<ul class="param">
+  
+    <li>
+      
+        <span class='name'>z</span>
+      
+      
+        <span class='type'>(<tt>NMatrix</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>a vector of NMatrix containing neuron statuses</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>NMatrix</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>a vector of NMatrix that each elements are differentiated</p>
+</div>
+      
+    </li>
+  
+</ul>
+<p class="tag_title">Since:</p>
+<ul class="since">
+  
+    <li>
+      
+      
+      
+      
+        
+        <div class='inline'>
+<p>1.1</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+880
+881
+882
+883</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'fast_neurons.rb', line 880</span>
+
+<span class='kw'>def</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_differentiate_swish'>differentiate_swish</span><span class='lparen'>(</span><span class='id identifier rubyid_z'>z</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_a'>a</span> <span class='op'>=</span> <span class='id identifier rubyid_swish'>swish</span><span class='lparen'>(</span><span class='id identifier rubyid_z'>z</span><span class='rparen'>)</span>
+  <span class='kw'>return</span> <span class='id identifier rubyid_a'>a</span> <span class='op'>+</span> <span class='lparen'>(</span><span class='op'>-</span><span class='id identifier rubyid_a'>a</span> <span class='op'>+</span> <span class='int'>1</span><span class='rparen'>)</span> <span class='op'>*</span> <span class='id identifier rubyid_sigmoid'>sigmoid</span><span class='lparen'>(</span><span class='id identifier rubyid_z'>z</span><span class='rparen'>)</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="differentiate_tanh-class_method">
+  
+    .<strong>differentiate_tanh</strong>(a)  &#x21d2; <tt>NMatrix</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Differentiate tanh function.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  <p class="tag_title">Parameters:</p>
+<ul class="param">
+  
+    <li>
+      
+        <span class='name'>a</span>
+      
+      
+        <span class='type'>(<tt>NMatrix</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>a vector of NMatrix containing neuron statuses</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>NMatrix</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>a vector of NMatrix that each elements are differentiated</p>
+</div>
+      
+    </li>
+  
+</ul>
+<p class="tag_title">Since:</p>
+<ul class="since">
+  
+    <li>
+      
+      
+      
+      
+        
+        <div class='inline'>
+<p>1.1</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+838
+839
+840</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'fast_neurons.rb', line 838</span>
+
+<span class='kw'>def</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_differentiate_tanh'>differentiate_tanh</span><span class='lparen'>(</span><span class='id identifier rubyid_a'>a</span><span class='rparen'>)</span>
+  <span class='kw'>return</span> <span class='op'>-</span><span class='lparen'>(</span><span class='id identifier rubyid_a'>a</span> <span class='op'>**</span> <span class='int'>2</span><span class='rparen'>)</span> <span class='op'>+</span> <span class='float'>1.0</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="elu-class_method">
+  
+    .<strong>elu</strong>(z)  &#x21d2; <tt>NMatrix</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Apply elu function to z.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  <p class="tag_title">Parameters:</p>
+<ul class="param">
+  
+    <li>
+      
+        <span class='name'>z</span>
+      
+      
+        <span class='type'>(<tt>NMatrix</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>a vector of NMatrix containing the multiply accumulation of inputs, weights and biases</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>NMatrix</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>a vector of NMatrix that each elements are applied to elu function</p>
+</div>
+      
+    </li>
+  
+</ul>
+<p class="tag_title">Since:</p>
+<ul class="since">
+  
+    <li>
+      
+      
+      
+      
+        
+        <div class='inline'>
+<p>1.1</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+782
+783
+784</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'fast_neurons.rb', line 782</span>
+
+<span class='kw'>def</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_elu'>elu</span><span class='lparen'>(</span><span class='id identifier rubyid_z'>z</span><span class='rparen'>)</span>
+  <span class='kw'>return</span> <span class='const'>N</span><span class='lbracket'>[</span><span class='id identifier rubyid_z'>z</span><span class='period'>.</span><span class='id identifier rubyid_map'>map</span><span class='lbrace'>{</span> <span class='op'>|</span><span class='id identifier rubyid_x'>x</span><span class='op'>|</span> <span class='id identifier rubyid_x'>x</span> <span class='op'>&gt;</span> <span class='float'>0.0</span> <span class='op'>?</span> <span class='id identifier rubyid_x'>x</span> <span class='op'>:</span> <span class='lparen'>(</span><span class='const'>Math</span><span class='period'>.</span><span class='id identifier rubyid_exp'>exp</span><span class='lparen'>(</span><span class='id identifier rubyid_x'>x</span><span class='rparen'>)</span> <span class='op'>-</span> <span class='int'>1</span><span class='rparen'>)</span> <span class='rbrace'>}</span><span class='period'>.</span><span class='id identifier rubyid_to_a'>to_a</span><span class='period'>.</span><span class='id identifier rubyid_flatten'>flatten</span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_transpose'>transpose</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="leakyrelu-class_method">
+  
+    .<strong>leakyrelu</strong>(z)  &#x21d2; <tt>NMatrix</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Apply leaky relu function to z.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  <p class="tag_title">Parameters:</p>
+<ul class="param">
+  
+    <li>
+      
+        <span class='name'>z</span>
+      
+      
+        <span class='type'>(<tt>NMatrix</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>a vector of NMatrix containing the multiply accumulation of inputs, weights and biases</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>NMatrix</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>a vector of NMatrix that each elements are applied to leaky relu function</p>
+</div>
+      
+    </li>
+  
+</ul>
+<p class="tag_title">Since:</p>
+<ul class="since">
+  
+    <li>
+      
+      
+      
+      
+        
+        <div class='inline'>
+<p>1.1</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+774
+775
+776</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'fast_neurons.rb', line 774</span>
+
+<span class='kw'>def</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_leakyrelu'>leakyrelu</span><span class='lparen'>(</span><span class='id identifier rubyid_z'>z</span><span class='rparen'>)</span>
+  <span class='kw'>return</span> <span class='const'>N</span><span class='lbracket'>[</span><span class='id identifier rubyid_z'>z</span><span class='period'>.</span><span class='id identifier rubyid_map'>map</span><span class='lbrace'>{</span> <span class='op'>|</span><span class='id identifier rubyid_x'>x</span><span class='op'>|</span> <span class='id identifier rubyid_x'>x</span> <span class='op'>&gt;</span> <span class='float'>0.0</span> <span class='op'>?</span> <span class='id identifier rubyid_x'>x</span> <span class='op'>:</span> <span class='float'>0.01</span> <span class='op'>*</span> <span class='id identifier rubyid_x'>x</span> <span class='rbrace'>}</span><span class='period'>.</span><span class='id identifier rubyid_to_a'>to_a</span><span class='period'>.</span><span class='id identifier rubyid_flatten'>flatten</span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_transpose'>transpose</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="linear-class_method">
+  
+    .<strong>linear</strong>(z)  &#x21d2; <tt>NMatrix</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Apply linear function to z.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  <p class="tag_title">Parameters:</p>
+<ul class="param">
+  
+    <li>
+      
+        <span class='name'>z</span>
+      
+      
+        <span class='type'>(<tt>NMatrix</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>a vector of NMatrix containing the multiply accumulation of inputs, weights and biases</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>NMatrix</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>a vector of NMatrix that each elements are applied to linear function</p>
+</div>
+      
+    </li>
+  
+</ul>
+<p class="tag_title">Since:</p>
+<ul class="since">
+  
+    <li>
+      
+      
+      
+      
+        
+        <div class='inline'>
+<p>1.1</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+740
+741
+742</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'fast_neurons.rb', line 740</span>
+
+<span class='kw'>def</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_linear'>linear</span><span class='lparen'>(</span><span class='id identifier rubyid_z'>z</span><span class='rparen'>)</span>
+  <span class='kw'>return</span> <span class='id identifier rubyid_z'>z</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="mish-class_method">
+  
+    .<strong>mish</strong>(z)  &#x21d2; <tt>NMatrix</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Apply mish function to z.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  <p class="tag_title">Parameters:</p>
+<ul class="param">
+  
+    <li>
+      
+        <span class='name'>z</span>
+      
+      
+        <span class='type'>(<tt>NMatrix</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>a vector of NMatrix containing the multiply accumulation of inputs, weights and biases</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>NMatrix</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>a vector of NMatrix that each elements are applied to mish function</p>
+</div>
+      
+    </li>
+  
+</ul>
+<p class="tag_title">Since:</p>
+<ul class="since">
+  
+    <li>
+      
+      
+      
+      
+        
+        <div class='inline'>
+<p>1.1</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+814
+815
+816</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'fast_neurons.rb', line 814</span>
+
+<span class='kw'>def</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_mish'>mish</span><span class='lparen'>(</span><span class='id identifier rubyid_z'>z</span><span class='rparen'>)</span>
+  <span class='kw'>return</span> <span class='id identifier rubyid_z'>z</span> <span class='op'>*</span> <span class='id identifier rubyid_tanh'>tanh</span><span class='lparen'>(</span><span class='id identifier rubyid_softplus'>softplus</span><span class='lparen'>(</span><span class='id identifier rubyid_z'>z</span><span class='rparen'>)</span><span class='rparen'>)</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="relu-class_method">
+  
+    .<strong>relu</strong>(z)  &#x21d2; <tt>NMatrix</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Apply relu function to z.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  <p class="tag_title">Parameters:</p>
+<ul class="param">
+  
+    <li>
+      
+        <span class='name'>z</span>
+      
+      
+        <span class='type'>(<tt>NMatrix</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>a vector of NMatrix containing the multiply accumulation of inputs, weights and biases</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>NMatrix</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>a vector of NMatrix that each elements are applied to relu function</p>
+</div>
+      
+    </li>
+  
+</ul>
+<p class="tag_title">Since:</p>
+<ul class="since">
+  
+    <li>
+      
+      
+      
+      
+        
+        <div class='inline'>
+<p>1.1</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+766
+767
+768</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'fast_neurons.rb', line 766</span>
+
+<span class='kw'>def</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_relu'>relu</span><span class='lparen'>(</span><span class='id identifier rubyid_z'>z</span><span class='rparen'>)</span>
+  <span class='kw'>return</span> <span class='lparen'>(</span><span class='id identifier rubyid_z'>z</span> <span class='op'>+</span> <span class='id identifier rubyid_z'>z</span><span class='period'>.</span><span class='id identifier rubyid_abs'>abs</span><span class='rparen'>)</span> <span class='op'>/</span> <span class='float'>2.0</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="selu-class_method">
+  
+    .<strong>selu</strong>(z)  &#x21d2; <tt>NMatrix</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Apply selu function to z.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  <p class="tag_title">Parameters:</p>
+<ul class="param">
+  
+    <li>
+      
+        <span class='name'>z</span>
+      
+      
+        <span class='type'>(<tt>NMatrix</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>a vector of NMatrix containing the multiply accumulation of inputs, weights and biases</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>NMatrix</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>a vector of NMatrix that each elements are applied to selu function</p>
+</div>
+      
+    </li>
+  
+</ul>
+<p class="tag_title">Since:</p>
+<ul class="since">
+  
+    <li>
+      
+      
+      
+      
+        
+        <div class='inline'>
+<p>1.1</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+790
+791
+792</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'fast_neurons.rb', line 790</span>
+
+<span class='kw'>def</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_selu'>selu</span><span class='lparen'>(</span><span class='id identifier rubyid_z'>z</span><span class='rparen'>)</span>
+  <span class='kw'>return</span> <span class='const'>N</span><span class='lbracket'>[</span><span class='id identifier rubyid_z'>z</span><span class='period'>.</span><span class='id identifier rubyid_map'>map</span><span class='lbrace'>{</span> <span class='op'>|</span><span class='id identifier rubyid_x'>x</span><span class='op'>|</span> <span class='id identifier rubyid_x'>x</span> <span class='op'>&gt;</span> <span class='float'>0.0</span> <span class='op'>?</span> <span class='id identifier rubyid_x'>x</span> <span class='op'>*</span> <span class='const'><span class='object_link'><a href="top-level-namespace.html#SCALE-constant" title="SCALE (constant)">SCALE</a></span></span> <span class='op'>:</span> <span class='const'><span class='object_link'><a href="top-level-namespace.html#ALPHA-constant" title="ALPHA (constant)">ALPHA</a></span></span> <span class='op'>*</span> <span class='lparen'>(</span><span class='const'>Math</span><span class='period'>.</span><span class='id identifier rubyid_exp'>exp</span><span class='lparen'>(</span><span class='id identifier rubyid_x'>x</span><span class='rparen'>)</span> <span class='op'>-</span> <span class='int'>1</span><span class='rparen'>)</span> <span class='op'>*</span> <span class='const'><span class='object_link'><a href="top-level-namespace.html#SCALE-constant" title="SCALE (constant)">SCALE</a></span></span> <span class='rbrace'>}</span><span class='period'>.</span><span class='id identifier rubyid_to_a'>to_a</span><span class='period'>.</span><span class='id identifier rubyid_flatten'>flatten</span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_transpose'>transpose</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="sigmoid-class_method">
+  
+    .<strong>sigmoid</strong>(z)  &#x21d2; <tt>NMatrix</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Apply sigmoid function to z.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  <p class="tag_title">Parameters:</p>
+<ul class="param">
+  
+    <li>
+      
+        <span class='name'>z</span>
+      
+      
+        <span class='type'>(<tt>NMatrix</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>a vector of NMatrix containing the multiply accumulation of inputs, weights and biases</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>NMatrix</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>a vector of NMatrix that each elements are applied to sigmoid function</p>
+</div>
+      
+    </li>
+  
+</ul>
+<p class="tag_title">Since:</p>
+<ul class="since">
+  
+    <li>
+      
+      
+      
+      
+        
+        <div class='inline'>
+<p>1.1</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+748
+749
+750</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'fast_neurons.rb', line 748</span>
+
+<span class='kw'>def</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_sigmoid'>sigmoid</span><span class='lparen'>(</span><span class='id identifier rubyid_z'>z</span><span class='rparen'>)</span>
+  <span class='kw'>return</span> <span class='lparen'>(</span><span class='lparen'>(</span><span class='op'>-</span><span class='id identifier rubyid_z'>z</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_exp'>exp</span> <span class='op'>+</span> <span class='int'>1</span><span class='rparen'>)</span> <span class='op'>**</span> <span class='lparen'>(</span><span class='op'>-</span><span class='int'>1</span><span class='rparen'>)</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="softplus-class_method">
+  
+    .<strong>softplus</strong>(z)  &#x21d2; <tt>NMatrix</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Apply softplus function to z.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  <p class="tag_title">Parameters:</p>
+<ul class="param">
+  
+    <li>
+      
+        <span class='name'>z</span>
+      
+      
+        <span class='type'>(<tt>NMatrix</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>a vector of NMatrix containing the multiply accumulation of inputs, weights and biases</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>NMatrix</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>a vector of NMatrix that each elements are applied to softplus function</p>
+</div>
+      
+    </li>
+  
+</ul>
+<p class="tag_title">Since:</p>
+<ul class="since">
+  
+    <li>
+      
+      
+      
+      
+        
+        <div class='inline'>
+<p>1.1</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+798
+799
+800</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'fast_neurons.rb', line 798</span>
+
+<span class='kw'>def</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_softplus'>softplus</span><span class='lparen'>(</span><span class='id identifier rubyid_z'>z</span><span class='rparen'>)</span>
+  <span class='kw'>return</span> <span class='lparen'>(</span><span class='id identifier rubyid_z'>z</span><span class='period'>.</span><span class='id identifier rubyid_exp'>exp</span> <span class='op'>+</span> <span class='float'>1.0</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_log'>log</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="swish-class_method">
+  
+    .<strong>swish</strong>(z)  &#x21d2; <tt>NMatrix</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Apply swish function to z.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  <p class="tag_title">Parameters:</p>
+<ul class="param">
+  
+    <li>
+      
+        <span class='name'>z</span>
+      
+      
+        <span class='type'>(<tt>NMatrix</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>a vector of NMatrix containing the multiply accumulation of inputs, weights and biases</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>NMatrix</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>a vector of NMatrix that each elements are applied to swish function</p>
+</div>
+      
+    </li>
+  
+</ul>
+<p class="tag_title">Since:</p>
+<ul class="since">
+  
+    <li>
+      
+      
+      
+      
+        
+        <div class='inline'>
+<p>1.1</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+806
+807
+808</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'fast_neurons.rb', line 806</span>
+
+<span class='kw'>def</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_swish'>swish</span><span class='lparen'>(</span><span class='id identifier rubyid_z'>z</span><span class='rparen'>)</span>
+  <span class='kw'>return</span> <span class='id identifier rubyid_z'>z</span> <span class='op'>*</span> <span class='id identifier rubyid_sigmoid'>sigmoid</span><span class='lparen'>(</span><span class='id identifier rubyid_z'>z</span><span class='rparen'>)</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="tanh-class_method">
+  
+    .<strong>tanh</strong>(z)  &#x21d2; <tt>NMatrix</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Apply tanh function to z.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  <p class="tag_title">Parameters:</p>
+<ul class="param">
+  
+    <li>
+      
+        <span class='name'>z</span>
+      
+      
+        <span class='type'>(<tt>NMatrix</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>a vector of NMatrix containing the multiply accumulation of inputs, weights and biases</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>NMatrix</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>a vector of NMatrix that each elements are applied to tanh function</p>
+</div>
+      
+    </li>
+  
+</ul>
+<p class="tag_title">Since:</p>
+<ul class="since">
+  
+    <li>
+      
+      
+      
+      
+        
+        <div class='inline'>
+<p>1.1</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+756
+757
+758
+759
+760</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'fast_neurons.rb', line 756</span>
+
+<span class='kw'>def</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_tanh'>tanh</span><span class='lparen'>(</span><span class='id identifier rubyid_z'>z</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_pos_exp'>pos_exp</span> <span class='op'>=</span> <span class='id identifier rubyid_z'>z</span><span class='period'>.</span><span class='id identifier rubyid_exp'>exp</span>
+  <span class='id identifier rubyid_neg_exp'>neg_exp</span> <span class='op'>=</span> <span class='lparen'>(</span><span class='op'>-</span><span class='id identifier rubyid_z'>z</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_exp'>exp</span>
+  <span class='kw'>return</span> <span class='lparen'>(</span><span class='id identifier rubyid_pos_exp'>pos_exp</span> <span class='op'>-</span> <span class='id identifier rubyid_neg_exp'>neg_exp</span><span class='rparen'>)</span> <span class='op'>/</span> <span class='lparen'>(</span><span class='id identifier rubyid_pos_exp'>pos_exp</span> <span class='op'>+</span> <span class='id identifier rubyid_neg_exp'>neg_exp</span><span class='rparen'>)</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+  </div>
 
 </div>
 
       <div id="footer">
-  Generated on Wed Jun  3 20:44:40 2020 by
+  Generated on Thu Jun 18 07:43:53 2020 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.25 (ruby-2.6.3).
 </div>

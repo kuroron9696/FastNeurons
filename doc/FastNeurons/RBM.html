@@ -1,0 +1,2926 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>
+  Class: FastNeurons::RBM
+  
+    &mdash; Documentation by YARD 0.9.25
+  
+</title>
+
+  <link rel="stylesheet" href="../css/style.css" type="text/css" />
+
+  <link rel="stylesheet" href="../css/common.css" type="text/css" />
+
+<script type="text/javascript">
+  pathId = "FastNeurons::RBM";
+  relpath = '../';
+</script>
+
+
+  <script type="text/javascript" charset="utf-8" src="../js/jquery.js"></script>
+
+  <script type="text/javascript" charset="utf-8" src="../js/app.js"></script>
+
+
+  </head>
+  <body>
+    <div class="nav_wrap">
+      <iframe id="nav" src="../class_list.html?1"></iframe>
+      <div id="resizer"></div>
+    </div>
+
+    <div id="main" tabindex="-1">
+      <div id="header">
+        <div id="menu">
+  
+    <a href="../_index.html">Index (R)</a> &raquo;
+    <span class='title'><span class='object_link'><a href="../FastNeurons.html" title="FastNeurons (module)">FastNeurons</a></span></span>
+     &raquo; 
+    <span class="title">RBM</span>
+  
+</div>
+
+        <div id="search">
+  
+    <a class="full_list_link" id="class_list_link"
+        href="../class_list.html">
+
+        <svg width="24" height="24">
+          <rect x="0" y="4" width="24" height="4" rx="1" ry="1"></rect>
+          <rect x="0" y="12" width="24" height="4" rx="1" ry="1"></rect>
+          <rect x="0" y="20" width="24" height="4" rx="1" ry="1"></rect>
+        </svg>
+    </a>
+  
+</div>
+        <div class="clear"></div>
+      </div>
+
+      <div id="content"><h1>Class: FastNeurons::RBM
+  
+  
+  
+</h1>
+<div class="box_info">
+  
+  <dl>
+    <dt>Inherits:</dt>
+    <dd>
+      <span class="inheritName">Object</span>
+      
+        <ul class="fullTree">
+          <li>Object</li>
+          
+            <li class="next">FastNeurons::RBM</li>
+          
+        </ul>
+        <a href="#" class="inheritanceTree">show all</a>
+      
+    </dd>
+  </dl>
+  
+
+  
+  
+  
+  
+  
+
+  
+
+  
+  <dl>
+    <dt>Defined in:</dt>
+    <dd>fast_neurons.rb</dd>
+  </dl>
+  
+</div>
+
+<h2>Overview</h2><div class="docstring">
+  <div class="discussion">
+    
+<p>Describes a restricted boltzmann machine.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Since:</p>
+<ul class="since">
+  
+    <li>
+      
+      
+      
+      
+        
+        <div class='inline'>
+<p>2.0</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div>
+
+
+
+
+
+
+  
+    <h2>
+      Instance Method Summary
+      <small><a href="#" class="summary_toggle">collapse</a></small>
+    </h2>
+
+    <ul class="summary">
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#compute_cross_entropy-instance_method" title="#compute_cross_entropy (instance method)">#<strong>compute_cross_entropy</strong>  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Compute cross entropy.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#compute_derivatives-instance_method" title="#compute_derivatives (instance method)">#<strong>compute_derivatives</strong>  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Compute derivatives biases and weights.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#compute_mean_cross_entropy-instance_method" title="#compute_mean_cross_entropy (instance method)">#<strong>compute_mean_cross_entropy</strong>(number_of_data)  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Compute mean cross entropy.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#get_outputs-instance_method" title="#get_outputs (instance method)">#<strong>get_outputs</strong>  &#x21d2; Array </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Get outputs of neural network.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#get_visible_probability-instance_method" title="#get_visible_probability (instance method)">#<strong>get_visible_probability</strong>  &#x21d2; Array </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Get conditional probability of visible layer.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#initialize-instance_method" title="#initialize (instance method)">#<strong>initialize</strong>(columns, type = :Bernoulli)  &#x21d2; RBM </a>
+    
+
+    
+  </span>
+  
+  
+    <span class="note title constructor">constructor</span>
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Creates a RBM from columns giving each the size of a column of units.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#initialize_derivatives-instance_method" title="#initialize_derivatives (instance method)">#<strong>initialize_derivatives</strong>  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Initialize derivatives.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#input-instance_method" title="#input (instance method)">#<strong>input</strong>(values)  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Get the inputs of the restricted boltzmann machine.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#input_hidden_layer-instance_method" title="#input_hidden_layer (instance method)">#<strong>input_hidden_layer</strong>(values)  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Input to the hidden layer.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#load_network-instance_method" title="#load_network (instance method)">#<strong>load_network</strong>(path)  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Load learned network from JSON file.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#randomize-instance_method" title="#randomize (instance method)">#<strong>randomize</strong>  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Set up the RBM to random values.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#reconstruct-instance_method" title="#reconstruct (instance method)">#<strong>reconstruct</strong>(values)  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Reconstruct input data.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#run-instance_method" title="#run (instance method)">#<strong>run</strong>(number_of_steps)  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Learn RBM.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#sample-instance_method" title="#sample (instance method)">#<strong>sample</strong>(number_of_steps)  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Sample visible units and hidden units.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#sample_from_bernoulli-instance_method" title="#sample_from_bernoulli (instance method)">#<strong>sample_from_bernoulli</strong>  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Sample visible units from Bernoulli units.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#sample_from_gaussian-instance_method" title="#sample_from_gaussian (instance method)">#<strong>sample_from_gaussian</strong>  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Sample visible units from Gaussian units.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#sample_hidden_units-instance_method" title="#sample_hidden_units (instance method)">#<strong>sample_hidden_units</strong>  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Compute P(hidden|visible) and sample hidden units.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#sample_visible_units-instance_method" title="#sample_visible_units (instance method)">#<strong>sample_visible_units</strong>  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Compute P(visible|hidden) and sample visible units.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#save_network-instance_method" title="#save_network (instance method)">#<strong>save_network</strong>(path)  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Save learned network to JSON file.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#set_batch_size-instance_method" title="#set_batch_size (instance method)">#<strong>set_batch_size</strong>(size = 1)  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Set batch size of mini-batch learning.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#set_training_rate-instance_method" title="#set_training_rate (instance method)">#<strong>set_training_rate</strong>(rate = 0.1)  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Set training rate.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#standardize-instance_method" title="#standardize (instance method)">#<strong>standardize</strong>  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Standardize input data.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#unstandardize-instance_method" title="#unstandardize (instance method)">#<strong>unstandardize</strong>  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Unstandardize visible units and inputs.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#update_biases-instance_method" title="#update_biases (instance method)">#<strong>update_biases</strong>  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Update biases.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#update_parameters-instance_method" title="#update_parameters (instance method)">#<strong>update_parameters</strong>  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Update biases and weights.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#update_weights-instance_method" title="#update_weights (instance method)">#<strong>update_weights</strong>  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Update weights.</p>
+</div></span>
+  
+</li>
+
+      
+    </ul>
+  
+
+<div id="constructor_details" class="method_details_list">
+  <h2>Constructor Details</h2>
+  
+    <div class="method_details first">
+  <h3 class="signature first" id="initialize-instance_method">
+  
+    #<strong>initialize</strong>(columns, type = :Bernoulli)  &#x21d2; <tt><span class='object_link'><a href="" title="FastNeurons::RBM (class)">RBM</a></span></tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Creates a RBM from columns giving each the size of a column of units. &#39;:Bernoulli&#39; or &#39;:Gaussian&#39; default -&gt; :Bernoulli If you set :Bernoulli, you can use Bernoulli-Bernoulli RBM. If you set :Gaussian, you can use Gaussian-Bernoulli RBM.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+  <div class="examples">
+    <p class="tag_title">Examples:</p>
+    
+      
+        <p class="example_title"><div class='inline'>
+<p>initialization of the restricted boltzmann machine</p>
+</div></p>
+      
+      <pre class="example code"><code><span class='id identifier rubyid_rbm'>rbm</span> <span class='op'>=</span> <span class='const'>RBMR</span><span class='op'>::</span><span class='const'>RBM</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='lbracket'>[</span><span class='int'>5</span><span class='comma'>,</span><span class='int'>4</span><span class='rbracket'>]</span><span class='rparen'>)</span>
+<span class='id identifier rubyid_rbm'>rbm</span> <span class='op'>=</span> <span class='const'>RBMR</span><span class='op'>::</span><span class='const'>RBM</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='lbracket'>[</span><span class='int'>5</span><span class='comma'>,</span><span class='int'>4</span><span class='rbracket'>]</span><span class='comma'>,</span><span class='symbol'>:Gaussian</span><span class='rparen'>)</span></code></pre>
+    
+  </div>
+<p class="tag_title">Parameters:</p>
+<ul class="param">
+  
+    <li>
+      
+        <span class='name'>columns</span>
+      
+      
+        <span class='type'>(<tt>Array</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>the array showing the shape of a restricted boltzmann machine</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>type</span>
+      
+      
+        <span class='type'>(<tt>Symbol</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>:Bernoulli</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>the visible units&#39; type you want to use</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+<p class="tag_title">Since:</p>
+<ul class="since">
+  
+    <li>
+      
+      
+      
+      
+        
+        <div class='inline'>
+<p>2.0</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+386
+387
+388
+389
+390
+391
+392
+393
+394
+395
+396
+397
+398
+399
+400
+401
+402
+403
+404
+405
+406
+407
+408
+409
+410
+411
+412
+413
+414
+415
+416
+417
+418
+419
+420
+421
+422
+423
+424
+425
+426
+427
+428
+429
+430
+431
+432
+433
+434
+435
+436
+437
+438</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'fast_neurons.rb', line 386</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_initialize'>initialize</span><span class='lparen'>(</span><span class='id identifier rubyid_columns'>columns</span><span class='comma'>,</span><span class='id identifier rubyid_type'>type</span> <span class='op'>=</span> <span class='symbol'>:Bernoulli</span><span class='rparen'>)</span>
+  <span class='comment'># training_rate
+</span>  <span class='ivar'>@training_rate</span> <span class='op'>=</span> <span class='float'>0.1</span>
+
+  <span class='comment'># Set the type of visible units.
+</span>  <span class='ivar'>@type</span> <span class='op'>=</span> <span class='id identifier rubyid_type'>type</span>
+
+  <span class='comment'># batch size
+</span>  <span class='ivar'>@batch_size</span> <span class='op'>=</span> <span class='int'>1</span>
+
+  <span class='comment'># counter
+</span>  <span class='ivar'>@count</span> <span class='op'>=</span> <span class='int'>0</span>
+
+  <span class='comment'># Ensure columns is a proper array.
+</span>  <span class='ivar'>@columns</span> <span class='op'>=</span> <span class='id identifier rubyid_columns'>columns</span><span class='period'>.</span><span class='id identifier rubyid_flatten'>flatten</span>
+
+  <span class='comment'># Creates the geometry of the bias matrices.
+</span>  <span class='comment'># The hidden layer and the visible layer are stored in that order.
+</span>  <span class='comment'># @biases[0] -&gt; hidden layer&#39;s biases
+</span>  <span class='comment'># @biases[1] -&gt; visible layer&#39;s biases
+</span>  <span class='ivar'>@biases_geometry</span> <span class='op'>=</span> <span class='ivar'>@columns</span><span class='period'>.</span><span class='id identifier rubyid_reverse'>reverse</span><span class='period'>.</span><span class='id identifier rubyid_map'>map</span> <span class='lbrace'>{</span> <span class='op'>|</span><span class='id identifier rubyid_col'>col</span><span class='op'>|</span> <span class='lbracket'>[</span><span class='int'>1</span><span class='comma'>,</span><span class='id identifier rubyid_col'>col</span><span class='rbracket'>]</span> <span class='rbrace'>}</span>
+
+  <span class='comment'># Create the geometry of the weight matrix
+</span>  <span class='ivar'>@weights_geometry</span> <span class='op'>=</span> <span class='ivar'>@columns</span><span class='lbracket'>[</span><span class='int'>0</span><span class='op'>..</span><span class='int'>1</span><span class='rbracket'>]</span>
+
+  <span class='comment'># Create units matrices
+</span>  <span class='comment'># The visible layer and the hidden layer are stored in that order.
+</span>  <span class='comment'># @units[0] -&gt; visible layer&#39;s units
+</span>  <span class='comment'># @units[1] -&gt; hidden layer&#39;s units
+</span>  <span class='ivar'>@units</span> <span class='op'>=</span> <span class='ivar'>@columns</span><span class='period'>.</span><span class='id identifier rubyid_map'>map</span><span class='lbrace'>{</span> <span class='op'>|</span><span class='id identifier rubyid_col'>col</span><span class='op'>|</span> <span class='const'>NMatrix</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='lbracket'>[</span><span class='int'>1</span><span class='comma'>,</span><span class='id identifier rubyid_col'>col</span><span class='rbracket'>]</span><span class='comma'>,</span><span class='float'>0.0</span><span class='rparen'>)</span> <span class='rbrace'>}</span>
+
+  <span class='comment'># Create the matrices of conditional probability that the unit will be 1.
+</span>  <span class='comment'># P(hidden|visible)→P(visible|hidden)の順で格納
+</span>  <span class='comment'># @probability[0] -&gt; P(hidden|visible)
+</span>  <span class='comment'># @probability[1] -&gt; P(visible|hidden)
+</span>  <span class='ivar'>@probability</span> <span class='op'>=</span> <span class='ivar'>@columns</span><span class='period'>.</span><span class='id identifier rubyid_reverse'>reverse</span><span class='period'>.</span><span class='id identifier rubyid_map'>map</span><span class='lbrace'>{</span> <span class='op'>|</span><span class='id identifier rubyid_col'>col</span><span class='op'>|</span> <span class='const'>NMatrix</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='lbracket'>[</span><span class='int'>1</span><span class='comma'>,</span><span class='id identifier rubyid_col'>col</span><span class='rbracket'>]</span><span class='comma'>,</span><span class='float'>0.0</span><span class='rparen'>)</span> <span class='rbrace'>}</span>
+
+  <span class='comment'># Initialize derivative of biases and weights.
+</span>  <span class='id identifier rubyid_initialize_derivatives'>initialize_derivatives</span>
+
+  <span class='comment'># need for compute cross entropy
+</span>  <span class='ivar'>@cross_entropy</span> <span class='op'>=</span> <span class='const'>NMatrix</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='lbracket'>[</span><span class='int'>1</span><span class='comma'>,</span><span class='ivar'>@units</span><span class='lbracket'>[</span><span class='int'>0</span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_size'>size</span><span class='rbracket'>]</span><span class='comma'>,</span><span class='float'>0.0</span><span class='rparen'>)</span>
+
+  <span class='comment'># Make a Gaussian distribution that has μ = 0, σ = 0.01.
+</span>  <span class='ivar'>@bell</span> <span class='op'>=</span> <span class='const'>RandomBell</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='label'>mu:</span> <span class='int'>0</span><span class='comma'>,</span> <span class='label'>sigma:</span> <span class='float'>0.01</span><span class='comma'>,</span> <span class='label'>range:</span> <span class='op'>-</span><span class='const'>Float</span><span class='op'>::</span><span class='const'>INFINITY</span><span class='op'>..</span><span class='const'>Float</span><span class='op'>::</span><span class='const'>INFINITY</span><span class='rparen'>)</span>
+
+  <span class='comment'># computation method of sampling visible units
+</span>  <span class='ivar'>@sampling_methods</span> <span class='op'>=</span> <span class='lbrace'>{</span> <span class='label'>Bernoulli:</span> <span class='id identifier rubyid_method'>method</span><span class='lparen'>(</span><span class='symbol'>:sample_from_bernoulli</span><span class='rparen'>)</span><span class='comma'>,</span> <span class='label'>Gaussian:</span> <span class='id identifier rubyid_method'>method</span><span class='lparen'>(</span><span class='symbol'>:sample_from_gaussian</span><span class='rparen'>)</span> <span class='rbrace'>}</span>
+  <span class='ivar'>@sampling_method</span> <span class='op'>=</span> <span class='ivar'>@sampling_methods</span><span class='lbracket'>[</span><span class='ivar'>@type</span><span class='rbracket'>]</span>
+
+  <span class='comment'># Set Sigmoid function.
+</span>  <span class='ivar'>@sigmoid</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="../FastNeurons.html#Sigmoid-constant" title="FastNeurons::Sigmoid (constant)">Sigmoid</a></span></span><span class='lbracket'>[</span><span class='symbol'>:antiderivative</span><span class='rbracket'>]</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+  
+</div>
+
+
+  <div id="instance_method_details" class="method_details_list">
+    <h2>Instance Method Details</h2>
+
+    
+      <div class="method_details first">
+  <h3 class="signature first" id="compute_cross_entropy-instance_method">
+  
+    #<strong>compute_cross_entropy</strong>  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Compute cross entropy.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Since:</p>
+<ul class="since">
+  
+    <li>
+      
+      
+      
+      
+        
+        <div class='inline'>
+<p>2.0</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+641
+642
+643
+644
+645
+646</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'fast_neurons.rb', line 641</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_compute_cross_entropy'>compute_cross_entropy</span>
+  <span class='id identifier rubyid_log_probability'>log_probability</span> <span class='op'>=</span> <span class='ivar'>@probability</span><span class='lbracket'>[</span><span class='int'>1</span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_log'>log</span>
+  <span class='id identifier rubyid_log_probability_dash'>log_probability_dash</span> <span class='op'>=</span> <span class='lparen'>(</span><span class='op'>-</span><span class='ivar'>@probability</span><span class='lbracket'>[</span><span class='int'>1</span><span class='rbracket'>]</span> <span class='op'>+</span> <span class='int'>1</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_log'>log</span>
+  <span class='id identifier rubyid_inputs_dash'>inputs_dash</span> <span class='op'>=</span> <span class='lparen'>(</span><span class='op'>-</span><span class='ivar'>@inputs</span> <span class='op'>+</span> <span class='int'>1</span><span class='rparen'>)</span>
+  <span class='ivar'>@cross_entropy</span> <span class='op'>+=</span> <span class='lparen'>(</span><span class='lparen'>(</span><span class='ivar'>@inputs</span> <span class='op'>*</span> <span class='id identifier rubyid_log_probability'>log_probability</span><span class='rparen'>)</span> <span class='op'>+</span> <span class='lparen'>(</span><span class='id identifier rubyid_inputs_dash'>inputs_dash</span> <span class='op'>*</span> <span class='id identifier rubyid_log_probability_dash'>log_probability_dash</span><span class='rparen'>)</span><span class='rparen'>)</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="compute_derivatives-instance_method">
+  
+    #<strong>compute_derivatives</strong>  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Compute derivatives biases and weights.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Since:</p>
+<ul class="since">
+  
+    <li>
+      
+      
+      
+      
+        
+        <div class='inline'>
+<p>2.0</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+597
+598
+599
+600
+601
+602
+603
+604
+605
+606
+607</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'fast_neurons.rb', line 597</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_compute_derivatives'>compute_derivatives</span>
+  <span class='comment'># Judge RBM type.
+</span>  <span class='id identifier rubyid_unit'>unit</span> <span class='op'>=</span> <span class='ivar'>@type</span> <span class='op'>==</span> <span class='symbol'>:Bernoulli</span> <span class='op'>?</span> <span class='ivar'>@units</span><span class='lbracket'>[</span><span class='int'>0</span><span class='rbracket'>]</span> <span class='op'>:</span> <span class='ivar'>@probability</span><span class='lbracket'>[</span><span class='int'>1</span><span class='rbracket'>]</span>
+
+  <span class='comment'># Compute derivative of weights.
+</span>  <span class='ivar'>@derivative_weights</span> <span class='op'>+=</span> <span class='const'>NMatrix</span><span class='op'>::</span><span class='const'>BLAS</span><span class='period'>.</span><span class='id identifier rubyid_gemm'>gemm</span><span class='lparen'>(</span><span class='ivar'>@inputs</span><span class='comma'>,</span> <span class='ivar'>@probability_hidden</span><span class='comma'>,</span> <span class='kw'>nil</span><span class='comma'>,</span> <span class='float'>1.0</span><span class='comma'>,</span> <span class='float'>0.0</span><span class='comma'>,</span> <span class='symbol'>:transpose</span><span class='rparen'>)</span> <span class='op'>-</span> <span class='const'>NMatrix</span><span class='op'>::</span><span class='const'>BLAS</span><span class='period'>.</span><span class='id identifier rubyid_gemm'>gemm</span><span class='lparen'>(</span><span class='id identifier rubyid_unit'>unit</span><span class='comma'>,</span> <span class='ivar'>@probability</span><span class='lbracket'>[</span><span class='int'>0</span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='kw'>nil</span><span class='comma'>,</span> <span class='float'>1.0</span><span class='comma'>,</span> <span class='float'>0.0</span><span class='comma'>,</span> <span class='symbol'>:transpose</span><span class='rparen'>)</span>
+
+  <span class='comment'># Compute derivative of biases.
+</span>  <span class='ivar'>@derivative_biases</span><span class='lbracket'>[</span><span class='int'>0</span><span class='rbracket'>]</span> <span class='op'>+=</span> <span class='lparen'>(</span><span class='ivar'>@inputs</span> <span class='op'>-</span> <span class='id identifier rubyid_unit'>unit</span><span class='rparen'>)</span>
+  <span class='ivar'>@derivative_biases</span><span class='lbracket'>[</span><span class='int'>1</span><span class='rbracket'>]</span> <span class='op'>+=</span> <span class='lparen'>(</span><span class='ivar'>@probability_hidden</span> <span class='op'>-</span> <span class='ivar'>@probability</span><span class='lbracket'>[</span><span class='int'>0</span><span class='rbracket'>]</span><span class='rparen'>)</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="compute_mean_cross_entropy-instance_method">
+  
+    #<strong>compute_mean_cross_entropy</strong>(number_of_data)  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Compute mean cross entropy.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  <p class="tag_title">Parameters:</p>
+<ul class="param">
+  
+    <li>
+      
+        <span class='name'>number_of_data</span>
+      
+      
+        <span class='type'>(<tt>Int</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>the number of training data.</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+<p class="tag_title">Since:</p>
+<ul class="since">
+  
+    <li>
+      
+      
+      
+      
+        
+        <div class='inline'>
+<p>2.0</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+651
+652
+653
+654
+655</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'fast_neurons.rb', line 651</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_compute_mean_cross_entropy'>compute_mean_cross_entropy</span><span class='lparen'>(</span><span class='id identifier rubyid_number_of_data'>number_of_data</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_mean_cross_entropy'>mean_cross_entropy</span> <span class='op'>=</span> <span class='op'>-</span><span class='ivar'>@cross_entropy</span><span class='period'>.</span><span class='id identifier rubyid_to_a'>to_a</span><span class='period'>.</span><span class='id identifier rubyid_sum'>sum</span> <span class='op'>/</span> <span class='id identifier rubyid_number_of_data'>number_of_data</span><span class='period'>.</span><span class='id identifier rubyid_to_f'>to_f</span>
+  <span class='ivar'>@cross_entropy</span> <span class='op'>=</span> <span class='const'>NMatrix</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='lbracket'>[</span><span class='int'>1</span><span class='comma'>,</span><span class='ivar'>@units</span><span class='lbracket'>[</span><span class='int'>0</span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_size'>size</span><span class='rbracket'>]</span><span class='comma'>,</span><span class='float'>0.0</span><span class='rparen'>)</span>
+  <span class='kw'>return</span> <span class='id identifier rubyid_mean_cross_entropy'>mean_cross_entropy</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="get_outputs-instance_method">
+  
+    #<strong>get_outputs</strong>  &#x21d2; <tt>Array</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Get outputs of neural network.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>Array</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>output of restricted boltzmann machine(= visible units)</p>
+</div>
+      
+    </li>
+  
+</ul>
+<p class="tag_title">Since:</p>
+<ul class="since">
+  
+    <li>
+      
+      
+      
+      
+        
+        <div class='inline'>
+<p>2.0</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+660
+661
+662
+663</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'fast_neurons.rb', line 660</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_get_outputs'>get_outputs</span>
+  <span class='ivar'>@type</span> <span class='op'>==</span> <span class='symbol'>:Gaussian</span> <span class='op'>?</span> <span class='id identifier rubyid_unstandardize'>unstandardize</span> <span class='op'>:</span> <span class='kw'>nil</span>
+  <span class='kw'>return</span> <span class='ivar'>@units</span><span class='lbracket'>[</span><span class='int'>0</span><span class='rbracket'>]</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="get_visible_probability-instance_method">
+  
+    #<strong>get_visible_probability</strong>  &#x21d2; <tt>Array</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Get conditional probability of visible layer.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>Array</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>conditional probability of visible layer.</p>
+</div>
+      
+    </li>
+  
+</ul>
+<p class="tag_title">Since:</p>
+<ul class="since">
+  
+    <li>
+      
+      
+      
+      
+        
+        <div class='inline'>
+<p>2.0</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+668
+669
+670</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'fast_neurons.rb', line 668</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_get_visible_probability'>get_visible_probability</span>
+  <span class='kw'>return</span> <span class='ivar'>@probability</span><span class='lbracket'>[</span><span class='int'>1</span><span class='rbracket'>]</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="initialize_derivatives-instance_method">
+  
+    #<strong>initialize_derivatives</strong>  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Initialize derivatives. The main use is for mini-batch learning.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Since:</p>
+<ul class="since">
+  
+    <li>
+      
+      
+      
+      
+        
+        <div class='inline'>
+<p>2.0</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+443
+444
+445
+446
+447
+448
+449</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'fast_neurons.rb', line 443</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_initialize_derivatives'>initialize_derivatives</span>
+  <span class='comment'># Initialize derivative matrix of biases.
+</span>  <span class='ivar'>@derivative_biases</span> <span class='op'>=</span> <span class='ivar'>@columns</span><span class='period'>.</span><span class='id identifier rubyid_map'>map</span><span class='lbrace'>{</span> <span class='op'>|</span><span class='id identifier rubyid_col'>col</span><span class='op'>|</span> <span class='const'>NMatrix</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='lbracket'>[</span><span class='int'>1</span><span class='comma'>,</span><span class='id identifier rubyid_col'>col</span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='float'>0.0</span><span class='rparen'>)</span> <span class='rbrace'>}</span>
+
+  <span class='comment'># Initialize derivative matrix of weights.
+</span>  <span class='ivar'>@derivative_weights</span> <span class='op'>=</span> <span class='const'>NMatrix</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='ivar'>@weights_geometry</span><span class='comma'>,</span> <span class='float'>0.0</span><span class='rparen'>)</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="input-instance_method">
+  
+    #<strong>input</strong>(values)  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Get the inputs of the restricted boltzmann machine.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  <p class="tag_title">Parameters:</p>
+<ul class="param">
+  
+    <li>
+      
+        <span class='name'>values</span>
+      
+      
+        <span class='type'>(<tt>Array</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>inputs of the restricted boltzmann machine.</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+<p class="tag_title">Since:</p>
+<ul class="since">
+  
+    <li>
+      
+      
+      
+      
+        
+        <div class='inline'>
+<p>2.0</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+476
+477
+478
+479
+480
+481
+482</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'fast_neurons.rb', line 476</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_input'>input</span><span class='lparen'>(</span><span class='id identifier rubyid_values'>values</span><span class='rparen'>)</span>
+  <span class='ivar'>@units</span><span class='lbracket'>[</span><span class='int'>0</span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='const'>N</span><span class='lbracket'>[</span><span class='id identifier rubyid_values'>values</span><span class='period'>.</span><span class='id identifier rubyid_flatten'>flatten</span><span class='comma'>,</span><span class='symbol'>:dtype</span> <span class='op'>=&gt;</span> <span class='symbol'>:float64</span><span class='rbracket'>]</span>
+  <span class='ivar'>@inputs</span> <span class='op'>=</span> <span class='ivar'>@units</span><span class='lbracket'>[</span><span class='int'>0</span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_dup'>dup</span>
+
+  <span class='comment'># If Gaussian-Bernoulli RBM is used, it standardize input data.
+</span>  <span class='ivar'>@type</span> <span class='op'>==</span> <span class='symbol'>:Gaussian</span> <span class='op'>?</span> <span class='id identifier rubyid_standardize'>standardize</span> <span class='op'>:</span> <span class='kw'>nil</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="input_hidden_layer-instance_method">
+  
+    #<strong>input_hidden_layer</strong>(values)  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Input to the hidden layer. The main use is for post-learning confirmation.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  <p class="tag_title">Parameters:</p>
+<ul class="param">
+  
+    <li>
+      
+        <span class='name'>values</span>
+      
+      
+        <span class='type'>(<tt>Array</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>inputs of the hidden layer</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+<p class="tag_title">Since:</p>
+<ul class="since">
+  
+    <li>
+      
+      
+      
+      
+        
+        <div class='inline'>
+<p>2.0</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+488
+489
+490
+491</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'fast_neurons.rb', line 488</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_input_hidden_layer'>input_hidden_layer</span><span class='lparen'>(</span><span class='id identifier rubyid_values'>values</span><span class='rparen'>)</span>
+  <span class='ivar'>@units</span><span class='lbracket'>[</span><span class='int'>1</span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='const'>N</span><span class='lbracket'>[</span><span class='id identifier rubyid_values'>values</span><span class='period'>.</span><span class='id identifier rubyid_flatten'>flatten</span><span class='comma'>,</span><span class='symbol'>:dtype</span> <span class='op'>=&gt;</span> <span class='symbol'>:float64</span><span class='rbracket'>]</span>
+  <span class='id identifier rubyid_sample_visible_units'>sample_visible_units</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="load_network-instance_method">
+  
+    #<strong>load_network</strong>(path)  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Load learned network from JSON file.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  <p class="tag_title">Parameters:</p>
+<ul class="param">
+  
+    <li>
+      
+        <span class='name'>path</span>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>file path</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+<p class="tag_title">Since:</p>
+<ul class="since">
+  
+    <li>
+      
+      
+      
+      
+        
+        <div class='inline'>
+<p>2.0</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+703
+704
+705
+706
+707
+708
+709
+710
+711
+712
+713
+714
+715
+716
+717
+718
+719
+720
+721
+722
+723
+724
+725
+726
+727
+728
+729
+730
+731
+732
+733</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'fast_neurons.rb', line 703</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_load_network'>load_network</span><span class='lparen'>(</span><span class='id identifier rubyid_path'>path</span><span class='rparen'>)</span>
+  <span class='comment'># Open file.
+</span>  <span class='const'>File</span><span class='period'>.</span><span class='id identifier rubyid_open'>open</span><span class='lparen'>(</span><span class='id identifier rubyid_path'>path</span><span class='comma'>,</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>r+</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_f'>f</span><span class='op'>|</span>
+    <span class='comment'># Load hash from JSON file.
+</span>    <span class='id identifier rubyid_hash'>hash</span> <span class='op'>=</span> <span class='const'>JSON</span><span class='period'>.</span><span class='id identifier rubyid_load'>load</span><span class='lparen'>(</span><span class='id identifier rubyid_f'>f</span><span class='rparen'>)</span>
+
+    <span class='comment'># Set columns from hash.
+</span>    <span class='ivar'>@columns</span> <span class='op'>=</span> <span class='id identifier rubyid_hash'>hash</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>columns</span><span class='tstring_end'>&quot;</span></span><span class='rbracket'>]</span>
+
+    <span class='comment'># Set visible units&#39; type.
+</span>    <span class='ivar'>@type</span> <span class='op'>=</span> <span class='id identifier rubyid_hash'>hash</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>type</span><span class='tstring_end'>&quot;</span></span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_to_sym'>to_sym</span>
+
+    <span class='comment'># Initialize the restricted boltzmann machine.
+</span>    <span class='id identifier rubyid_initialize'>initialize</span><span class='lparen'>(</span><span class='ivar'>@columns</span><span class='comma'>,</span><span class='ivar'>@type</span><span class='rparen'>)</span>
+
+    <span class='comment'># Load biases.
+</span>    <span class='id identifier rubyid_biases_matrix'>biases_matrix</span> <span class='op'>=</span> <span class='id identifier rubyid_hash'>hash</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>biases</span><span class='tstring_end'>&quot;</span></span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_to_a'>to_a</span>
+    <span class='ivar'>@biases</span> <span class='op'>=</span> <span class='lbracket'>[</span><span class='rbracket'>]</span>
+    <span class='ivar'>@columns</span><span class='period'>.</span><span class='id identifier rubyid_size'>size</span><span class='period'>.</span><span class='id identifier rubyid_times'>times</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_i'>i</span><span class='op'>|</span>
+      <span class='ivar'>@biases</span><span class='period'>.</span><span class='id identifier rubyid_push'>push</span><span class='lparen'>(</span><span class='const'>N</span><span class='lbracket'>[</span><span class='id identifier rubyid_biases_matrix'>biases_matrix</span><span class='lbracket'>[</span><span class='id identifier rubyid_i'>i</span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_split'>split</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>,</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_map!'>map!</span><span class='lbrace'>{</span> <span class='op'>|</span><span class='id identifier rubyid_item'>item</span><span class='op'>|</span> <span class='id identifier rubyid_item'>item</span><span class='period'>.</span><span class='id identifier rubyid_delete'>delete</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>/[\-]/</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_gsub'>gsub</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'> </span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_to_f'>to_f</span><span class='rbrace'>}</span><span class='rbracket'>]</span><span class='rparen'>)</span>
+    <span class='kw'>end</span>
+    <span class='id identifier rubyid_puts'>puts</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='embexpr_beg'>#{</span><span class='ivar'>@biases</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span>
+
+    <span class='comment'># Load weights.
+</span>    <span class='id identifier rubyid_weights_matrix'>weights_matrix</span> <span class='op'>=</span> <span class='id identifier rubyid_hash'>hash</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>weights</span><span class='tstring_end'>&quot;</span></span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_to_a'>to_a</span>
+    <span class='ivar'>@weights</span> <span class='op'>=</span> <span class='lbracket'>[</span><span class='rbracket'>]</span>
+    <span class='id identifier rubyid_weights_array'>weights_array</span> <span class='op'>=</span> <span class='id identifier rubyid_weights_matrix'>weights_matrix</span><span class='lbracket'>[</span><span class='int'>0</span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_split'>split</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>,</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_map!'>map!</span><span class='lbrace'>{</span> <span class='op'>|</span><span class='id identifier rubyid_item'>item</span><span class='op'>|</span> <span class='id identifier rubyid_item'>item</span><span class='period'>.</span><span class='id identifier rubyid_delete'>delete</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>/[\-]/</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_gsub'>gsub</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'> </span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_to_f'>to_f</span><span class='rbrace'>}</span><span class='period'>.</span><span class='id identifier rubyid_to_a'>to_a</span>
+    <span class='ivar'>@weights</span><span class='period'>.</span><span class='id identifier rubyid_push'>push</span><span class='lparen'>(</span><span class='const'>NMatrix</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='ivar'>@weights_geometry</span><span class='comma'>,</span><span class='id identifier rubyid_weights_array'>weights_array</span><span class='rparen'>)</span><span class='rparen'>)</span>
+    <span class='id identifier rubyid_puts'>puts</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='embexpr_beg'>#{</span><span class='ivar'>@weights</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span>
+  <span class='kw'>end</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="randomize-instance_method">
+  
+    #<strong>randomize</strong>  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Set up the RBM to random values.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Since:</p>
+<ul class="since">
+  
+    <li>
+      
+      
+      
+      
+        
+        <div class='inline'>
+<p>2.0</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+453
+454
+455
+456
+457
+458
+459
+460
+461
+462
+463
+464
+465
+466
+467
+468
+469
+470
+471</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'fast_neurons.rb', line 453</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_randomize'>randomize</span>
+  <span class='comment'># Create fast matrices for the biases.
+</span>  <span class='ivar'>@biases</span> <span class='op'>=</span> <span class='ivar'>@biases_geometry</span><span class='period'>.</span><span class='id identifier rubyid_map'>map</span> <span class='lbrace'>{</span> <span class='op'>|</span><span class='id identifier rubyid_geo'>geo</span><span class='op'>|</span> <span class='const'>NMatrix</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='id identifier rubyid_geo'>geo</span><span class='comma'>,</span><span class='float'>0.0</span><span class='rparen'>)</span><span class='rbrace'>}</span>
+  <span class='id identifier rubyid_puts'>puts</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>@biases: </span><span class='embexpr_beg'>#{</span><span class='ivar'>@biases</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span>
+
+  <span class='comment'># Create random fast matrices for the weights.
+</span>  <span class='comment'># The weights are initialized to follow the Gaussian distribution.
+</span>  <span class='id identifier rubyid_weights_array'>weights_array</span> <span class='op'>=</span> <span class='lbracket'>[</span><span class='rbracket'>]</span>
+  <span class='ivar'>@weights_geometry</span><span class='lbracket'>[</span><span class='int'>0</span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_times'>times</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_i'>i</span><span class='op'>|</span>
+    <span class='ivar'>@weights_geometry</span><span class='lbracket'>[</span><span class='int'>0</span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_times'>times</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_j'>j</span><span class='op'>|</span>
+      <span class='id identifier rubyid_weights_array'>weights_array</span><span class='period'>.</span><span class='id identifier rubyid_push'>push</span><span class='lparen'>(</span><span class='ivar'>@bell</span><span class='period'>.</span><span class='id identifier rubyid_rand'>rand</span><span class='rparen'>)</span>
+    <span class='kw'>end</span>
+  <span class='kw'>end</span>
+
+  <span class='comment'># Store weights into @weights.
+</span>  <span class='ivar'>@weights</span> <span class='op'>=</span> <span class='lbracket'>[</span><span class='rbracket'>]</span>
+  <span class='ivar'>@weights</span><span class='period'>.</span><span class='id identifier rubyid_push'>push</span><span class='lparen'>(</span><span class='const'>NMatrix</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='ivar'>@weights_geometry</span><span class='comma'>,</span><span class='id identifier rubyid_weights_array'>weights_array</span><span class='rparen'>)</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_puts'>puts</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>@weights: </span><span class='embexpr_beg'>#{</span><span class='ivar'>@weights</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="reconstruct-instance_method">
+  
+    #<strong>reconstruct</strong>(values)  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Reconstruct input data. The main use is for post-learning confirmation.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  <p class="tag_title">Parameters:</p>
+<ul class="param">
+  
+    <li>
+      
+        <span class='name'>values</span>
+      
+      
+        <span class='type'>(<tt>Array</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>the data you want to reconstruct</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+<p class="tag_title">Since:</p>
+<ul class="since">
+  
+    <li>
+      
+      
+      
+      
+        
+        <div class='inline'>
+<p>2.0</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+633
+634
+635
+636
+637</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'fast_neurons.rb', line 633</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_reconstruct'>reconstruct</span><span class='lparen'>(</span><span class='id identifier rubyid_values'>values</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_input'>input</span><span class='lparen'>(</span><span class='id identifier rubyid_values'>values</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_sample_hidden_units'>sample_hidden_units</span>
+  <span class='id identifier rubyid_sample_visible_units'>sample_visible_units</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="run-instance_method">
+  
+    #<strong>run</strong>(number_of_steps)  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Learn RBM.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  <p class="tag_title">Parameters:</p>
+<ul class="param">
+  
+    <li>
+      
+        <span class='name'>number_of_steps</span>
+      
+      
+        <span class='type'>(<tt>Int</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>the number of Contrastive Divergence steps</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+<p class="tag_title">Since:</p>
+<ul class="since">
+  
+    <li>
+      
+      
+      
+      
+        
+        <div class='inline'>
+<p>2.0</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+512
+513
+514
+515
+516
+517
+518
+519
+520
+521
+522</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'fast_neurons.rb', line 512</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_run'>run</span><span class='lparen'>(</span><span class='id identifier rubyid_number_of_steps'>number_of_steps</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_sample'>sample</span><span class='lparen'>(</span><span class='id identifier rubyid_number_of_steps'>number_of_steps</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_compute_derivatives'>compute_derivatives</span>
+
+  <span class='ivar'>@count</span> <span class='op'>+=</span> <span class='int'>1</span>
+  <span class='kw'>if</span> <span class='ivar'>@count</span> <span class='op'>==</span> <span class='ivar'>@batch_size</span>
+    <span class='ivar'>@count</span> <span class='op'>=</span> <span class='int'>0</span>
+    <span class='id identifier rubyid_update_parameters'>update_parameters</span>
+    <span class='id identifier rubyid_initialize_derivatives'>initialize_derivatives</span>
+  <span class='kw'>end</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="sample-instance_method">
+  
+    #<strong>sample</strong>(number_of_steps)  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Sample visible units and hidden units.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  <p class="tag_title">Parameters:</p>
+<ul class="param">
+  
+    <li>
+      
+        <span class='name'>number_of_steps</span>
+      
+      
+        <span class='type'>(<tt>Int</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>the number of Contrastive Divergence steps</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+<p class="tag_title">Since:</p>
+<ul class="since">
+  
+    <li>
+      
+      
+      
+      
+        
+        <div class='inline'>
+<p>2.0</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+527
+528
+529
+530
+531
+532
+533
+534
+535
+536
+537
+538
+539
+540
+541</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'fast_neurons.rb', line 527</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_sample'>sample</span><span class='lparen'>(</span><span class='id identifier rubyid_number_of_steps'>number_of_steps</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_sample_hidden_units'>sample_hidden_units</span>
+
+  <span class='comment'># Store the conditional probability of hidden layer of first step.
+</span>  <span class='comment'># Need for computing derivatives.
+</span>  <span class='ivar'>@probability_hidden</span> <span class='op'>=</span> <span class='ivar'>@probability</span><span class='lbracket'>[</span><span class='int'>0</span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_dup'>dup</span>
+
+  <span class='id identifier rubyid_sample_visible_units'>sample_visible_units</span>
+
+  <span class='comment'># Sample the times of number_of_steps.
+</span>  <span class='id identifier rubyid_number_of_steps'>number_of_steps</span><span class='period'>.</span><span class='id identifier rubyid_times'>times</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_i'>i</span><span class='op'>|</span>
+    <span class='id identifier rubyid_sample_hidden_units'>sample_hidden_units</span>
+    <span class='id identifier rubyid_sample_visible_units'>sample_visible_units</span>
+  <span class='kw'>end</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="sample_from_bernoulli-instance_method">
+  
+    #<strong>sample_from_bernoulli</strong>  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Sample visible units from Bernoulli units.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Since:</p>
+<ul class="since">
+  
+    <li>
+      
+      
+      
+      
+        
+        <div class='inline'>
+<p>2.0</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+564
+565
+566
+567
+568
+569
+570
+571
+572
+573
+574</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'fast_neurons.rb', line 564</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_sample_from_bernoulli'>sample_from_bernoulli</span>
+  <span class='comment'># Compute conditional probability of visible layer.
+</span>  <span class='id identifier rubyid_product_of_units_and_weights'>product_of_units_and_weights</span> <span class='op'>=</span> <span class='const'>NMatrix</span><span class='op'>::</span><span class='const'>BLAS</span><span class='period'>.</span><span class='id identifier rubyid_gemm'>gemm</span><span class='lparen'>(</span><span class='ivar'>@weights</span><span class='lbracket'>[</span><span class='int'>0</span><span class='rbracket'>]</span><span class='comma'>,</span><span class='ivar'>@units</span><span class='lbracket'>[</span><span class='int'>1</span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_transpose'>transpose</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_pre_sigmoid'>pre_sigmoid</span> <span class='op'>=</span> <span class='id identifier rubyid_product_of_units_and_weights'>product_of_units_and_weights</span><span class='period'>.</span><span class='id identifier rubyid_transpose'>transpose</span> <span class='op'>+</span> <span class='ivar'>@biases</span><span class='lbracket'>[</span><span class='int'>1</span><span class='rbracket'>]</span>
+  <span class='ivar'>@probability</span><span class='lbracket'>[</span><span class='int'>1</span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='ivar'>@sigmoid</span><span class='period'>.</span><span class='id identifier rubyid_call'>call</span><span class='lparen'>(</span><span class='id identifier rubyid_pre_sigmoid'>pre_sigmoid</span><span class='rparen'>)</span>
+
+  <span class='comment'># Sample visible units from conditional probability.
+</span>  <span class='ivar'>@probability</span><span class='lbracket'>[</span><span class='int'>1</span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_each_with_index'>each_with_index</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_prob'>prob</span><span class='comma'>,</span><span class='id identifier rubyid_i'>i</span><span class='op'>|</span>
+    <span class='ivar'>@units</span><span class='lbracket'>[</span><span class='int'>0</span><span class='rbracket'>]</span><span class='lbracket'>[</span><span class='id identifier rubyid_i'>i</span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='id identifier rubyid_prob'>prob</span> <span class='op'>&gt;=</span> <span class='id identifier rubyid_rand'>rand</span> <span class='op'>?</span> <span class='float'>1.0</span> <span class='op'>:</span> <span class='float'>0.0</span>
+  <span class='kw'>end</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="sample_from_gaussian-instance_method">
+  
+    #<strong>sample_from_gaussian</strong>  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Sample visible units from Gaussian units.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Since:</p>
+<ul class="since">
+  
+    <li>
+      
+      
+      
+      
+        
+        <div class='inline'>
+<p>2.0</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+578
+579
+580
+581
+582
+583
+584
+585
+586
+587
+588
+589
+590
+591
+592
+593</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'fast_neurons.rb', line 578</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_sample_from_gaussian'>sample_from_gaussian</span>
+  <span class='comment'># Compute product of hidden units and weights.
+</span>  <span class='id identifier rubyid_product_of_units_and_weights'>product_of_units_and_weights</span> <span class='op'>=</span> <span class='const'>NMatrix</span><span class='op'>::</span><span class='const'>BLAS</span><span class='period'>.</span><span class='id identifier rubyid_gemm'>gemm</span><span class='lparen'>(</span><span class='ivar'>@weights</span><span class='lbracket'>[</span><span class='int'>0</span><span class='rbracket'>]</span><span class='comma'>,</span><span class='ivar'>@units</span><span class='lbracket'>[</span><span class='int'>1</span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_transpose'>transpose</span><span class='rparen'>)</span>
+
+  <span class='comment'># Compute mean of Gaussian distribution.
+</span>  <span class='id identifier rubyid_mean_of_gaussian_distribution'>mean_of_gaussian_distribution</span> <span class='op'>=</span> <span class='id identifier rubyid_product_of_units_and_weights'>product_of_units_and_weights</span><span class='period'>.</span><span class='id identifier rubyid_transpose'>transpose</span> <span class='op'>+</span> <span class='ivar'>@biases</span><span class='lbracket'>[</span><span class='int'>1</span><span class='rbracket'>]</span>
+
+  <span class='comment'># Sample visible units from Gaussian distribution.
+</span>  <span class='id identifier rubyid_mean_of_gaussian_distribution'>mean_of_gaussian_distribution</span><span class='period'>.</span><span class='id identifier rubyid_each_with_index'>each_with_index</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_mean'>mean</span><span class='comma'>,</span><span class='id identifier rubyid_i'>i</span><span class='op'>|</span>
+    <span class='ivar'>@units</span><span class='lbracket'>[</span><span class='int'>0</span><span class='rbracket'>]</span><span class='lbracket'>[</span><span class='id identifier rubyid_i'>i</span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='const'>RandomBell</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='label'>mu:</span> <span class='id identifier rubyid_mean'>mean</span><span class='comma'>,</span> <span class='label'>sigma:</span> <span class='int'>1</span><span class='comma'>,</span> <span class='label'>range:</span> <span class='op'>-</span><span class='const'>Float</span><span class='op'>::</span><span class='const'>INFINITY</span><span class='op'>..</span><span class='const'>Float</span><span class='op'>::</span><span class='const'>INFINITY</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_rand'>rand</span>
+  <span class='kw'>end</span>
+
+  <span class='comment'># Compute Gaussian distribution.
+</span>  <span class='id identifier rubyid_difference_of_units_and_mean'>difference_of_units_and_mean</span> <span class='op'>=</span> <span class='ivar'>@units</span><span class='lbracket'>[</span><span class='int'>0</span><span class='rbracket'>]</span> <span class='op'>-</span> <span class='id identifier rubyid_mean_of_gaussian_distribution'>mean_of_gaussian_distribution</span>
+  <span class='ivar'>@probability</span><span class='lbracket'>[</span><span class='int'>1</span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='lparen'>(</span><span class='op'>-</span><span class='lparen'>(</span><span class='id identifier rubyid_difference_of_units_and_mean'>difference_of_units_and_mean</span> <span class='op'>**</span> <span class='int'>2</span><span class='rparen'>)</span> <span class='op'>/</span> <span class='float'>2.0</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_exp'>exp</span> <span class='op'>/</span> <span class='const'>Math</span><span class='period'>.</span><span class='id identifier rubyid_sqrt'>sqrt</span><span class='lparen'>(</span><span class='float'>2.0</span> <span class='op'>*</span> <span class='const'>Math</span><span class='op'>::</span><span class='const'>PI</span><span class='rparen'>)</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="sample_hidden_units-instance_method">
+  
+    #<strong>sample_hidden_units</strong>  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Compute P(hidden|visible) and sample hidden units.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Since:</p>
+<ul class="since">
+  
+    <li>
+      
+      
+      
+      
+        
+        <div class='inline'>
+<p>2.0</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+545
+546
+547
+548
+549
+550
+551
+552
+553
+554</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'fast_neurons.rb', line 545</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_sample_hidden_units'>sample_hidden_units</span>
+  <span class='comment'># Compute conditional probability of hidden layer.
+</span>  <span class='id identifier rubyid_pre_sigmoid'>pre_sigmoid</span> <span class='op'>=</span> <span class='const'>NMatrix</span><span class='op'>::</span><span class='const'>BLAS</span><span class='period'>.</span><span class='id identifier rubyid_gemm'>gemm</span><span class='lparen'>(</span><span class='ivar'>@units</span><span class='lbracket'>[</span><span class='int'>0</span><span class='rbracket'>]</span><span class='comma'>,</span><span class='ivar'>@weights</span><span class='lbracket'>[</span><span class='int'>0</span><span class='rbracket'>]</span><span class='comma'>,</span><span class='ivar'>@biases</span><span class='lbracket'>[</span><span class='int'>0</span><span class='rbracket'>]</span><span class='rparen'>)</span>
+  <span class='ivar'>@probability</span><span class='lbracket'>[</span><span class='int'>0</span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='ivar'>@sigmoid</span><span class='period'>.</span><span class='id identifier rubyid_call'>call</span><span class='lparen'>(</span><span class='id identifier rubyid_pre_sigmoid'>pre_sigmoid</span><span class='rparen'>)</span>
+
+  <span class='comment'># Sample hidden units from conditional probability.
+</span>  <span class='ivar'>@probability</span><span class='lbracket'>[</span><span class='int'>0</span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_each_with_index'>each_with_index</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_prob'>prob</span><span class='comma'>,</span><span class='id identifier rubyid_i'>i</span><span class='op'>|</span>
+    <span class='ivar'>@units</span><span class='lbracket'>[</span><span class='int'>1</span><span class='rbracket'>]</span><span class='lbracket'>[</span><span class='id identifier rubyid_i'>i</span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='id identifier rubyid_prob'>prob</span> <span class='op'>&gt;=</span> <span class='id identifier rubyid_rand'>rand</span> <span class='op'>?</span> <span class='float'>1.0</span> <span class='op'>:</span> <span class='float'>0.0</span>
+  <span class='kw'>end</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="sample_visible_units-instance_method">
+  
+    #<strong>sample_visible_units</strong>  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Compute P(visible|hidden) and sample visible units.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Since:</p>
+<ul class="since">
+  
+    <li>
+      
+      
+      
+      
+        
+        <div class='inline'>
+<p>2.0</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+558
+559
+560</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'fast_neurons.rb', line 558</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_sample_visible_units'>sample_visible_units</span>
+  <span class='ivar'>@sampling_method</span><span class='period'>.</span><span class='id identifier rubyid_call'>call</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="save_network-instance_method">
+  
+    #<strong>save_network</strong>(path)  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Save learned network to JSON file.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  <p class="tag_title">Parameters:</p>
+<ul class="param">
+  
+    <li>
+      
+        <span class='name'>path</span>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>file path</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+<p class="tag_title">Since:</p>
+<ul class="since">
+  
+    <li>
+      
+      
+      
+      
+        
+        <div class='inline'>
+<p>2.0</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+690
+691
+692
+693
+694
+695
+696
+697
+698</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'fast_neurons.rb', line 690</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_save_network'>save_network</span><span class='lparen'>(</span><span class='id identifier rubyid_path'>path</span><span class='rparen'>)</span>
+  <span class='comment'># Make hash of parameters.
+</span>  <span class='id identifier rubyid_hash'>hash</span> <span class='op'>=</span> <span class='lbrace'>{</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>type</span><span class='tstring_end'>&quot;</span></span> <span class='op'>=&gt;</span> <span class='ivar'>@type</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>columns</span><span class='tstring_end'>&quot;</span></span> <span class='op'>=&gt;</span> <span class='ivar'>@columns</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>biases</span><span class='tstring_end'>&quot;</span></span> <span class='op'>=&gt;</span> <span class='ivar'>@biases</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>weights</span><span class='tstring_end'>&quot;</span></span> <span class='op'>=&gt;</span> <span class='ivar'>@weights</span> <span class='rbrace'>}</span>
+
+  <span class='comment'># Save file.
+</span>  <span class='const'>File</span><span class='period'>.</span><span class='id identifier rubyid_open'>open</span><span class='lparen'>(</span><span class='id identifier rubyid_path'>path</span><span class='comma'>,</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>w+</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_f'>f</span><span class='op'>|</span>
+    <span class='id identifier rubyid_f'>f</span><span class='period'>.</span><span class='id identifier rubyid_puts'>puts</span><span class='lparen'>(</span><span class='const'>JSON</span><span class='period'>.</span><span class='id identifier rubyid_pretty_generate'>pretty_generate</span><span class='lparen'>(</span><span class='id identifier rubyid_hash'>hash</span><span class='rparen'>)</span><span class='rparen'>)</span>
+  <span class='kw'>end</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="set_batch_size-instance_method">
+  
+    #<strong>set_batch_size</strong>(size = 1)  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Set batch size of mini-batch learning. default -&gt; 1</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  <p class="tag_title">Parameters:</p>
+<ul class="param">
+  
+    <li>
+      
+        <span class='name'>size</span>
+      
+      
+        <span class='type'>(<tt>Int</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>1</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>batch size</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+<p class="tag_title">Since:</p>
+<ul class="since">
+  
+    <li>
+      
+      
+      
+      
+        
+        <div class='inline'>
+<p>2.0</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+683
+684
+685</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'fast_neurons.rb', line 683</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_set_batch_size'>set_batch_size</span><span class='lparen'>(</span><span class='id identifier rubyid_size'>size</span> <span class='op'>=</span> <span class='int'>1</span><span class='rparen'>)</span>
+  <span class='ivar'>@batch_size</span> <span class='op'>=</span> <span class='id identifier rubyid_size'>size</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="set_training_rate-instance_method">
+  
+    #<strong>set_training_rate</strong>(rate = 0.1)  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Set training rate.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  <p class="tag_title">Parameters:</p>
+<ul class="param">
+  
+    <li>
+      
+        <span class='name'>rate</span>
+      
+      
+        <span class='type'>(<tt>Float</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>0.1</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>training rate</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+<p class="tag_title">Since:</p>
+<ul class="since">
+  
+    <li>
+      
+      
+      
+      
+        
+        <div class='inline'>
+<p>2.0</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+675
+676
+677</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'fast_neurons.rb', line 675</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_set_training_rate'>set_training_rate</span><span class='lparen'>(</span><span class='id identifier rubyid_rate'>rate</span> <span class='op'>=</span> <span class='float'>0.1</span><span class='rparen'>)</span>
+  <span class='ivar'>@training_rate</span> <span class='op'>=</span> <span class='id identifier rubyid_rate'>rate</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="standardize-instance_method">
+  
+    #<strong>standardize</strong>  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Standardize input data.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Since:</p>
+<ul class="since">
+  
+    <li>
+      
+      
+      
+      
+        
+        <div class='inline'>
+<p>2.0</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+495
+496
+497
+498
+499
+500</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'fast_neurons.rb', line 495</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_standardize'>standardize</span>
+  <span class='ivar'>@mean</span> <span class='op'>=</span> <span class='ivar'>@units</span><span class='lbracket'>[</span><span class='int'>0</span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_mean'>mean</span><span class='lparen'>(</span><span class='int'>1</span><span class='rparen'>)</span><span class='lbracket'>[</span><span class='int'>0</span><span class='rbracket'>]</span>
+  <span class='ivar'>@standard_deviation</span> <span class='op'>=</span> <span class='ivar'>@units</span><span class='lbracket'>[</span><span class='int'>0</span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_std'>std</span><span class='lparen'>(</span><span class='int'>1</span><span class='rparen'>)</span><span class='lbracket'>[</span><span class='int'>0</span><span class='rbracket'>]</span>
+  <span class='ivar'>@units</span><span class='lbracket'>[</span><span class='int'>0</span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='lparen'>(</span><span class='ivar'>@units</span><span class='lbracket'>[</span><span class='int'>0</span><span class='rbracket'>]</span> <span class='op'>-</span> <span class='ivar'>@mean</span><span class='rparen'>)</span> <span class='op'>/</span> <span class='ivar'>@standard_deviation</span>
+  <span class='ivar'>@inputs</span> <span class='op'>=</span> <span class='ivar'>@units</span><span class='lbracket'>[</span><span class='int'>0</span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_dup'>dup</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="unstandardize-instance_method">
+  
+    #<strong>unstandardize</strong>  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Unstandardize visible units and inputs.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Since:</p>
+<ul class="since">
+  
+    <li>
+      
+      
+      
+      
+        
+        <div class='inline'>
+<p>2.0</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+504
+505
+506
+507</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'fast_neurons.rb', line 504</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_unstandardize'>unstandardize</span>
+  <span class='ivar'>@units</span><span class='lbracket'>[</span><span class='int'>0</span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='ivar'>@units</span><span class='lbracket'>[</span><span class='int'>0</span><span class='rbracket'>]</span> <span class='op'>*</span> <span class='ivar'>@standard_deviation</span> <span class='op'>+</span> <span class='ivar'>@mean</span>
+  <span class='ivar'>@inputs</span> <span class='op'>=</span> <span class='ivar'>@inputs</span> <span class='op'>*</span> <span class='ivar'>@standard_deviation</span> <span class='op'>+</span> <span class='ivar'>@mean</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="update_biases-instance_method">
+  
+    #<strong>update_biases</strong>  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Update biases.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Since:</p>
+<ul class="since">
+  
+    <li>
+      
+      
+      
+      
+        
+        <div class='inline'>
+<p>2.0</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+618
+619
+620
+621</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'fast_neurons.rb', line 618</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_update_biases'>update_biases</span>
+  <span class='ivar'>@biases</span><span class='lbracket'>[</span><span class='int'>0</span><span class='rbracket'>]</span> <span class='op'>+=</span> <span class='ivar'>@derivative_biases</span><span class='lbracket'>[</span><span class='int'>1</span><span class='rbracket'>]</span> <span class='op'>/</span> <span class='ivar'>@batch_size</span><span class='period'>.</span><span class='id identifier rubyid_to_f'>to_f</span> <span class='op'>*</span> <span class='ivar'>@training_rate</span>
+  <span class='ivar'>@biases</span><span class='lbracket'>[</span><span class='int'>1</span><span class='rbracket'>]</span> <span class='op'>+=</span> <span class='ivar'>@derivative_biases</span><span class='lbracket'>[</span><span class='int'>0</span><span class='rbracket'>]</span> <span class='op'>/</span> <span class='ivar'>@batch_size</span><span class='period'>.</span><span class='id identifier rubyid_to_f'>to_f</span> <span class='op'>*</span> <span class='ivar'>@training_rate</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="update_parameters-instance_method">
+  
+    #<strong>update_parameters</strong>  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Update biases and weights.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Since:</p>
+<ul class="since">
+  
+    <li>
+      
+      
+      
+      
+        
+        <div class='inline'>
+<p>2.0</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+611
+612
+613
+614</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'fast_neurons.rb', line 611</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_update_parameters'>update_parameters</span>
+  <span class='id identifier rubyid_update_biases'>update_biases</span>
+  <span class='id identifier rubyid_update_weights'>update_weights</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="update_weights-instance_method">
+  
+    #<strong>update_weights</strong>  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Update weights.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Since:</p>
+<ul class="since">
+  
+    <li>
+      
+      
+      
+      
+        
+        <div class='inline'>
+<p>2.0</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+625
+626
+627</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'fast_neurons.rb', line 625</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_update_weights'>update_weights</span>
+  <span class='ivar'>@weights</span><span class='lbracket'>[</span><span class='int'>0</span><span class='rbracket'>]</span> <span class='op'>+=</span> <span class='ivar'>@derivative_weights</span> <span class='op'>/</span> <span class='ivar'>@batch_size</span><span class='period'>.</span><span class='id identifier rubyid_to_f'>to_f</span> <span class='op'>*</span> <span class='ivar'>@training_rate</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+  </div>
+
+</div>
+
+      <div id="footer">
+  Generated on Thu Jun 18 07:43:53 2020 by
+  <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
+  0.9.25 (ruby-2.6.3).
+</div>
+
+    </div>
+  </body>
+</html>
