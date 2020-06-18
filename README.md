@@ -3,27 +3,46 @@ A simple and fast neural network library for Ruby using NMatrix.
 ## Example
 - learning xor
 ```ruby
-nn = FastNeurons::NN.new([2,1], :Tanh)
 inputs = [[0,0], [0,1], [1,0], [1,1]]
 t = [[0], [1], [1], [0]]
+
+nn = FastNeurons::NN.new([2, 2, 1], [:Tanh, :Linear])
 nn.randomize
-inputs.each_with_index do |input, i|
-  nn.input(input,t[i])
+
+100.times do
+  data.each_with_index do |inputs,i|
+
+    nn.input(inputs,t[i]) # Inputs input data and training data
+    nn.run(1) # propagate and backpropagate
+
+    puts "ans: #{t[i]}, expected: #{nn.get_outputs[0]}"
+  end
+end
+
+# confirmation of learned network
+data.each_with_index do |inputs,i|
+  nn.input(inputs,t[i])
   nn.run(1)
-  puts nn.get_outputs
+
+  puts "input: #{inputs}, ans: #{t[i]}, expected: #{nn.get_outputs[0]}"
 end
 ```
 
 - restricted boltzmannn machine
 ```ruby
-rbm = FastNeurons::RBM.new([6,5], :Bernoulli)
 inputs = [[1,1,1,0,0,0]]
+rbm = FastNeurons::RBM.new([6,5], :Bernoulli)
+
 rbm.randomize
-inputs.each do |input|
-  rbm.input(input)
-  rbm.run(1)
-  puts rbm.get_outputs
+
+100.times do |i|
+  inputs.each do |input|
+    rbm.input(input)
+    rbm.run(1)
+    puts rbm.get_outputs
+  end
 end
+
 ```
 ## Feature(currently)
 - Create a standard fully connected neural network.
