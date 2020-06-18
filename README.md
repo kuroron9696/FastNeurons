@@ -3,7 +3,7 @@ A simple and fast neural network library for Ruby using NMatrix.
 ## Example
 - learning xor
 ```ruby
-inputs = [[0,0], [0,1], [1,0], [1,1]]
+data = [[0,0], [0,1], [1,0], [1,1]]
 t = [[0], [1], [1], [0]]
 
 nn = FastNeurons::NN.new([2, 2, 1], [:Tanh, :Linear])
