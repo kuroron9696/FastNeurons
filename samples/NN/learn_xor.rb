@@ -6,7 +6,7 @@ data = [[0,0],[0,1],[1,0],[1,1]]
 t = [[0],[1],[1],[0]]
 
 # Make a neural network.
-nn = FastNeurons::NN.new([2,2,1], :Tanh)
+nn = FastNeurons::NN.new([2, 2, 1], [:Tanh, :Linear])
 
 # Set up the parameters to random values.
 nn.randomize
@@ -17,17 +17,23 @@ nn.randomize
 puts "Runnning..."
 
 # learning
-# An Autoencoder is shown below as a sample.
-10000.times do
+1000.times do
   data.each_with_index do |inputs,i|
 
     nn.input(inputs,t[i]) # Inputs input data and training data
     nn.run(1) # propagate and backpropagate
 
-    puts t[i]
-    puts nn.get_outputs
+    puts "ans: #{t[i]}, expected: #{nn.get_outputs}"
   end
 end
 
 puts "Understood!"
+
+# confirmation of learned network
+data.each_with_index do |inputs,i|
+  nn.input(inputs,t[i])
+  nn.run(1)
+
+  puts "input: #{inputs}, ans: #{t[i]}, expected: #{nn.get_outputs}"
+end
 #nn.save_network("network.json") # save learned network
