@@ -221,15 +221,9 @@ module FastNeurons
         differentiate_biases(i)
       end
 
-      (@neuron_columns.size-1).downto(0) do |i|
-        if @count == @batch_size
-          update_weights(i)
-          update_biases(i)
-        end
-      end
-
       if @count == @batch_size
         @count = 0
+        update_parameters
         initialize_loss_derivatives
       end
     end
@@ -280,6 +274,15 @@ module FastNeurons
     def update_biases(row)
       @loss_derivative_biases[row] = @loss_derivative_biases[row] / @batch_size.to_f
       @biases[row] = NMatrix::BLAS.gemm(@idn[row],@loss_derivative_biases[row],@biases[row],-(@training_rate),1.0)
+    end
+
+    # Update biases and weights.
+    # @since 2.1
+    def update_parameters
+      (@neuron_columns.size-1).downto(0) do |i|
+        update_weights(i)
+        update_biases(i)
+      end
     end
 
     # Get outputs of neural network.
