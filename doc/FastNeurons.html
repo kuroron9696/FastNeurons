@@ -125,6 +125,22 @@
     </li>
   
 </ul>
+<p class="tag_title">Version:</p>
+<ul class="version">
+  
+    <li>
+      
+      
+      
+      
+        
+        <div class='inline'>
+<p>1.2.0</p>
+</div>
+      
+    </li>
+  
+</ul>
 
 </div><h2>Defined Under Namespace</h2>
 <p class="children">
@@ -1007,12 +1023,12 @@
       <pre class="lines">
 
 
-884
 885
-886</pre>
+886
+887</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'fast_neurons.rb', line 884</span>
+      <pre class="code"><span class="info file"># File 'fast_neurons.rb', line 885</span>
 
 <span class='kw'>def</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_differentiate_elu'>differentiate_elu</span><span class='lparen'>(</span><span class='id identifier rubyid_z'>z</span><span class='rparen'>)</span>
   <span class='kw'>return</span> <span class='const'>N</span><span class='lbracket'>[</span><span class='id identifier rubyid_z'>z</span><span class='period'>.</span><span class='id identifier rubyid_map'>map</span><span class='lbrace'>{</span> <span class='op'>|</span><span class='id identifier rubyid_x'>x</span><span class='op'>|</span> <span class='id identifier rubyid_x'>x</span> <span class='op'>&gt;</span> <span class='float'>0.0</span> <span class='op'>?</span> <span class='float'>1.0</span> <span class='op'>:</span> <span class='const'>Math</span><span class='period'>.</span><span class='id identifier rubyid_exp'>exp</span><span class='lparen'>(</span><span class='id identifier rubyid_x'>x</span><span class='rparen'>)</span> <span class='rbrace'>}</span><span class='period'>.</span><span class='id identifier rubyid_to_a'>to_a</span><span class='period'>.</span><span class='id identifier rubyid_flatten'>flatten</span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_transpose'>transpose</span>
@@ -1102,12 +1118,12 @@
       <pre class="lines">
 
 
-876
 877
-878</pre>
+878
+879</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'fast_neurons.rb', line 876</span>
+      <pre class="code"><span class="info file"># File 'fast_neurons.rb', line 877</span>
 
 <span class='kw'>def</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_differentiate_leakyrelu'>differentiate_leakyrelu</span><span class='lparen'>(</span><span class='id identifier rubyid_z'>z</span><span class='rparen'>)</span>
   <span class='kw'>return</span> <span class='const'>N</span><span class='lbracket'>[</span><span class='id identifier rubyid_z'>z</span><span class='period'>.</span><span class='id identifier rubyid_map'>map</span><span class='lbrace'>{</span> <span class='op'>|</span><span class='id identifier rubyid_x'>x</span><span class='op'>|</span> <span class='id identifier rubyid_x'>x</span> <span class='op'>&gt;</span> <span class='float'>0.0</span> <span class='op'>?</span> <span class='float'>1.0</span> <span class='op'>:</span> <span class='float'>0.01</span> <span class='rbrace'>}</span><span class='period'>.</span><span class='id identifier rubyid_to_a'>to_a</span><span class='period'>.</span><span class='id identifier rubyid_flatten'>flatten</span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_transpose'>transpose</span>
@@ -1197,12 +1213,12 @@
       <pre class="lines">
 
 
-844
 845
-846</pre>
+846
+847</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'fast_neurons.rb', line 844</span>
+      <pre class="code"><span class="info file"># File 'fast_neurons.rb', line 845</span>
 
 <span class='kw'>def</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_differentiate_linear'>differentiate_linear</span><span class='lparen'>(</span><span class='id identifier rubyid_a'>a</span><span class='rparen'>)</span>
   <span class='kw'>return</span> <span class='const'>NMatrix</span><span class='period'>.</span><span class='id identifier rubyid_ones_like'>ones_like</span><span class='lparen'>(</span><span class='id identifier rubyid_a'>a</span><span class='rparen'>)</span>
@@ -1292,14 +1308,14 @@
       <pre class="lines">
 
 
-911
 912
 913
 914
-915</pre>
+915
+916</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'fast_neurons.rb', line 911</span>
+      <pre class="code"><span class="info file"># File 'fast_neurons.rb', line 912</span>
 
 <span class='kw'>def</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_differentiate_mish'>differentiate_mish</span><span class='lparen'>(</span><span class='id identifier rubyid_z'>z</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_omega'>omega</span> <span class='op'>=</span> <span class='lparen'>(</span><span class='id identifier rubyid_z'>z</span> <span class='op'>+</span> <span class='int'>1</span><span class='rparen'>)</span> <span class='op'>*</span> <span class='int'>4</span> <span class='op'>+</span> <span class='lparen'>(</span><span class='id identifier rubyid_z'>z</span> <span class='op'>*</span> <span class='int'>2</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_exp'>exp</span> <span class='op'>*</span> <span class='int'>4</span> <span class='op'>+</span> <span class='lparen'>(</span><span class='id identifier rubyid_z'>z</span> <span class='op'>*</span> <span class='int'>3</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_exp'>exp</span> <span class='op'>+</span> <span class='lparen'>(</span><span class='id identifier rubyid_z'>z</span> <span class='op'>*</span> <span class='int'>4</span> <span class='op'>+</span> <span class='int'>6</span><span class='rparen'>)</span> <span class='op'>*</span> <span class='id identifier rubyid_z'>z</span><span class='period'>.</span><span class='id identifier rubyid_exp'>exp</span>
@@ -1391,12 +1407,12 @@
       <pre class="lines">
 
 
-868
 869
-870</pre>
+870
+871</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'fast_neurons.rb', line 868</span>
+      <pre class="code"><span class="info file"># File 'fast_neurons.rb', line 869</span>
 
 <span class='kw'>def</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_differentiate_relu'>differentiate_relu</span><span class='lparen'>(</span><span class='id identifier rubyid_z'>z</span><span class='rparen'>)</span>
   <span class='kw'>return</span> <span class='const'>N</span><span class='lbracket'>[</span><span class='id identifier rubyid_z'>z</span><span class='period'>.</span><span class='id identifier rubyid_map'>map</span><span class='lbrace'>{</span> <span class='op'>|</span><span class='id identifier rubyid_x'>x</span><span class='op'>|</span> <span class='id identifier rubyid_x'>x</span> <span class='op'>&gt;</span> <span class='float'>0.0</span> <span class='op'>?</span> <span class='float'>1.0</span> <span class='op'>:</span> <span class='float'>0.0</span> <span class='rbrace'>}</span><span class='period'>.</span><span class='id identifier rubyid_to_a'>to_a</span><span class='period'>.</span><span class='id identifier rubyid_flatten'>flatten</span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_transpose'>transpose</span>
@@ -1486,12 +1502,12 @@
       <pre class="lines">
 
 
-892
 893
-894</pre>
+894
+895</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'fast_neurons.rb', line 892</span>
+      <pre class="code"><span class="info file"># File 'fast_neurons.rb', line 893</span>
 
 <span class='kw'>def</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_differentiate_selu'>differentiate_selu</span><span class='lparen'>(</span><span class='id identifier rubyid_z'>z</span><span class='rparen'>)</span>
   <span class='kw'>return</span> <span class='const'>N</span><span class='lbracket'>[</span><span class='id identifier rubyid_z'>z</span><span class='period'>.</span><span class='id identifier rubyid_map'>map</span><span class='lbrace'>{</span> <span class='op'>|</span><span class='id identifier rubyid_x'>x</span><span class='op'>|</span> <span class='id identifier rubyid_x'>x</span> <span class='op'>&gt;</span> <span class='float'>0.0</span> <span class='op'>?</span> <span class='const'><span class='object_link'><a href="top-level-namespace.html#SCALE-constant" title="SCALE (constant)">SCALE</a></span></span> <span class='op'>:</span> <span class='const'><span class='object_link'><a href="top-level-namespace.html#ALPHA-constant" title="ALPHA (constant)">ALPHA</a></span></span> <span class='op'>*</span> <span class='const'>Math</span><span class='period'>.</span><span class='id identifier rubyid_exp'>exp</span><span class='lparen'>(</span><span class='id identifier rubyid_x'>x</span><span class='rparen'>)</span> <span class='op'>*</span> <span class='const'><span class='object_link'><a href="top-level-namespace.html#SCALE-constant" title="SCALE (constant)">SCALE</a></span></span> <span class='rbrace'>}</span><span class='period'>.</span><span class='id identifier rubyid_to_a'>to_a</span><span class='period'>.</span><span class='id identifier rubyid_flatten'>flatten</span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_transpose'>transpose</span>
@@ -1581,12 +1597,12 @@
       <pre class="lines">
 
 
-852
 853
-854</pre>
+854
+855</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'fast_neurons.rb', line 852</span>
+      <pre class="code"><span class="info file"># File 'fast_neurons.rb', line 853</span>
 
 <span class='kw'>def</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_differentiate_sigmoid'>differentiate_sigmoid</span><span class='lparen'>(</span><span class='id identifier rubyid_a'>a</span><span class='rparen'>)</span>
   <span class='kw'>return</span> <span class='lparen'>(</span><span class='op'>-</span><span class='id identifier rubyid_a'>a</span> <span class='op'>+</span> <span class='float'>1.0</span><span class='rparen'>)</span> <span class='op'>*</span> <span class='id identifier rubyid_a'>a</span>
@@ -1676,13 +1692,13 @@
       <pre class="lines">
 
 
-902
 903
 904
-905</pre>
+905
+906</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'fast_neurons.rb', line 902</span>
+      <pre class="code"><span class="info file"># File 'fast_neurons.rb', line 903</span>
 
 <span class='kw'>def</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_differentiate_swish'>differentiate_swish</span><span class='lparen'>(</span><span class='id identifier rubyid_z'>z</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_a'>a</span> <span class='op'>=</span> <span class='id identifier rubyid_swish'>swish</span><span class='lparen'>(</span><span class='id identifier rubyid_z'>z</span><span class='rparen'>)</span>
@@ -1773,12 +1789,12 @@
       <pre class="lines">
 
 
-860
 861
-862</pre>
+862
+863</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'fast_neurons.rb', line 860</span>
+      <pre class="code"><span class="info file"># File 'fast_neurons.rb', line 861</span>
 
 <span class='kw'>def</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_differentiate_tanh'>differentiate_tanh</span><span class='lparen'>(</span><span class='id identifier rubyid_a'>a</span><span class='rparen'>)</span>
   <span class='kw'>return</span> <span class='op'>-</span><span class='lparen'>(</span><span class='id identifier rubyid_a'>a</span> <span class='op'>**</span> <span class='int'>2</span><span class='rparen'>)</span> <span class='op'>+</span> <span class='float'>1.0</span>
@@ -1868,12 +1884,12 @@
       <pre class="lines">
 
 
-804
 805
-806</pre>
+806
+807</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'fast_neurons.rb', line 804</span>
+      <pre class="code"><span class="info file"># File 'fast_neurons.rb', line 805</span>
 
 <span class='kw'>def</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_elu'>elu</span><span class='lparen'>(</span><span class='id identifier rubyid_z'>z</span><span class='rparen'>)</span>
   <span class='kw'>return</span> <span class='const'>N</span><span class='lbracket'>[</span><span class='id identifier rubyid_z'>z</span><span class='period'>.</span><span class='id identifier rubyid_map'>map</span><span class='lbrace'>{</span> <span class='op'>|</span><span class='id identifier rubyid_x'>x</span><span class='op'>|</span> <span class='id identifier rubyid_x'>x</span> <span class='op'>&gt;</span> <span class='float'>0.0</span> <span class='op'>?</span> <span class='id identifier rubyid_x'>x</span> <span class='op'>:</span> <span class='lparen'>(</span><span class='const'>Math</span><span class='period'>.</span><span class='id identifier rubyid_exp'>exp</span><span class='lparen'>(</span><span class='id identifier rubyid_x'>x</span><span class='rparen'>)</span> <span class='op'>-</span> <span class='int'>1</span><span class='rparen'>)</span> <span class='rbrace'>}</span><span class='period'>.</span><span class='id identifier rubyid_to_a'>to_a</span><span class='period'>.</span><span class='id identifier rubyid_flatten'>flatten</span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_transpose'>transpose</span>
@@ -1963,12 +1979,12 @@
       <pre class="lines">
 
 
-796
 797
-798</pre>
+798
+799</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'fast_neurons.rb', line 796</span>
+      <pre class="code"><span class="info file"># File 'fast_neurons.rb', line 797</span>
 
 <span class='kw'>def</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_leakyrelu'>leakyrelu</span><span class='lparen'>(</span><span class='id identifier rubyid_z'>z</span><span class='rparen'>)</span>
   <span class='kw'>return</span> <span class='const'>N</span><span class='lbracket'>[</span><span class='id identifier rubyid_z'>z</span><span class='period'>.</span><span class='id identifier rubyid_map'>map</span><span class='lbrace'>{</span> <span class='op'>|</span><span class='id identifier rubyid_x'>x</span><span class='op'>|</span> <span class='id identifier rubyid_x'>x</span> <span class='op'>&gt;</span> <span class='float'>0.0</span> <span class='op'>?</span> <span class='id identifier rubyid_x'>x</span> <span class='op'>:</span> <span class='float'>0.01</span> <span class='op'>*</span> <span class='id identifier rubyid_x'>x</span> <span class='rbrace'>}</span><span class='period'>.</span><span class='id identifier rubyid_to_a'>to_a</span><span class='period'>.</span><span class='id identifier rubyid_flatten'>flatten</span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_transpose'>transpose</span>
@@ -2058,12 +2074,12 @@
       <pre class="lines">
 
 
-762
 763
-764</pre>
+764
+765</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'fast_neurons.rb', line 762</span>
+      <pre class="code"><span class="info file"># File 'fast_neurons.rb', line 763</span>
 
 <span class='kw'>def</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_linear'>linear</span><span class='lparen'>(</span><span class='id identifier rubyid_z'>z</span><span class='rparen'>)</span>
   <span class='kw'>return</span> <span class='id identifier rubyid_z'>z</span>
@@ -2153,12 +2169,12 @@
       <pre class="lines">
 
 
-836
 837
-838</pre>
+838
+839</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'fast_neurons.rb', line 836</span>
+      <pre class="code"><span class="info file"># File 'fast_neurons.rb', line 837</span>
 
 <span class='kw'>def</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_mish'>mish</span><span class='lparen'>(</span><span class='id identifier rubyid_z'>z</span><span class='rparen'>)</span>
   <span class='kw'>return</span> <span class='id identifier rubyid_z'>z</span> <span class='op'>*</span> <span class='id identifier rubyid_tanh'>tanh</span><span class='lparen'>(</span><span class='id identifier rubyid_softplus'>softplus</span><span class='lparen'>(</span><span class='id identifier rubyid_z'>z</span><span class='rparen'>)</span><span class='rparen'>)</span>
@@ -2248,12 +2264,12 @@
       <pre class="lines">
 
 
-788
 789
-790</pre>
+790
+791</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'fast_neurons.rb', line 788</span>
+      <pre class="code"><span class="info file"># File 'fast_neurons.rb', line 789</span>
 
 <span class='kw'>def</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_relu'>relu</span><span class='lparen'>(</span><span class='id identifier rubyid_z'>z</span><span class='rparen'>)</span>
   <span class='kw'>return</span> <span class='lparen'>(</span><span class='id identifier rubyid_z'>z</span> <span class='op'>+</span> <span class='id identifier rubyid_z'>z</span><span class='period'>.</span><span class='id identifier rubyid_abs'>abs</span><span class='rparen'>)</span> <span class='op'>/</span> <span class='float'>2.0</span>
@@ -2343,12 +2359,12 @@
       <pre class="lines">
 
 
-812
 813
-814</pre>
+814
+815</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'fast_neurons.rb', line 812</span>
+      <pre class="code"><span class="info file"># File 'fast_neurons.rb', line 813</span>
 
 <span class='kw'>def</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_selu'>selu</span><span class='lparen'>(</span><span class='id identifier rubyid_z'>z</span><span class='rparen'>)</span>
   <span class='kw'>return</span> <span class='const'>N</span><span class='lbracket'>[</span><span class='id identifier rubyid_z'>z</span><span class='period'>.</span><span class='id identifier rubyid_map'>map</span><span class='lbrace'>{</span> <span class='op'>|</span><span class='id identifier rubyid_x'>x</span><span class='op'>|</span> <span class='id identifier rubyid_x'>x</span> <span class='op'>&gt;</span> <span class='float'>0.0</span> <span class='op'>?</span> <span class='id identifier rubyid_x'>x</span> <span class='op'>*</span> <span class='const'><span class='object_link'><a href="top-level-namespace.html#SCALE-constant" title="SCALE (constant)">SCALE</a></span></span> <span class='op'>:</span> <span class='const'><span class='object_link'><a href="top-level-namespace.html#ALPHA-constant" title="ALPHA (constant)">ALPHA</a></span></span> <span class='op'>*</span> <span class='lparen'>(</span><span class='const'>Math</span><span class='period'>.</span><span class='id identifier rubyid_exp'>exp</span><span class='lparen'>(</span><span class='id identifier rubyid_x'>x</span><span class='rparen'>)</span> <span class='op'>-</span> <span class='int'>1</span><span class='rparen'>)</span> <span class='op'>*</span> <span class='const'><span class='object_link'><a href="top-level-namespace.html#SCALE-constant" title="SCALE (constant)">SCALE</a></span></span> <span class='rbrace'>}</span><span class='period'>.</span><span class='id identifier rubyid_to_a'>to_a</span><span class='period'>.</span><span class='id identifier rubyid_flatten'>flatten</span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_transpose'>transpose</span>
@@ -2438,12 +2454,12 @@
       <pre class="lines">
 
 
-770
 771
-772</pre>
+772
+773</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'fast_neurons.rb', line 770</span>
+      <pre class="code"><span class="info file"># File 'fast_neurons.rb', line 771</span>
 
 <span class='kw'>def</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_sigmoid'>sigmoid</span><span class='lparen'>(</span><span class='id identifier rubyid_z'>z</span><span class='rparen'>)</span>
   <span class='kw'>return</span> <span class='lparen'>(</span><span class='lparen'>(</span><span class='op'>-</span><span class='id identifier rubyid_z'>z</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_exp'>exp</span> <span class='op'>+</span> <span class='int'>1</span><span class='rparen'>)</span> <span class='op'>**</span> <span class='lparen'>(</span><span class='op'>-</span><span class='int'>1</span><span class='rparen'>)</span>
@@ -2533,12 +2549,12 @@
       <pre class="lines">
 
 
-820
 821
-822</pre>
+822
+823</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'fast_neurons.rb', line 820</span>
+      <pre class="code"><span class="info file"># File 'fast_neurons.rb', line 821</span>
 
 <span class='kw'>def</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_softplus'>softplus</span><span class='lparen'>(</span><span class='id identifier rubyid_z'>z</span><span class='rparen'>)</span>
   <span class='kw'>return</span> <span class='lparen'>(</span><span class='id identifier rubyid_z'>z</span><span class='period'>.</span><span class='id identifier rubyid_exp'>exp</span> <span class='op'>+</span> <span class='float'>1.0</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_log'>log</span>
@@ -2628,12 +2644,12 @@
       <pre class="lines">
 
 
-828
 829
-830</pre>
+830
+831</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'fast_neurons.rb', line 828</span>
+      <pre class="code"><span class="info file"># File 'fast_neurons.rb', line 829</span>
 
 <span class='kw'>def</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_swish'>swish</span><span class='lparen'>(</span><span class='id identifier rubyid_z'>z</span><span class='rparen'>)</span>
   <span class='kw'>return</span> <span class='id identifier rubyid_z'>z</span> <span class='op'>*</span> <span class='id identifier rubyid_sigmoid'>sigmoid</span><span class='lparen'>(</span><span class='id identifier rubyid_z'>z</span><span class='rparen'>)</span>
@@ -2723,14 +2739,14 @@
       <pre class="lines">
 
 
-778
 779
 780
 781
-782</pre>
+782
+783</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'fast_neurons.rb', line 778</span>
+      <pre class="code"><span class="info file"># File 'fast_neurons.rb', line 779</span>
 
 <span class='kw'>def</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_tanh'>tanh</span><span class='lparen'>(</span><span class='id identifier rubyid_z'>z</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_pos_exp'>pos_exp</span> <span class='op'>=</span> <span class='id identifier rubyid_z'>z</span><span class='period'>.</span><span class='id identifier rubyid_exp'>exp</span>
@@ -2747,7 +2763,7 @@
 </div>
 
       <div id="footer">
-  Generated on Sat Jun 20 16:42:53 2020 by
+  Generated on Sat Jun 20 17:55:48 2020 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.25 (ruby-2.6.3).
 </div>
