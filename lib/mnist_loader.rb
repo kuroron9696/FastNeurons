@@ -2,6 +2,7 @@ require_relative 'idx_loader'
 require 'zlib'
 
 # Loader of MNIST.
+# @version 1.1.0
 # @since 1.0.0
 class MNISTLoader
   # constructor
@@ -47,7 +48,7 @@ class MNISTLoader
   # Binarize pixel values to a continuous values from 0 ~ 255 to 0,1.
   # @param [Array] inputs array of pixel values.
   # @return [Array] array of binarized pixel values
-  # @since 1.2.0
+  # @since 1.1.0
   def binarize(inputs)
     return inputs.map{|pixel|
       pixel > 0.5 ? 1.0 : 0.0
