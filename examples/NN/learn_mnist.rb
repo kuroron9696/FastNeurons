@@ -9,11 +9,14 @@ images = mnist.load_images
 
 puts "Initializing network"
 
-# Make a neural network.
-nn = FastNeurons::NN.new([784,15,784], :Sigmoid)
+# Initialize a neural network.
+nn = FastNeurons::NN.new([784,15,784], [:Tanh, :Sigmoid])
+
+# Set training rate.
+nn.set_training_rate(0.001)
 
 # Set mini-batch size.
-nn.set_batch_size(5)
+nn.set_batch_size(1)
 
 # Set up the parameters to random values.
 nn.randomize
@@ -31,11 +34,11 @@ puts "Runnning..."
 1.times do
   imgs.each.with_index do |inputs,index|
 
-    nn.input(inputs,inputs) # Inputs input data and training data
-    nn.run(1) # propagate and backpropagate
+    nn.input(inputs,inputs) # Input training data and teaching data.
+    nn.run(1) # Compute feed forward propagation and backpropagation.
 
-    mnist.print_ascii(inputs) # Outputs training data
-    mnist.print_ascii(nn.get_outputs) # Outputs output of neural network
+    mnist.print_ascii(inputs) # Output training data.
+    mnist.print_ascii(nn.get_outputs) # Output the output of neural network.
   end
 end
 

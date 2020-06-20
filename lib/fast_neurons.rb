@@ -5,19 +5,30 @@ require 'random_bell'
 SCALE = 1.0507009873554804934193349852946
 ALPHA = 1.6732632423543772848170429916717
 
-# Simple and fast library for building neural networks.
+# FastNeurons is a simple and fast library using NMatrix for building neural networks.<br>
+# Currently, it supports fully connected neural network and restricted boltzmann machine.<br>
+# More models will be added gradually.<br>
 # @since 1.0.0
 # @author Ryota Sakai,Yusuke Tomimoto
 module FastNeurons
   # Describes a standard fully connected NN based on backpropagation.
+  # @example learning of xor
+  #  data = [[0,0],[0,1],[1,0],[1,1]]
+  #  t = [[0],[1],[1],[0]]
+  #  nn = FastNeurons::NN.new([2, 2, 1], [:Tanh, :Linear])
+  #  nn.randomize
+  #  data.each_with_index do |inputs, i|
+  #    nn.input(inputs, t[i])
+  #    nn.run(1)
+  #  end
   # @since 1.0.0
   class NN
-    # Creates a NN from columns giving each the size
-    # of a column of neurons (input and output comprised).
-    # constructor
+    # constructor <br>
+    # Creates a NN from columns giving each the size of a column of neurons (input and output comprised). <br>
+    # You can use the following activation functions.<br>
+    # ':Linear', ':Sigmoid', ':Tanh', ':ReLU', ':LeakyReLU', ':ELU', ':SELU', ':Softplus', ':Swish', or ':Mish' <br>
     # @param [Array] columns the array showing the shape of a neural network
     # @param [Symbol or Array] activation_function the name of the activation function you want to use
-    # ':Linear', ':Sigmoid', ':Tanh', ':ReLU', ':LeakyReLU', ':ELU', ':SELU', ':Softplus', ':Swish', or ':Mish'
     # @example initialization of the neural network
     #   nn = FastNeurons::NN.new([784,15,784])
     #   nn = FastNeurons::NN.new([784,15,784], :Sigmoid)
@@ -309,10 +320,10 @@ module FastNeurons
     end
 
     # Compute feed forward propagation and backpropagation.
-    # @param [Int] epoch the number of learning of input data
+    # @param [Int] times_of_learning the number of learning times of input data
     # @since 1.0.0
-    def run(epoch)
-      epoch.times do |i|
+    def run(times_of_learning = 1)
+      times_of_learning.times do |i|
         propagate
         backpropagate
       end
@@ -372,16 +383,24 @@ module FastNeurons
   end
 
   # Describes a restricted boltzmann machine.
+  # @example learning
+  #  data = [[1,1,1,0,0,0]]
+  #  rbm = FastNeurons::NN.new([6, 5], :Bernoulli)
+  #  rbm.randomize
+  #  data.each do |inputs|
+  #    rbm.input(inputs)
+  #    rbm.run(1)
+  #  end
   # @since 1.2.0
   class RBM
-    # Creates a RBM from columns giving each the size
-    # of a column of units.
+    # Creates a RBM from columns giving each the size of a column of units.<br>
+    # You can use two different types of RBM. (Bernoulli-Bernoulli RBM or Gaussian-Bernoulli RBM)<br>
+    # The type of RBM is specified by a symbol.<br>
+    #':Bernoulli' or ':Gaussian' default -> :Bernoulli<br>
+    # If you set :Bernoulli, you can use Bernoulli-Bernoulli RBM.<br>
+    # If you set :Gaussian, you can use Gaussian-Bernoulli RBM.<br>
     # @param [Array] columns the array showing the shape of a restricted boltzmann machine
     # @param [Symbol] type the visible units' type you want to use
-    # ':Bernoulli' or ':Gaussian'
-    # default -> :Bernoulli
-    # If you set :Bernoulli, you can use Bernoulli-Bernoulli RBM.
-    # If you set :Gaussian, you can use Gaussian-Bernoulli RBM.
     # @example initialization of the restricted boltzmann machine
     #   rbm = RBMR::RBM.new([5,4])
     #   rbm = RBMR::RBM.new([5,4],:Gaussian)
@@ -895,7 +914,6 @@ module FastNeurons
     return (z.exp * omega) / (delta ** 2)
   end
 
-  # activation functions
   Linear = { antiderivative: method(:linear), derivative: method(:differentiate_linear) }
   Sigmoid = { antiderivative: method(:sigmoid), derivative: method(:differentiate_sigmoid) }
   Tanh = { antiderivative: method(:tanh), derivative: method(:differentiate_tanh) }
