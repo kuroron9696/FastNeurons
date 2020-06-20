@@ -5,24 +5,35 @@ require 'random_bell'
 SCALE = 1.0507009873554804934193349852946
 ALPHA = 1.6732632423543772848170429916717
 
-# Simple and fast library for building neural networks.
-# @since 1.0
+# FastNeurons is a simple and fast library using NMatrix for building neural networks.<br>
+# Currently, it supports fully connected neural network and restricted boltzmann machine.<br>
+# More models will be added gradually.<br>
+# @since 1.0.0
 # @author Ryota Sakai,Yusuke Tomimoto
 module FastNeurons
   # Describes a standard fully connected NN based on backpropagation.
-  # @since 1.0
+  # @example learning of xor
+  #  data = [[0,0],[0,1],[1,0],[1,1]]
+  #  t = [[0],[1],[1],[0]]
+  #  nn = FastNeurons::NN.new([2, 2, 1], [:Tanh, :Linear])
+  #  nn.randomize
+  #  data.each_with_index do |inputs, i|
+  #    nn.input(inputs, t[i])
+  #    nn.run(1)
+  #  end
+  # @since 1.0.0
   class NN
-    # Creates a NN from columns giving each the size
-    # of a column of neurons (input and output comprised).
-    # constructor
+    # constructor <br>
+    # Creates a NN from columns giving each the size of a column of neurons (input and output comprised). <br>
+    # You can use the following activation functions.<br>
+    # ':Linear', ':Sigmoid', ':Tanh', ':ReLU', ':LeakyReLU', ':ELU', ':SELU', ':Softplus', ':Swish', or ':Mish' <br>
     # @param [Array] columns the array showing the shape of a neural network
     # @param [Symbol or Array] activation_function the name of the activation function you want to use
-    # ':Linear', ':Sigmoid', ':Tanh', ':ReLU', ':LeakyReLU', ':ELU', ':SELU', ':Softplus', ':Swish', or ':Mish'
     # @example initialization of the neural network
     #   nn = FastNeurons::NN.new([784,15,784])
     #   nn = FastNeurons::NN.new([784,15,784], :Sigmoid)
     #   nn = FastNeurons::NN.new([784,15,784], [:Sigmoid, :Tanh])
-    # @since 1.0
+    # @since 1.0.0
     def initialize(columns, activation_function = nil)
       # training rate
       @training_rate = 0.1
@@ -101,7 +112,7 @@ module FastNeurons
 
     # Initialize loss derivatives.
     # The main use is for mini-batch learning.
-    # @since 2.0
+    # @since 1.2.0
     def initialize_loss_derivatives
       # the arrays of derivatives.
       @loss_derivative_weights = @weights_geometry.map{ |geo| NMatrix.new(geo, 0.0) }
@@ -109,7 +120,7 @@ module FastNeurons
     end
 
     # Set up the NN to random values.
-    # @since 1.0
+    # @since 1.0.0
     def randomize
       # Create random fast matrices for the biases.
       @biases = @biases_geometry.map { |geo| NMatrix.random(geo, :dtype => :float64)}
@@ -133,13 +144,13 @@ module FastNeurons
     end
 
     # Get the biases as an array.
-    # @since 1.0
+    # @since 1.0.0
     def biases
       @biases.map { |mat| mat.to_a }
     end
 
     # Get the weights as an array.
-    # @since 1.0
+    # @since 1.0.0
     def weights
       @weights.map { |mat| mat.to_a }
     end
@@ -147,7 +158,7 @@ module FastNeurons
     # Get the inputs of the neural network.
     # @param [Array] values inputs of the neural network.
     # @param [Array] t training data
-    # @since 1.0
+    # @since 1.0.0
     def input(*values,t)
       # The inputs are stored into a[0] as a NMatrix vector.
       @a[0] = N[values.flatten, :dtype => :float64].transpose
@@ -160,7 +171,7 @@ module FastNeurons
     # The main use is for post-learning confirmation.
     # @param [Int] row the number of the hidden layer you want to input
     # @param [Array] values inputs of the hidden layer
-    # @since 1.0
+    # @since 1.0.0
     def input_hidden(row,*values)
       @a[row] = N[values.flatten, :dtype => :float64].transpose
     end
@@ -168,7 +179,7 @@ module FastNeurons
     # Compute multiply accumulate of inputs, weights and biases.
     # z = inputs * weights + biases
     # @param [Int] row the number of layer currently computing
-    # @since 1.0
+    # @since 1.0.0
     def compute_z(row)
       # Compute the values before the activation function is applied.
       @z[row] = NMatrix::BLAS.gemm(@weights[row],@a[row],@biases[row])
@@ -177,13 +188,13 @@ module FastNeurons
     # Compute neurons statuses.
     # Apply activation function to z.
     # @param [Int] row the number of layer currently computing
-    # @since 1.0
+    # @since 1.0.0
     def compute_a(row)
       @a[row+1] = @antiderivatives[row].call(@z[row])
     end
 
     # Compute Feed Forward Neural Network.
-    # @since 1.0
+    # @since 1.0.0
     def propagate
       # Compute as many times as layers of the neural network.
       @neuron_columns.size.times do |i|
@@ -198,7 +209,7 @@ module FastNeurons
     # The main use is for post-learning confirmation.
     # @param [Int] row the number of layer you want to begin computing
     # row's range -> 1 ~ @neuron_columns.size - 1
-    # @since 1.0
+    # @since 1.0.0
     def propagate_from_hidden(row)
       (row).upto(@neuron_columns.size-1) do |i|
         compute_z(i)
@@ -207,7 +218,7 @@ module FastNeurons
     end
 
     # Compute backpropagation.
-    # @since 1.0
+    # @since 1.0.0
     def backpropagate
       differentiate_a(@neuron_columns.size-1)
       @delta[@neuron_columns.size-1] = @g_dash[@neuron_columns.size-1]*(@a[@neuron_columns.size] - @T)
@@ -221,22 +232,16 @@ module FastNeurons
         differentiate_biases(i)
       end
 
-      (@neuron_columns.size-1).downto(0) do |i|
-        if @count == @batch_size
-          update_weights(i)
-          update_biases(i)
-        end
-      end
-
       if @count == @batch_size
         @count = 0
+        update_parameters
         initialize_loss_derivatives
       end
     end
 
     # Differentiate neurons statuses.
     # @param [Int] row the number of layer currently computing
-    # @since 1.1
+    # @since 1.1.0
     def differentiate_a(row)
       # Judge the symbol of activation function.
       arr = [:Linear, :Sigmoid, :Tanh].include?(@keys[row]) ? @a[row+1] : @z[row]
@@ -247,28 +252,28 @@ module FastNeurons
 
     # Compute delta.
     # @param [Int] row the number of layer currently computing
-    # @since 1.0
+    # @since 1.0.0
     def compute_delta(row)
       @delta[row] = NMatrix::BLAS.gemm(@weights[row+1],@delta[row+1],nil,1.0,0.0,:transpose)*@g_dash[row]
     end
 
     # Compute derivative of weights.
     # @param [Int] row the number of layer currently computing
-    # @since 2.0
+    # @since 1.2.0
     def differentiate_weights(row)
       @loss_derivative_weights[row] += NMatrix::BLAS.gemm(@delta[row],@a[row].transpose)
     end
 
     # Compute derivative of biases.
     # @param [Int] row the number of layer currently computing
-    # @since 2.0
+    # @since 1.2.0
     def differentiate_biases(row)
       @loss_derivative_biases[row] += @delta[row]
     end
 
     # Update weights.
     # @param [Int] row the number of layer currently computing
-    # @since 1.0
+    # @since 1.0.0
     def update_weights(row)
       @loss_derivative_weights[row] = @loss_derivative_weights[row] / @batch_size.to_f
       @weights[row] = NMatrix::BLAS.gemm(@idn[row],@loss_derivative_weights[row],@weights[row],-(@training_rate),1.0)
@@ -276,15 +281,24 @@ module FastNeurons
 
     # Update biases.
     # @param [Int] row the number of layer currently computing
-    # @since 1.0
+    # @since 1.0.0
     def update_biases(row)
       @loss_derivative_biases[row] = @loss_derivative_biases[row] / @batch_size.to_f
       @biases[row] = NMatrix::BLAS.gemm(@idn[row],@loss_derivative_biases[row],@biases[row],-(@training_rate),1.0)
     end
 
+    # Update biases and weights.
+    # @since 1.2.0
+    def update_parameters
+      (@neuron_columns.size-1).downto(0) do |i|
+        update_weights(i)
+        update_biases(i)
+      end
+    end
+
     # Get outputs of neural network.
     # @return [Array] @a[@neuron_columns.size] output of neural network
-    # @since 1.0
+    # @since 1.0.0
     def get_outputs
       return @a[@neuron_columns.size]
     end
@@ -292,7 +306,7 @@ module FastNeurons
     # Set training rate.
     # @param [Float] rate training rate
     # default -> 0.1
-    # @since 1.1
+    # @since 1.1.0
     def set_training_rate(rate = 0.1)
       @training_rate = rate
     end
@@ -300,16 +314,16 @@ module FastNeurons
     # Set batch size of mini-batch learning.
     # @param [Int] size batch size
     # default -> 1
-    # @since 2.0
+    # @since 1.2.0
     def set_batch_size(size = 1)
       @batch_size = size
     end
 
     # Compute feed forward propagation and backpropagation.
-    # @param [Int] epoch the number of learning of input data
-    # @since 1.0
-    def run(epoch)
-      epoch.times do |i|
+    # @param [Int] times_of_learning the number of learning times of input data
+    # @since 1.0.0
+    def run(times_of_learning = 1)
+      times_of_learning.times do |i|
         propagate
         backpropagate
       end
@@ -317,7 +331,7 @@ module FastNeurons
 
     # Save learned network to JSON file.
     # @param [String] path file path
-    # @since 1.0
+    # @since 1.0.0
     def save_network(path)
       # Make hash of parameters.
       hash = { "columns" => @columns, "activation_function" => @keys, "biases" => @biases, "weights" => @weights }
@@ -331,7 +345,7 @@ module FastNeurons
     # Load learned network from JSON file.
     # @param [String] path file path
     # @param [Array or Symbol] activation_function the name of the activation function you want to use as a symbol or an array
-    # @since 1.0
+    # @since 1.0.0
     def load_network(path, activation_function = nil)
       # Open file.
       File.open(path,"r+") do |f|
@@ -369,20 +383,28 @@ module FastNeurons
   end
 
   # Describes a restricted boltzmann machine.
-  # @since 2.0
+  # @example learning
+  #  data = [[1,1,1,0,0,0]]
+  #  rbm = FastNeurons::NN.new([6, 5], :Bernoulli)
+  #  rbm.randomize
+  #  data.each do |inputs|
+  #    rbm.input(inputs)
+  #    rbm.run(1)
+  #  end
+  # @since 1.2.0
   class RBM
-    # Creates a RBM from columns giving each the size
-    # of a column of units.
+    # Creates a RBM from columns giving each the size of a column of units.<br>
+    # You can use two different types of RBM. (Bernoulli-Bernoulli RBM or Gaussian-Bernoulli RBM)<br>
+    # The type of RBM is specified by a symbol.<br>
+    #':Bernoulli' or ':Gaussian' default -> :Bernoulli<br>
+    # If you set :Bernoulli, you can use Bernoulli-Bernoulli RBM.<br>
+    # If you set :Gaussian, you can use Gaussian-Bernoulli RBM.<br>
     # @param [Array] columns the array showing the shape of a restricted boltzmann machine
     # @param [Symbol] type the visible units' type you want to use
-    # ':Bernoulli' or ':Gaussian'
-    # default -> :Bernoulli
-    # If you set :Bernoulli, you can use Bernoulli-Bernoulli RBM.
-    # If you set :Gaussian, you can use Gaussian-Bernoulli RBM.
     # @example initialization of the restricted boltzmann machine
     #   rbm = RBMR::RBM.new([5,4])
     #   rbm = RBMR::RBM.new([5,4],:Gaussian)
-    # @since 2.0
+    # @since 1.2.0
     def initialize(columns,type = :Bernoulli)
       # training_rate
       @training_rate = 0.1
@@ -439,7 +461,7 @@ module FastNeurons
 
     # Initialize derivatives.
     # The main use is for mini-batch learning.
-    # @since 2.0
+    # @since 1.2.0
     def initialize_derivatives
       # Initialize derivative matrix of biases.
       @derivative_biases = @columns.map{ |col| NMatrix.new([1,col], 0.0) }
@@ -449,7 +471,7 @@ module FastNeurons
     end
 
     # Set up the RBM to random values.
-    # @since 2.0
+    # @since 1.2.0
     def randomize
       # Create fast matrices for the biases.
       @biases = @biases_geometry.map { |geo| NMatrix.new(geo,0.0)}
@@ -472,7 +494,7 @@ module FastNeurons
 
     # Get the inputs of the restricted boltzmann machine.
     # @param [Array] values inputs of the restricted boltzmann machine.
-    # @since 2.0
+    # @since 1.2.0
     def input(values)
       @units[0] = N[values.flatten,:dtype => :float64]
       @inputs = @units[0].dup
@@ -484,14 +506,14 @@ module FastNeurons
     # Input to the hidden layer.
     # The main use is for post-learning confirmation.
     # @param [Array] values inputs of the hidden layer
-    # @since 2.0
+    # @since 1.2.0
     def input_hidden_layer(values)
       @units[1] = N[values.flatten,:dtype => :float64]
       sample_visible_units
     end
 
     # Standardize input data.
-    # @since 2.0
+    # @since 1.2.0
     def standardize
       @mean = @units[0].mean(1)[0]
       @standard_deviation = @units[0].std(1)[0]
@@ -500,7 +522,7 @@ module FastNeurons
     end
 
     # Unstandardize visible units and inputs.
-    # @since 2.0
+    # @since 1.2.0
     def unstandardize
       @units[0] = @units[0] * @standard_deviation + @mean
       @inputs = @inputs * @standard_deviation + @mean
@@ -508,7 +530,7 @@ module FastNeurons
 
     # Learn RBM.
     # @param [Int] number_of_steps the number of Contrastive Divergence steps
-    # @since 2.0
+    # @since 1.2.0
     def run(number_of_steps)
       sample(number_of_steps)
       compute_derivatives
@@ -523,7 +545,7 @@ module FastNeurons
 
     # Sample visible units and hidden units.
     # @param [Int] number_of_steps the number of Contrastive Divergence steps
-    # @since 2.0
+    # @since 1.2.0
     def sample(number_of_steps)
       sample_hidden_units
 
@@ -541,7 +563,7 @@ module FastNeurons
     end
 
     # Compute P(hidden|visible) and sample hidden units.
-    # @since 2.0
+    # @since 1.2.0
     def sample_hidden_units
       # Compute conditional probability of hidden layer.
       pre_sigmoid = NMatrix::BLAS.gemm(@units[0],@weights[0],@biases[0])
@@ -554,13 +576,13 @@ module FastNeurons
     end
 
     # Compute P(visible|hidden) and sample visible units.
-    # @since 2.0
+    # @since 1.2.0
     def sample_visible_units
       @sampling_method.call
     end
 
     # Sample visible units from Bernoulli units.
-    # @since 2.0
+    # @since 1.2.0
     def sample_from_bernoulli
       # Compute conditional probability of visible layer.
       product_of_units_and_weights = NMatrix::BLAS.gemm(@weights[0],@units[1].transpose)
@@ -574,7 +596,7 @@ module FastNeurons
     end
 
     # Sample visible units from Gaussian units.
-    # @since 2.0
+    # @since 1.2.0
     def sample_from_gaussian
       # Compute product of hidden units and weights.
       product_of_units_and_weights = NMatrix::BLAS.gemm(@weights[0],@units[1].transpose)
@@ -593,7 +615,7 @@ module FastNeurons
     end
 
     # Compute derivatives biases and weights.
-    # @since 2.0
+    # @since 1.2.0
     def compute_derivatives
       # Judge RBM type.
       unit = @type == :Bernoulli ? @units[0] : @probability[1]
@@ -607,21 +629,21 @@ module FastNeurons
     end
 
     # Update biases and weights.
-    # @since 2.0
+    # @since 1.2.0
     def update_parameters
       update_biases
       update_weights
     end
 
     # Update biases.
-    # @since 2.0
+    # @since 1.2.0
     def update_biases
       @biases[0] += @derivative_biases[1] / @batch_size.to_f * @training_rate
       @biases[1] += @derivative_biases[0] / @batch_size.to_f * @training_rate
     end
 
     # Update weights.
-    # @since 2.0
+    # @since 1.2.0
     def update_weights
       @weights[0] += @derivative_weights / @batch_size.to_f * @training_rate
     end
@@ -629,7 +651,7 @@ module FastNeurons
     # Reconstruct input data.
     # The main use is for post-learning confirmation.
     # @param [Array] values the data you want to reconstruct
-    # @since 2.0
+    # @since 1.2.0
     def reconstruct(values)
       input(values)
       sample_hidden_units
@@ -637,7 +659,7 @@ module FastNeurons
     end
 
     # Compute cross entropy.
-    # @since 2.0
+    # @since 1.2.0
     def compute_cross_entropy
       log_probability = @probability[1].log
       log_probability_dash = (-@probability[1] + 1).log
@@ -647,7 +669,7 @@ module FastNeurons
 
     # Compute mean cross entropy.
     # @param [Int] number_of_data the number of training data.
-    # @since 2.0
+    # @since 1.2.0
     def compute_mean_cross_entropy(number_of_data)
       mean_cross_entropy = -@cross_entropy.to_a.sum / number_of_data.to_f
       @cross_entropy = NMatrix.new([1,@units[0].size],0.0)
@@ -656,7 +678,7 @@ module FastNeurons
 
     # Get outputs of neural network.
     # @return [Array] output of restricted boltzmann machine(= visible units)
-    # @since 2.0
+    # @since 1.2.0
     def get_outputs
       @type == :Gaussian ? unstandardize : nil
       return @units[0]
@@ -664,14 +686,14 @@ module FastNeurons
 
     # Get conditional probability of visible layer.
     # @return [Array] conditional probability of visible layer.
-    # @since 2.0
+    # @since 1.2.0
     def get_visible_probability
       return @probability[1]
     end
 
     # Set training rate.
     # @param [Float] rate training rate
-    # @since 2.0
+    # @since 1.2.0
     def set_training_rate(rate = 0.1)
       @training_rate = rate
     end
@@ -679,14 +701,14 @@ module FastNeurons
     # Set batch size of mini-batch learning.
     # @param [Int] size batch size
     # default -> 1
-    # @since 2.0
+    # @since 1.2.0
     def set_batch_size(size = 1)
       @batch_size = size
     end
 
     # Save learned network to JSON file.
     # @param [String] path file path
-    # @since 2.0
+    # @since 1.2.0
     def save_network(path)
       # Make hash of parameters.
       hash = { "type" => @type, "columns" => @columns, "biases" => @biases, "weights" => @weights }
@@ -699,7 +721,7 @@ module FastNeurons
 
     # Load learned network from JSON file.
     # @param [String] path file path
-    # @since 2.0
+    # @since 1.2.0
     def load_network(path)
       # Open file.
       File.open(path,"r+") do |f|
@@ -736,7 +758,7 @@ module FastNeurons
   # Apply linear function to z.
   # @param [NMatrix] z a vector of NMatrix containing the multiply accumulation of inputs, weights and biases
   # @return [NMatrix] a vector of NMatrix that each elements are applied to linear function
-  # @since 1.1
+  # @since 1.1.0
   def self.linear(z)
     return z
   end
@@ -744,7 +766,7 @@ module FastNeurons
   # Apply sigmoid function to z.
   # @param [NMatrix] z a vector of NMatrix containing the multiply accumulation of inputs, weights and biases
   # @return [NMatrix] a vector of NMatrix that each elements are applied to sigmoid function
-  # @since 1.1
+  # @since 1.1.0
   def self.sigmoid(z)
     return ((-z).exp + 1) ** (-1)
   end
@@ -752,7 +774,7 @@ module FastNeurons
   # Apply tanh function to z.
   # @param [NMatrix] z a vector of NMatrix containing the multiply accumulation of inputs, weights and biases
   # @return [NMatrix] a vector of NMatrix that each elements are applied to tanh function
-  # @since 1.1
+  # @since 1.1.0
   def self.tanh(z)
     pos_exp = z.exp
     neg_exp = (-z).exp
@@ -762,7 +784,7 @@ module FastNeurons
   # Apply relu function to z.
   # @param [NMatrix] z a vector of NMatrix containing the multiply accumulation of inputs, weights and biases
   # @return [NMatrix] a vector of NMatrix that each elements are applied to relu function
-  # @since 1.1
+  # @since 1.1.0
   def self.relu(z)
     return (z + z.abs) / 2.0
   end
@@ -770,7 +792,7 @@ module FastNeurons
   # Apply leaky relu function to z.
   # @param [NMatrix] z a vector of NMatrix containing the multiply accumulation of inputs, weights and biases
   # @return [NMatrix] a vector of NMatrix that each elements are applied to leaky relu function
-  # @since 1.1
+  # @since 1.1.0
   def self.leakyrelu(z)
     return N[z.map{ |x| x > 0.0 ? x : 0.01 * x }.to_a.flatten].transpose
   end
@@ -778,7 +800,7 @@ module FastNeurons
   # Apply elu function to z.
   # @param [NMatrix] z a vector of NMatrix containing the multiply accumulation of inputs, weights and biases
   # @return [NMatrix] a vector of NMatrix that each elements are applied to elu function
-  # @since 1.1
+  # @since 1.1.0
   def self.elu(z)
     return N[z.map{ |x| x > 0.0 ? x : (Math.exp(x) - 1) }.to_a.flatten].transpose
   end
@@ -786,7 +808,7 @@ module FastNeurons
   # Apply selu function to z.
   # @param [NMatrix] z a vector of NMatrix containing the multiply accumulation of inputs, weights and biases
   # @return [NMatrix] a vector of NMatrix that each elements are applied to selu function
-  # @since 1.1
+  # @since 1.1.0
   def self.selu(z)
     return N[z.map{ |x| x > 0.0 ? x * SCALE : ALPHA * (Math.exp(x) - 1) * SCALE }.to_a.flatten].transpose
   end
@@ -794,7 +816,7 @@ module FastNeurons
   # Apply softplus function to z.
   # @param [NMatrix] z a vector of NMatrix containing the multiply accumulation of inputs, weights and biases
   # @return [NMatrix] a vector of NMatrix that each elements are applied to softplus function
-  # @since 1.1
+  # @since 1.1.0
   def self.softplus(z)
     return (z.exp + 1.0).log
   end
@@ -802,7 +824,7 @@ module FastNeurons
   # Apply swish function to z.
   # @param [NMatrix] z a vector of NMatrix containing the multiply accumulation of inputs, weights and biases
   # @return [NMatrix] a vector of NMatrix that each elements are applied to swish function
-  # @since 1.1
+  # @since 1.1.0
   def self.swish(z)
     return z * sigmoid(z)
   end
@@ -810,7 +832,7 @@ module FastNeurons
   # Apply mish function to z.
   # @param [NMatrix] z a vector of NMatrix containing the multiply accumulation of inputs, weights and biases
   # @return [NMatrix] a vector of NMatrix that each elements are applied to mish function
-  # @since 1.1
+  # @since 1.1.0
   def self.mish(z)
     return z * tanh(softplus(z))
   end
@@ -818,7 +840,7 @@ module FastNeurons
   # Differentiate linear function.
   # @param [NMatrix] a a vector of NMatrix containing neuron statuses
   # @return [NMatrix] a vector of NMatrix that each elements are differentiated
-  # @since 1.1
+  # @since 1.1.0
   def self.differentiate_linear(a)
     return NMatrix.ones_like(a)
   end
@@ -826,7 +848,7 @@ module FastNeurons
   # Differentiate sigmoid function.
   # @param [NMatrix] a a vector of NMatrix containing neuron statuses
   # @return [NMatrix] a vector of NMatrix that each elements are differentiated
-  # @since 1.1
+  # @since 1.1.0
   def self.differentiate_sigmoid(a)
     return (-a + 1.0) * a
   end
@@ -834,7 +856,7 @@ module FastNeurons
   # Differentiate tanh function.
   # @param [NMatrix] a a vector of NMatrix containing neuron statuses
   # @return [NMatrix] a vector of NMatrix that each elements are differentiated
-  # @since 1.1
+  # @since 1.1.0
   def self.differentiate_tanh(a)
     return -(a ** 2) + 1.0
   end
@@ -842,7 +864,7 @@ module FastNeurons
   # Differentiate relu function.
   # @param [NMatrix] z a vector of NMatrix containing neuron statuses
   # @return [NMatrix] a vector of NMatrix that each elements are differentiated
-  # @since 1.1
+  # @since 1.1.0
   def self.differentiate_relu(z)
     return N[z.map{ |x| x > 0.0 ? 1.0 : 0.0 }.to_a.flatten].transpose
   end
@@ -850,7 +872,7 @@ module FastNeurons
   # Differentiate leaky relu function.
   # @param [NMatrix] z a vector of NMatrix containing neuron statuses
   # @return [NMatrix] a vector of NMatrix that each elements are differentiated
-  # @since 1.1
+  # @since 1.1.0
   def self.differentiate_leakyrelu(z)
     return N[z.map{ |x| x > 0.0 ? 1.0 : 0.01 }.to_a.flatten].transpose
   end
@@ -858,7 +880,7 @@ module FastNeurons
   # Differentiate elu function.
   # @param [NMatrix] z a vector of NMatrix containing neuron statuses
   # @return [NMatrix] a vector of NMatrix that each elements are differentiated
-  # @since 1.1
+  # @since 1.1.0
   def self.differentiate_elu(z)
     return N[z.map{ |x| x > 0.0 ? 1.0 : Math.exp(x) }.to_a.flatten].transpose
   end
@@ -866,7 +888,7 @@ module FastNeurons
   # Differentiate selu function.
   # @param [NMatrix] z a vector of NMatrix containing neuron statuses
   # @return [NMatrix] a vector of NMatrix that each elements are differentiated
-  # @since 1.1
+  # @since 1.1.0
   def self.differentiate_selu(z)
     return N[z.map{ |x| x > 0.0 ? SCALE : ALPHA * Math.exp(x) * SCALE }.to_a.flatten].transpose
   end
@@ -876,7 +898,7 @@ module FastNeurons
   # Differentiate swish function.
   # @param [NMatrix] z a vector of NMatrix containing neuron statuses
   # @return [NMatrix] a vector of NMatrix that each elements are differentiated
-  # @since 1.1
+  # @since 1.1.0
   def self.differentiate_swish(z)
     a = swish(z)
     return a + (-a + 1) * sigmoid(z)
@@ -885,14 +907,13 @@ module FastNeurons
   # Differentiate mish function.
   # @param [NMatrix] z a vector of NMatrix containing neuron statuses
   # @return [NMatrix] a vector of NMatrix that each elements are differentiated
-  # @since 1.1
+  # @since 1.1.0
   def self.differentiate_mish(z)
     omega = (z + 1) * 4 + (z * 2).exp * 4 + (z * 3).exp + (z * 4 + 6) * z.exp
     delta = z.exp * 2 + (z * 2).exp + 2
     return (z.exp * omega) / (delta ** 2)
   end
 
-  # activation functions
   Linear = { antiderivative: method(:linear), derivative: method(:differentiate_linear) }
   Sigmoid = { antiderivative: method(:sigmoid), derivative: method(:differentiate_sigmoid) }
   Tanh = { antiderivative: method(:tanh), derivative: method(:differentiate_tanh) }

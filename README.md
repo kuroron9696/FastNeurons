@@ -3,19 +3,26 @@ A simple and fast neural network library for Ruby using NMatrix.
 ## Example
 - learning xor
 ```ruby
+# learning data
 data = [[0,0], [0,1], [1,0], [1,1]]
+
+# teaching data
 t = [[0], [1], [1], [0]]
 
+# Initialize a neural network.
 nn = FastNeurons::NN.new([2, 2, 1], [:Tanh, :Linear])
+
+# Set up the parameters to random values.
 nn.randomize
 
+# learning
 100.times do
   data.each_with_index do |inputs,i|
 
-    nn.input(inputs,t[i]) # Inputs input data and training data
-    nn.run(1) # propagate and backpropagate
+    nn.input(inputs,t[i]) # Input training data and teaching data.
+    nn.run(1) # Compute feed forward propagation and backpropagation.
 
-    puts "ans: #{t[i]}, expected: #{nn.get_outputs[0]}"
+    puts "ans: #{t[i]}, expected: #{nn.get_outputs}"
   end
 end
 
@@ -24,25 +31,34 @@ data.each_with_index do |inputs,i|
   nn.input(inputs,t[i])
   nn.run(1)
 
-  puts "input: #{inputs}, ans: #{t[i]}, expected: #{nn.get_outputs[0]}"
+  puts "input: #{inputs}, ans: #{t[i]}, expected: #{nn.get_outputs}"
 end
 ```
 
 - restricted boltzmannn machine
 ```ruby
-inputs = [[1,1,1,0,0,0]]
+# training data
+data = [[1,1,1,0,0,0]]
+
+# Initialize a restricted boltzmann machine.
 rbm = FastNeurons::RBM.new([6,5], :Bernoulli)
 
+# Set up the parameters to random values.
 rbm.randomize
 
-100.times do |i|
-  inputs.each do |input|
-    rbm.input(input)
-    rbm.run(1)
-    puts rbm.get_outputs
+# learning
+100.times do
+  data.each do |inputs|
+    rbm.input(inputs) # Input training data.
+    rbm.run(1) # Sampling and parameters updating.
+    puts rbm.get_outputs # Get the outputs of RBM(= visible units)
   end
 end
 
+rbm.reconstruct(data[0]) # Reconstruct input data.
+puts "input: #{data[0]}"
+puts "output: #{rbm.get_outputs}"
+puts "P(v|h): #{rbm.get_visible_probability}"
 ```
 ## Feature(currently)
 - Create a standard fully connected neural network.
