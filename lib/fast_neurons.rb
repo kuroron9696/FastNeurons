@@ -170,7 +170,7 @@ module FastNeurons
 
     # Input to the hidden layer.
     # The main use is for post-learning confirmation.
-    # @param [Int] row the number of the hidden layer you want to input
+    # @param [Integer] row the number of the hidden layer you want to input
     # @param [Array] values inputs of the hidden layer
     # @since 1.0.0
     def input_hidden(row,*values)
@@ -179,7 +179,7 @@ module FastNeurons
 
     # Compute multiply accumulate of inputs, weights and biases.
     # z = inputs * weights + biases
-    # @param [Int] row the number of layer currently computing
+    # @param [Integer] row the number of layer currently computing
     # @since 1.0.0
     def compute_z(row)
       # Compute the values before the activation function is applied.
@@ -188,7 +188,7 @@ module FastNeurons
 
     # Compute neurons statuses.
     # Apply activation function to z.
-    # @param [Int] row the number of layer currently computing
+    # @param [Integer] row the number of layer currently computing
     # @since 1.0.0
     def compute_a(row)
       @a[row+1] = @antiderivatives[row].call(@z[row])
@@ -208,7 +208,7 @@ module FastNeurons
 
     # Compute from the hidden layer to the output layer.
     # The main use is for post-learning confirmation.
-    # @param [Int] row the number of layer you want to begin computing
+    # @param [Integer] row the number of layer you want to begin computing
     # row's range -> 1 ~ @neuron_columns.size - 1
     # @since 1.0.0
     def propagate_from_hidden(row)
@@ -241,7 +241,7 @@ module FastNeurons
     end
 
     # Differentiate neurons statuses.
-    # @param [Int] row the number of layer currently computing
+    # @param [Integer] row the number of layer currently computing
     # @since 1.1.0
     def differentiate_a(row)
       # Judge the symbol of activation function.
@@ -252,28 +252,28 @@ module FastNeurons
     end
 
     # Compute delta.
-    # @param [Int] row the number of layer currently computing
+    # @param [Integer] row the number of layer currently computing
     # @since 1.0.0
     def compute_delta(row)
       @delta[row] = NMatrix::BLAS.gemm(@weights[row+1],@delta[row+1],nil,1.0,0.0,:transpose)*@g_dash[row]
     end
 
     # Compute derivative of weights.
-    # @param [Int] row the number of layer currently computing
+    # @param [Integer] row the number of layer currently computing
     # @since 1.2.0
     def differentiate_weights(row)
       @loss_derivative_weights[row] += NMatrix::BLAS.gemm(@delta[row],@a[row].transpose)
     end
 
     # Compute derivative of biases.
-    # @param [Int] row the number of layer currently computing
+    # @param [Integer] row the number of layer currently computing
     # @since 1.2.0
     def differentiate_biases(row)
       @loss_derivative_biases[row] += @delta[row]
     end
 
     # Update weights.
-    # @param [Int] row the number of layer currently computing
+    # @param [Integer] row the number of layer currently computing
     # @since 1.0.0
     def update_weights(row)
       @loss_derivative_weights[row] = @loss_derivative_weights[row] / @batch_size.to_f
@@ -281,7 +281,7 @@ module FastNeurons
     end
 
     # Update biases.
-    # @param [Int] row the number of layer currently computing
+    # @param [Integer] row the number of layer currently computing
     # @since 1.0.0
     def update_biases(row)
       @loss_derivative_biases[row] = @loss_derivative_biases[row] / @batch_size.to_f
@@ -297,31 +297,30 @@ module FastNeurons
       end
     end
 
-    # Get outputs of neural network.
-    # @return [Array] @a[@neuron_columns.size] output of neural network
+    # Get outputs of the layer of neural network.
+    # @param [Integer] row the row number you want to get outputs
+    # @return [Array] @a[row] the output of layer specified by row
     # @since 1.0.0
-    def get_outputs
-      return @a[@neuron_columns.size]
+    def get_outputs(row = @neuron_columns.size)
+      return @a[row]
     end
 
     # Set training rate.
     # @param [Float] rate training rate
-    # default -> 0.1
     # @since 1.1.0
     def set_training_rate(rate = 0.1)
       @training_rate = rate
     end
 
     # Set batch size of mini-batch learning.
-    # @param [Int] size batch size
-    # default -> 1
+    # @param [Integer] size batch size
     # @since 1.2.0
     def set_batch_size(size = 1)
       @batch_size = size
     end
 
     # Compute feed forward propagation and backpropagation.
-    # @param [Int] times_of_learning the number of learning times of input data
+    # @param [Integer] times_of_learning the number of learning times of input data
     # @since 1.0.0
     def run(times_of_learning = 1)
       times_of_learning.times do |i|
@@ -530,7 +529,7 @@ module FastNeurons
     end
 
     # Learn RBM.
-    # @param [Int] number_of_steps the number of Contrastive Divergence steps
+    # @param [Integer] number_of_steps the number of Contrastive Divergence steps
     # @since 1.2.0
     def run(number_of_steps)
       sample(number_of_steps)
@@ -545,7 +544,7 @@ module FastNeurons
     end
 
     # Sample visible units and hidden units.
-    # @param [Int] number_of_steps the number of Contrastive Divergence steps
+    # @param [Integer] number_of_steps the number of Contrastive Divergence steps
     # @since 1.2.0
     def sample(number_of_steps)
       sample_hidden_units
@@ -669,7 +668,7 @@ module FastNeurons
     end
 
     # Compute mean cross entropy.
-    # @param [Int] number_of_data the number of training data.
+    # @param [Integer] number_of_data the number of training data.
     # @since 1.2.0
     def compute_mean_cross_entropy(number_of_data)
       mean_cross_entropy = -@cross_entropy.to_a.sum / number_of_data.to_f
@@ -700,7 +699,7 @@ module FastNeurons
     end
 
     # Set batch size of mini-batch learning.
-    # @param [Int] size batch size
+    # @param [Integer] size batch size
     # default -> 1
     # @since 1.2.0
     def set_batch_size(size = 1)
