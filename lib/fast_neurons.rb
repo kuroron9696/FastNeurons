@@ -8,7 +8,7 @@ ALPHA = 1.6732632423543772848170429916717
 # FastNeurons is a simple and fast library using NMatrix for building neural networks.<br>
 # Currently, it supports fully connected neural network and restricted boltzmann machine.<br>
 # More models will be added gradually.<br>
-# @version 1.2.0
+# @version 1.3.0
 # @since 1.0.0
 # @author Ryota Sakai,Yusuke Tomimoto
 module FastNeurons
@@ -109,6 +109,9 @@ module FastNeurons
 
       # Create identity matrix.
       @idn = @idn_geometry.map{ |g| NMatrix.eye([g[0],g[0]]) }
+
+      # Set the coefficients of derivatives.
+      @coefficients = NMatrix.ones_like(@a[@neuron_columns.size])
     end
 
     # Initialize loss derivatives.
@@ -157,15 +160,15 @@ module FastNeurons
     end
 
     # Get the inputs of the neural network.
-    # @param [Array] values inputs of the neural network.
-    # @param [Array] t training data
+    # @param [Array] values inputs of the neural network
+    # @param [Array] teaching_data teaching data of the neural network
     # @since 1.0.0
-    def input(*values,t)
+    def input(values, teaching_data = nil)
       # The inputs are stored into a[0] as a NMatrix vector.
       @a[0] = N[values.flatten, :dtype => :float64].transpose
 
-      # The training data is stored into T as a NMatrix vector.
-      @T = N[t.flatten, :dtype => :float64].transpose
+      # The teaching data is stored into T as a NMatrix vector.
+      set_teaching_data(teaching_data)
     end
 
     # Input to the hidden layer.
@@ -222,8 +225,8 @@ module FastNeurons
     # @since 1.0.0
     def backpropagate
       differentiate_a(@neuron_columns.size-1)
-      @delta[@neuron_columns.size-1] = @g_dash[@neuron_columns.size-1]*(@a[@neuron_columns.size] - @T)
-      @loss_derivative_weights[@neuron_columns.size-1] += NMatrix::BLAS.gemm(@delta[@neuron_columns.size-1],@a[@neuron_columns.size-1].transpose,@loss_derivative_weights[@neuron_columns.size-1],1.0,0.0)
+      @delta[@neuron_columns.size-1] = @g_dash[@neuron_columns.size-1] * (@a[@neuron_columns.size] - @T) * @coefficients
+      @loss_derivative_weights[@neuron_columns.size-1] += NMatrix::BLAS.gemm(@delta[@neuron_columns.size-1], @a[@neuron_columns.size-1].transpose, @loss_derivative_weights[@neuron_columns.size-1], 1.0, 0.0)
       @loss_derivative_biases[@neuron_columns.size-1] += @delta[@neuron_columns.size-1]
 
       (@neuron_columns.size-2).downto(0) do |i|
@@ -255,14 +258,14 @@ module FastNeurons
     # @param [Integer] row the number of layer currently computing
     # @since 1.0.0
     def compute_delta(row)
-      @delta[row] = NMatrix::BLAS.gemm(@weights[row+1],@delta[row+1],nil,1.0,0.0,:transpose)*@g_dash[row]
+      @delta[row] = NMatrix::BLAS.gemm(@weights[row+1],@delta[row+1], nil, 1.0, 0.0, :transpose) * @g_dash[row]
     end
 
     # Compute derivative of weights.
     # @param [Integer] row the number of layer currently computing
     # @since 1.2.0
     def differentiate_weights(row)
-      @loss_derivative_weights[row] += NMatrix::BLAS.gemm(@delta[row],@a[row].transpose)
+      @loss_derivative_weights[row] += NMatrix::BLAS.gemm(@delta[row], @a[row].transpose)
     end
 
     # Compute derivative of biases.
@@ -277,7 +280,7 @@ module FastNeurons
     # @since 1.0.0
     def update_weights(row)
       @loss_derivative_weights[row] = @loss_derivative_weights[row] / @batch_size.to_f
-      @weights[row] = NMatrix::BLAS.gemm(@idn[row],@loss_derivative_weights[row],@weights[row],-(@training_rate),1.0)
+      @weights[row] = NMatrix::BLAS.gemm(@idn[row], @loss_derivative_weights[row], @weights[row], -(@training_rate), 1.0)
     end
 
     # Update biases.
@@ -305,11 +308,29 @@ module FastNeurons
       return @a[row]
     end
 
-    # Set training rate.
+    # Set a training rate.
     # @param [Float] rate training rate
     # @since 1.1.0
     def set_training_rate(rate = 0.1)
       @training_rate = rate
+    end
+
+    # Set the teaching data.
+    # @param [Array] teaching_data teaching data of neural network
+    # @since 1.3.0
+    def set_teaching_data(teaching_data = nil)
+      @T = teaching_data.nil? ? NMatrix.zeros_like(@a[@neuron_columns.size]) : N[teaching_data.flatten, :dtype => :float64].transpose
+    end
+
+    # Set coefficients of derivatives.
+    # @param [Array or Float] coefficients coefficients of derivatives.
+    # @since 1.3.0
+    def set_coefficients(coefficients)
+      if coefficients.kind_of?(Array)
+        @coefficients = N[coefficients.flatten, :dtype => :float64].transpose
+      elsif
+        @coefficients = NMatrix.new([1, @a[@neuron_columns.size].size], coefficients).transpose        
+      end      
     end
 
     # Set batch size of mini-batch learning.
