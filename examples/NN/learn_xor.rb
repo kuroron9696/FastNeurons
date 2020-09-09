@@ -15,12 +15,16 @@ nn.randomize
 #nn.load_network("network.json")
 
 puts "Runnning..."
-
 # learning
 1000.times do
   data.each_with_index do |inputs,i|
 
-    nn.input(inputs,t[i]) # Inputs input data and training data
+    nn.input(inputs) # Inputs input data and teaching data.
+    nn.set_teaching_data(t[i]) # Set teaching data of neural network.
+
+    # Setting of teaching data can also be as below.
+    # nn.input(inputs, t[i])
+
     nn.run(1) # propagate and backpropagate
 
     puts "ans: #{t[i]}, expected: #{nn.get_outputs}"

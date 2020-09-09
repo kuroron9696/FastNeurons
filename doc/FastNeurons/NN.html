@@ -355,7 +355,7 @@
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#get_outputs-instance_method" title="#get_outputs (instance method)">#<strong>get_outputs</strong>  &#x21d2; Array </a>
+      <a href="#get_outputs-instance_method" title="#get_outputs (instance method)">#<strong>get_outputs</strong>(row = @neuron_columns.size)  &#x21d2; Array </a>
     
 
     
@@ -370,7 +370,7 @@
 
   
     <span class="summary_desc"><div class='inline'>
-<p>Get outputs of neural network.</p>
+<p>Get outputs of the layer of neural network.</p>
 </div></span>
   
 </li>
@@ -429,7 +429,7 @@
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#input-instance_method" title="#input (instance method)">#<strong>input</strong>(*values, t)  &#x21d2; Object </a>
+      <a href="#input-instance_method" title="#input (instance method)">#<strong>input</strong>(values, teaching_data = nil)  &#x21d2; Object </a>
     
 
     
@@ -645,6 +645,54 @@
         <li class="public ">
   <span class="summary_signature">
     
+      <a href="#set_coefficients-instance_method" title="#set_coefficients (instance method)">#<strong>set_coefficients</strong>(coefficients)  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Set coefficients of derivatives.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#set_teaching_data-instance_method" title="#set_teaching_data (instance method)">#<strong>set_teaching_data</strong>(teaching_data = nil)  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Set the teaching data.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
       <a href="#set_training_rate-instance_method" title="#set_training_rate (instance method)">#<strong>set_training_rate</strong>(rate = 0.1)  &#x21d2; Object </a>
     
 
@@ -660,7 +708,7 @@
 
   
     <span class="summary_desc"><div class='inline'>
-<p>Set training rate.</p>
+<p>Set a training rate.</p>
 </div></span>
   
 </li>
@@ -936,7 +984,10 @@
 109
 110
 111
-112</pre>
+112
+113
+114
+115</pre>
     </td>
     <td>
       <pre class="code"><span class="info file"># File 'fast_neurons.rb', line 38</span>
@@ -1015,6 +1066,9 @@
 
   <span class='comment'># Create identity matrix.
 </span>  <span class='ivar'>@idn</span> <span class='op'>=</span> <span class='ivar'>@idn_geometry</span><span class='period'>.</span><span class='id identifier rubyid_map'>map</span><span class='lbrace'>{</span> <span class='op'>|</span><span class='id identifier rubyid_g'>g</span><span class='op'>|</span> <span class='const'>NMatrix</span><span class='period'>.</span><span class='id identifier rubyid_eye'>eye</span><span class='lparen'>(</span><span class='lbracket'>[</span><span class='id identifier rubyid_g'>g</span><span class='lbracket'>[</span><span class='int'>0</span><span class='rbracket'>]</span><span class='comma'>,</span><span class='id identifier rubyid_g'>g</span><span class='lbracket'>[</span><span class='int'>0</span><span class='rbracket'>]</span><span class='rbracket'>]</span><span class='rparen'>)</span> <span class='rbrace'>}</span>
+
+  <span class='comment'># Set the coefficients of derivatives.
+</span>  <span class='ivar'>@coefficients</span> <span class='op'>=</span> <span class='const'>NMatrix</span><span class='period'>.</span><span class='id identifier rubyid_ones_like'>ones_like</span><span class='lparen'>(</span><span class='ivar'>@a</span><span class='lbracket'>[</span><span class='ivar'>@neuron_columns</span><span class='period'>.</span><span class='id identifier rubyid_size'>size</span><span class='rbracket'>]</span><span class='rparen'>)</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -1070,9 +1124,6 @@
       <pre class="lines">
 
 
-223
-224
-225
 226
 227
 228
@@ -1088,15 +1139,18 @@
 238
 239
 240
-241</pre>
+241
+242
+243
+244</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'fast_neurons.rb', line 223</span>
+      <pre class="code"><span class="info file"># File 'fast_neurons.rb', line 226</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_backpropagate'>backpropagate</span>
   <span class='id identifier rubyid_differentiate_a'>differentiate_a</span><span class='lparen'>(</span><span class='ivar'>@neuron_columns</span><span class='period'>.</span><span class='id identifier rubyid_size'>size</span><span class='op'>-</span><span class='int'>1</span><span class='rparen'>)</span>
-  <span class='ivar'>@delta</span><span class='lbracket'>[</span><span class='ivar'>@neuron_columns</span><span class='period'>.</span><span class='id identifier rubyid_size'>size</span><span class='op'>-</span><span class='int'>1</span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='ivar'>@g_dash</span><span class='lbracket'>[</span><span class='ivar'>@neuron_columns</span><span class='period'>.</span><span class='id identifier rubyid_size'>size</span><span class='op'>-</span><span class='int'>1</span><span class='rbracket'>]</span><span class='op'>*</span><span class='lparen'>(</span><span class='ivar'>@a</span><span class='lbracket'>[</span><span class='ivar'>@neuron_columns</span><span class='period'>.</span><span class='id identifier rubyid_size'>size</span><span class='rbracket'>]</span> <span class='op'>-</span> <span class='ivar'>@T</span><span class='rparen'>)</span>
-  <span class='ivar'>@loss_derivative_weights</span><span class='lbracket'>[</span><span class='ivar'>@neuron_columns</span><span class='period'>.</span><span class='id identifier rubyid_size'>size</span><span class='op'>-</span><span class='int'>1</span><span class='rbracket'>]</span> <span class='op'>+=</span> <span class='const'>NMatrix</span><span class='op'>::</span><span class='const'>BLAS</span><span class='period'>.</span><span class='id identifier rubyid_gemm'>gemm</span><span class='lparen'>(</span><span class='ivar'>@delta</span><span class='lbracket'>[</span><span class='ivar'>@neuron_columns</span><span class='period'>.</span><span class='id identifier rubyid_size'>size</span><span class='op'>-</span><span class='int'>1</span><span class='rbracket'>]</span><span class='comma'>,</span><span class='ivar'>@a</span><span class='lbracket'>[</span><span class='ivar'>@neuron_columns</span><span class='period'>.</span><span class='id identifier rubyid_size'>size</span><span class='op'>-</span><span class='int'>1</span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_transpose'>transpose</span><span class='comma'>,</span><span class='ivar'>@loss_derivative_weights</span><span class='lbracket'>[</span><span class='ivar'>@neuron_columns</span><span class='period'>.</span><span class='id identifier rubyid_size'>size</span><span class='op'>-</span><span class='int'>1</span><span class='rbracket'>]</span><span class='comma'>,</span><span class='float'>1.0</span><span class='comma'>,</span><span class='float'>0.0</span><span class='rparen'>)</span>
+  <span class='ivar'>@delta</span><span class='lbracket'>[</span><span class='ivar'>@neuron_columns</span><span class='period'>.</span><span class='id identifier rubyid_size'>size</span><span class='op'>-</span><span class='int'>1</span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='ivar'>@g_dash</span><span class='lbracket'>[</span><span class='ivar'>@neuron_columns</span><span class='period'>.</span><span class='id identifier rubyid_size'>size</span><span class='op'>-</span><span class='int'>1</span><span class='rbracket'>]</span> <span class='op'>*</span> <span class='lparen'>(</span><span class='ivar'>@a</span><span class='lbracket'>[</span><span class='ivar'>@neuron_columns</span><span class='period'>.</span><span class='id identifier rubyid_size'>size</span><span class='rbracket'>]</span> <span class='op'>-</span> <span class='ivar'>@T</span><span class='rparen'>)</span> <span class='op'>*</span> <span class='ivar'>@coefficients</span>
+  <span class='ivar'>@loss_derivative_weights</span><span class='lbracket'>[</span><span class='ivar'>@neuron_columns</span><span class='period'>.</span><span class='id identifier rubyid_size'>size</span><span class='op'>-</span><span class='int'>1</span><span class='rbracket'>]</span> <span class='op'>+=</span> <span class='const'>NMatrix</span><span class='op'>::</span><span class='const'>BLAS</span><span class='period'>.</span><span class='id identifier rubyid_gemm'>gemm</span><span class='lparen'>(</span><span class='ivar'>@delta</span><span class='lbracket'>[</span><span class='ivar'>@neuron_columns</span><span class='period'>.</span><span class='id identifier rubyid_size'>size</span><span class='op'>-</span><span class='int'>1</span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='ivar'>@a</span><span class='lbracket'>[</span><span class='ivar'>@neuron_columns</span><span class='period'>.</span><span class='id identifier rubyid_size'>size</span><span class='op'>-</span><span class='int'>1</span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_transpose'>transpose</span><span class='comma'>,</span> <span class='ivar'>@loss_derivative_weights</span><span class='lbracket'>[</span><span class='ivar'>@neuron_columns</span><span class='period'>.</span><span class='id identifier rubyid_size'>size</span><span class='op'>-</span><span class='int'>1</span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='float'>1.0</span><span class='comma'>,</span> <span class='float'>0.0</span><span class='rparen'>)</span>
   <span class='ivar'>@loss_derivative_biases</span><span class='lbracket'>[</span><span class='ivar'>@neuron_columns</span><span class='period'>.</span><span class='id identifier rubyid_size'>size</span><span class='op'>-</span><span class='int'>1</span><span class='rbracket'>]</span> <span class='op'>+=</span> <span class='ivar'>@delta</span><span class='lbracket'>[</span><span class='ivar'>@neuron_columns</span><span class='period'>.</span><span class='id identifier rubyid_size'>size</span><span class='op'>-</span><span class='int'>1</span><span class='rbracket'>]</span>
 
   <span class='lparen'>(</span><span class='ivar'>@neuron_columns</span><span class='period'>.</span><span class='id identifier rubyid_size'>size</span><span class='op'>-</span><span class='int'>2</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_downto'>downto</span><span class='lparen'>(</span><span class='int'>0</span><span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_i'>i</span><span class='op'>|</span>
@@ -1159,12 +1213,12 @@
       <pre class="lines">
 
 
-149
-150
-151</pre>
+152
+153
+154</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'fast_neurons.rb', line 149</span>
+      <pre class="code"><span class="info file"># File 'fast_neurons.rb', line 152</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_biases'>biases</span>
   <span class='ivar'>@biases</span><span class='period'>.</span><span class='id identifier rubyid_map'>map</span> <span class='lbrace'>{</span> <span class='op'>|</span><span class='id identifier rubyid_mat'>mat</span><span class='op'>|</span> <span class='id identifier rubyid_mat'>mat</span><span class='period'>.</span><span class='id identifier rubyid_to_a'>to_a</span> <span class='rbrace'>}</span>
@@ -1200,7 +1254,7 @@
         <span class='name'>row</span>
       
       
-        <span class='type'>(<tt>Int</tt>)</span>
+        <span class='type'>(<tt>Integer</tt>)</span>
       
       
       
@@ -1236,12 +1290,12 @@
       <pre class="lines">
 
 
-193
-194
-195</pre>
+196
+197
+198</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'fast_neurons.rb', line 193</span>
+      <pre class="code"><span class="info file"># File 'fast_neurons.rb', line 196</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_compute_a'>compute_a</span><span class='lparen'>(</span><span class='id identifier rubyid_row'>row</span><span class='rparen'>)</span>
   <span class='ivar'>@a</span><span class='lbracket'>[</span><span class='id identifier rubyid_row'>row</span><span class='op'>+</span><span class='int'>1</span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='ivar'>@antiderivatives</span><span class='lbracket'>[</span><span class='id identifier rubyid_row'>row</span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_call'>call</span><span class='lparen'>(</span><span class='ivar'>@z</span><span class='lbracket'>[</span><span class='id identifier rubyid_row'>row</span><span class='rbracket'>]</span><span class='rparen'>)</span>
@@ -1277,7 +1331,7 @@
         <span class='name'>row</span>
       
       
-        <span class='type'>(<tt>Int</tt>)</span>
+        <span class='type'>(<tt>Integer</tt>)</span>
       
       
       
@@ -1313,15 +1367,15 @@
       <pre class="lines">
 
 
-257
-258
-259</pre>
+260
+261
+262</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'fast_neurons.rb', line 257</span>
+      <pre class="code"><span class="info file"># File 'fast_neurons.rb', line 260</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_compute_delta'>compute_delta</span><span class='lparen'>(</span><span class='id identifier rubyid_row'>row</span><span class='rparen'>)</span>
-  <span class='ivar'>@delta</span><span class='lbracket'>[</span><span class='id identifier rubyid_row'>row</span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='const'>NMatrix</span><span class='op'>::</span><span class='const'>BLAS</span><span class='period'>.</span><span class='id identifier rubyid_gemm'>gemm</span><span class='lparen'>(</span><span class='ivar'>@weights</span><span class='lbracket'>[</span><span class='id identifier rubyid_row'>row</span><span class='op'>+</span><span class='int'>1</span><span class='rbracket'>]</span><span class='comma'>,</span><span class='ivar'>@delta</span><span class='lbracket'>[</span><span class='id identifier rubyid_row'>row</span><span class='op'>+</span><span class='int'>1</span><span class='rbracket'>]</span><span class='comma'>,</span><span class='kw'>nil</span><span class='comma'>,</span><span class='float'>1.0</span><span class='comma'>,</span><span class='float'>0.0</span><span class='comma'>,</span><span class='symbol'>:transpose</span><span class='rparen'>)</span><span class='op'>*</span><span class='ivar'>@g_dash</span><span class='lbracket'>[</span><span class='id identifier rubyid_row'>row</span><span class='rbracket'>]</span>
+  <span class='ivar'>@delta</span><span class='lbracket'>[</span><span class='id identifier rubyid_row'>row</span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='const'>NMatrix</span><span class='op'>::</span><span class='const'>BLAS</span><span class='period'>.</span><span class='id identifier rubyid_gemm'>gemm</span><span class='lparen'>(</span><span class='ivar'>@weights</span><span class='lbracket'>[</span><span class='id identifier rubyid_row'>row</span><span class='op'>+</span><span class='int'>1</span><span class='rbracket'>]</span><span class='comma'>,</span><span class='ivar'>@delta</span><span class='lbracket'>[</span><span class='id identifier rubyid_row'>row</span><span class='op'>+</span><span class='int'>1</span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='kw'>nil</span><span class='comma'>,</span> <span class='float'>1.0</span><span class='comma'>,</span> <span class='float'>0.0</span><span class='comma'>,</span> <span class='symbol'>:transpose</span><span class='rparen'>)</span> <span class='op'>*</span> <span class='ivar'>@g_dash</span><span class='lbracket'>[</span><span class='id identifier rubyid_row'>row</span><span class='rbracket'>]</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -1354,7 +1408,7 @@
         <span class='name'>row</span>
       
       
-        <span class='type'>(<tt>Int</tt>)</span>
+        <span class='type'>(<tt>Integer</tt>)</span>
       
       
       
@@ -1390,13 +1444,13 @@
       <pre class="lines">
 
 
-184
-185
-186
-187</pre>
+187
+188
+189
+190</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'fast_neurons.rb', line 184</span>
+      <pre class="code"><span class="info file"># File 'fast_neurons.rb', line 187</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_compute_z'>compute_z</span><span class='lparen'>(</span><span class='id identifier rubyid_row'>row</span><span class='rparen'>)</span>
   <span class='comment'># Compute the values before the activation function is applied.
@@ -1433,7 +1487,7 @@
         <span class='name'>row</span>
       
       
-        <span class='type'>(<tt>Int</tt>)</span>
+        <span class='type'>(<tt>Integer</tt>)</span>
       
       
       
@@ -1469,16 +1523,16 @@
       <pre class="lines">
 
 
-246
-247
-248
 249
 250
 251
-252</pre>
+252
+253
+254
+255</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'fast_neurons.rb', line 246</span>
+      <pre class="code"><span class="info file"># File 'fast_neurons.rb', line 249</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_differentiate_a'>differentiate_a</span><span class='lparen'>(</span><span class='id identifier rubyid_row'>row</span><span class='rparen'>)</span>
   <span class='comment'># Judge the symbol of activation function.
@@ -1518,7 +1572,7 @@
         <span class='name'>row</span>
       
       
-        <span class='type'>(<tt>Int</tt>)</span>
+        <span class='type'>(<tt>Integer</tt>)</span>
       
       
       
@@ -1554,12 +1608,12 @@
       <pre class="lines">
 
 
-271
-272
-273</pre>
+274
+275
+276</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'fast_neurons.rb', line 271</span>
+      <pre class="code"><span class="info file"># File 'fast_neurons.rb', line 274</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_differentiate_biases'>differentiate_biases</span><span class='lparen'>(</span><span class='id identifier rubyid_row'>row</span><span class='rparen'>)</span>
   <span class='ivar'>@loss_derivative_biases</span><span class='lbracket'>[</span><span class='id identifier rubyid_row'>row</span><span class='rbracket'>]</span> <span class='op'>+=</span> <span class='ivar'>@delta</span><span class='lbracket'>[</span><span class='id identifier rubyid_row'>row</span><span class='rbracket'>]</span>
@@ -1595,7 +1649,7 @@
         <span class='name'>row</span>
       
       
-        <span class='type'>(<tt>Int</tt>)</span>
+        <span class='type'>(<tt>Integer</tt>)</span>
       
       
       
@@ -1631,15 +1685,15 @@
       <pre class="lines">
 
 
-264
-265
-266</pre>
+267
+268
+269</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'fast_neurons.rb', line 264</span>
+      <pre class="code"><span class="info file"># File 'fast_neurons.rb', line 267</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_differentiate_weights'>differentiate_weights</span><span class='lparen'>(</span><span class='id identifier rubyid_row'>row</span><span class='rparen'>)</span>
-  <span class='ivar'>@loss_derivative_weights</span><span class='lbracket'>[</span><span class='id identifier rubyid_row'>row</span><span class='rbracket'>]</span> <span class='op'>+=</span> <span class='const'>NMatrix</span><span class='op'>::</span><span class='const'>BLAS</span><span class='period'>.</span><span class='id identifier rubyid_gemm'>gemm</span><span class='lparen'>(</span><span class='ivar'>@delta</span><span class='lbracket'>[</span><span class='id identifier rubyid_row'>row</span><span class='rbracket'>]</span><span class='comma'>,</span><span class='ivar'>@a</span><span class='lbracket'>[</span><span class='id identifier rubyid_row'>row</span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_transpose'>transpose</span><span class='rparen'>)</span>
+  <span class='ivar'>@loss_derivative_weights</span><span class='lbracket'>[</span><span class='id identifier rubyid_row'>row</span><span class='rbracket'>]</span> <span class='op'>+=</span> <span class='const'>NMatrix</span><span class='op'>::</span><span class='const'>BLAS</span><span class='period'>.</span><span class='id identifier rubyid_gemm'>gemm</span><span class='lparen'>(</span><span class='ivar'>@delta</span><span class='lbracket'>[</span><span class='id identifier rubyid_row'>row</span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='ivar'>@a</span><span class='lbracket'>[</span><span class='id identifier rubyid_row'>row</span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_transpose'>transpose</span><span class='rparen'>)</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -1649,7 +1703,7 @@
       <div class="method_details ">
   <h3 class="signature " id="get_outputs-instance_method">
   
-    #<strong>get_outputs</strong>  &#x21d2; <tt>Array</tt> 
+    #<strong>get_outputs</strong>(row = @neuron_columns.size)  &#x21d2; <tt>Array</tt> 
   
 
   
@@ -1658,13 +1712,35 @@
 </h3><div class="docstring">
   <div class="discussion">
     
-<p>Get outputs of neural network.</p>
+<p>Get outputs of the layer of neural network.</p>
 
 
   </div>
 </div>
 <div class="tags">
+  <p class="tag_title">Parameters:</p>
+<ul class="param">
   
+    <li>
+      
+        <span class='name'>row</span>
+      
+      
+        <span class='type'>(<tt>Integer</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>@neuron_columns.size</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>the row number you want to get outputs</p>
+</div>
+      
+    </li>
+  
+</ul>
+
 <p class="tag_title">Returns:</p>
 <ul class="return">
   
@@ -1677,7 +1753,7 @@
       
         &mdash;
         <div class='inline'>
-<p>@<a href="@neuron_columns.size">a</a> output of neural network</p>
+<p>@<a href="row">a</a> the output of layer specified by row</p>
 </div>
       
     </li>
@@ -1706,15 +1782,15 @@
       <pre class="lines">
 
 
-303
-304
-305</pre>
+307
+308
+309</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'fast_neurons.rb', line 303</span>
+      <pre class="code"><span class="info file"># File 'fast_neurons.rb', line 307</span>
 
-<span class='kw'>def</span> <span class='id identifier rubyid_get_outputs'>get_outputs</span>
-  <span class='kw'>return</span> <span class='ivar'>@a</span><span class='lbracket'>[</span><span class='ivar'>@neuron_columns</span><span class='period'>.</span><span class='id identifier rubyid_size'>size</span><span class='rbracket'>]</span>
+<span class='kw'>def</span> <span class='id identifier rubyid_get_outputs'>get_outputs</span><span class='lparen'>(</span><span class='id identifier rubyid_row'>row</span> <span class='op'>=</span> <span class='ivar'>@neuron_columns</span><span class='period'>.</span><span class='id identifier rubyid_size'>size</span><span class='rparen'>)</span>
+  <span class='kw'>return</span> <span class='ivar'>@a</span><span class='lbracket'>[</span><span class='id identifier rubyid_row'>row</span><span class='rbracket'>]</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -1763,14 +1839,14 @@
       <pre class="lines">
 
 
-117
-118
-119
 120
-121</pre>
+121
+122
+123
+124</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'fast_neurons.rb', line 117</span>
+      <pre class="code"><span class="info file"># File 'fast_neurons.rb', line 120</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_initialize_loss_derivatives'>initialize_loss_derivatives</span>
   <span class='comment'># the arrays of derivatives.
@@ -1785,7 +1861,7 @@
       <div class="method_details ">
   <h3 class="signature " id="input-instance_method">
   
-    #<strong>input</strong>(*values, t)  &#x21d2; <tt>Object</tt> 
+    #<strong>input</strong>(values, teaching_data = nil)  &#x21d2; <tt>Object</tt> 
   
 
   
@@ -1814,23 +1890,25 @@
       
         &mdash;
         <div class='inline'>
-<p>inputs of the neural network.</p>
+<p>inputs of the neural network</p>
 </div>
       
     </li>
   
     <li>
       
-        <span class='name'>t</span>
+        <span class='name'>teaching_data</span>
       
       
         <span class='type'>(<tt>Array</tt>)</span>
       
       
+        <em class="default">(defaults to: <tt>nil</tt>)</em>
+      
       
         &mdash;
         <div class='inline'>
-<p>training data</p>
+<p>teaching data of the neural network</p>
 </div>
       
     </li>
@@ -1860,23 +1938,23 @@
       <pre class="lines">
 
 
-163
-164
-165
 166
 167
 168
-169</pre>
+169
+170
+171
+172</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'fast_neurons.rb', line 163</span>
+      <pre class="code"><span class="info file"># File 'fast_neurons.rb', line 166</span>
 
-<span class='kw'>def</span> <span class='id identifier rubyid_input'>input</span><span class='lparen'>(</span><span class='op'>*</span><span class='id identifier rubyid_values'>values</span><span class='comma'>,</span><span class='id identifier rubyid_t'>t</span><span class='rparen'>)</span>
+<span class='kw'>def</span> <span class='id identifier rubyid_input'>input</span><span class='lparen'>(</span><span class='id identifier rubyid_values'>values</span><span class='comma'>,</span> <span class='id identifier rubyid_teaching_data'>teaching_data</span> <span class='op'>=</span> <span class='kw'>nil</span><span class='rparen'>)</span>
   <span class='comment'># The inputs are stored into a[0] as a NMatrix vector.
 </span>  <span class='ivar'>@a</span><span class='lbracket'>[</span><span class='int'>0</span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='const'>N</span><span class='lbracket'>[</span><span class='id identifier rubyid_values'>values</span><span class='period'>.</span><span class='id identifier rubyid_flatten'>flatten</span><span class='comma'>,</span> <span class='symbol'>:dtype</span> <span class='op'>=&gt;</span> <span class='symbol'>:float64</span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_transpose'>transpose</span>
 
-  <span class='comment'># The training data is stored into T as a NMatrix vector.
-</span>  <span class='ivar'>@T</span> <span class='op'>=</span> <span class='const'>N</span><span class='lbracket'>[</span><span class='id identifier rubyid_t'>t</span><span class='period'>.</span><span class='id identifier rubyid_flatten'>flatten</span><span class='comma'>,</span> <span class='symbol'>:dtype</span> <span class='op'>=&gt;</span> <span class='symbol'>:float64</span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_transpose'>transpose</span>
+  <span class='comment'># The teaching data is stored into T as a NMatrix vector.
+</span>  <span class='id identifier rubyid_set_teaching_data'>set_teaching_data</span><span class='lparen'>(</span><span class='id identifier rubyid_teaching_data'>teaching_data</span><span class='rparen'>)</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -1909,7 +1987,7 @@
         <span class='name'>row</span>
       
       
-        <span class='type'>(<tt>Int</tt>)</span>
+        <span class='type'>(<tt>Integer</tt>)</span>
       
       
       
@@ -1961,12 +2039,12 @@
       <pre class="lines">
 
 
-176
-177
-178</pre>
+179
+180
+181</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'fast_neurons.rb', line 176</span>
+      <pre class="code"><span class="info file"># File 'fast_neurons.rb', line 179</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_input_hidden'>input_hidden</span><span class='lparen'>(</span><span class='id identifier rubyid_row'>row</span><span class='comma'>,</span><span class='op'>*</span><span class='id identifier rubyid_values'>values</span><span class='rparen'>)</span>
   <span class='ivar'>@a</span><span class='lbracket'>[</span><span class='id identifier rubyid_row'>row</span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='const'>N</span><span class='lbracket'>[</span><span class='id identifier rubyid_values'>values</span><span class='period'>.</span><span class='id identifier rubyid_flatten'>flatten</span><span class='comma'>,</span> <span class='symbol'>:dtype</span> <span class='op'>=&gt;</span> <span class='symbol'>:float64</span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_transpose'>transpose</span>
@@ -2056,26 +2134,6 @@
       <pre class="lines">
 
 
-350
-351
-352
-353
-354
-355
-356
-357
-358
-359
-360
-361
-362
-363
-364
-365
-366
-367
-368
-369
 370
 371
 372
@@ -2089,10 +2147,30 @@
 380
 381
 382
-383</pre>
+383
+384
+385
+386
+387
+388
+389
+390
+391
+392
+393
+394
+395
+396
+397
+398
+399
+400
+401
+402
+403</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'fast_neurons.rb', line 350</span>
+      <pre class="code"><span class="info file"># File 'fast_neurons.rb', line 370</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_load_network'>load_network</span><span class='lparen'>(</span><span class='id identifier rubyid_path'>path</span><span class='comma'>,</span> <span class='id identifier rubyid_activation_function'>activation_function</span> <span class='op'>=</span> <span class='kw'>nil</span><span class='rparen'>)</span>
   <span class='comment'># Open file.
@@ -2175,18 +2253,18 @@
       <pre class="lines">
 
 
-199
-200
-201
 202
 203
 204
 205
 206
-207</pre>
+207
+208
+209
+210</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'fast_neurons.rb', line 199</span>
+      <pre class="code"><span class="info file"># File 'fast_neurons.rb', line 202</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_propagate'>propagate</span>
   <span class='comment'># Compute as many times as layers of the neural network.
@@ -2228,7 +2306,7 @@
         <span class='name'>row</span>
       
       
-        <span class='type'>(<tt>Int</tt>)</span>
+        <span class='type'>(<tt>Integer</tt>)</span>
       
       
       
@@ -2264,15 +2342,15 @@
       <pre class="lines">
 
 
-214
-215
-216
 217
 218
-219</pre>
+219
+220
+221
+222</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'fast_neurons.rb', line 214</span>
+      <pre class="code"><span class="info file"># File 'fast_neurons.rb', line 217</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_propagate_from_hidden'>propagate_from_hidden</span><span class='lparen'>(</span><span class='id identifier rubyid_row'>row</span><span class='rparen'>)</span>
   <span class='lparen'>(</span><span class='id identifier rubyid_row'>row</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_upto'>upto</span><span class='lparen'>(</span><span class='ivar'>@neuron_columns</span><span class='period'>.</span><span class='id identifier rubyid_size'>size</span><span class='op'>-</span><span class='int'>1</span><span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_i'>i</span><span class='op'>|</span>
@@ -2327,9 +2405,6 @@
       <pre class="lines">
 
 
-125
-126
-127
 128
 129
 130
@@ -2347,10 +2422,13 @@
 142
 143
 144
-145</pre>
+145
+146
+147
+148</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'fast_neurons.rb', line 125</span>
+      <pre class="code"><span class="info file"># File 'fast_neurons.rb', line 128</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_randomize'>randomize</span>
   <span class='comment'># Create random fast matrices for the biases.
@@ -2404,7 +2482,7 @@
         <span class='name'>times_of_learning</span>
       
       
-        <span class='type'>(<tt>Int</tt>)</span>
+        <span class='type'>(<tt>Integer</tt>)</span>
       
       
         <em class="default">(defaults to: <tt>1</tt>)</em>
@@ -2442,15 +2520,15 @@
       <pre class="lines">
 
 
-326
-327
-328
-329
-330
-331</pre>
+346
+347
+348
+349
+350
+351</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'fast_neurons.rb', line 326</span>
+      <pre class="code"><span class="info file"># File 'fast_neurons.rb', line 346</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_run'>run</span><span class='lparen'>(</span><span class='id identifier rubyid_times_of_learning'>times_of_learning</span> <span class='op'>=</span> <span class='int'>1</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_times_of_learning'>times_of_learning</span><span class='period'>.</span><span class='id identifier rubyid_times'>times</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_i'>i</span><span class='op'>|</span>
@@ -2525,18 +2603,18 @@
       <pre class="lines">
 
 
-336
-337
-338
-339
-340
-341
-342
-343
-344</pre>
+356
+357
+358
+359
+360
+361
+362
+363
+364</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'fast_neurons.rb', line 336</span>
+      <pre class="code"><span class="info file"># File 'fast_neurons.rb', line 356</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_save_network'>save_network</span><span class='lparen'>(</span><span class='id identifier rubyid_path'>path</span><span class='rparen'>)</span>
   <span class='comment'># Make hash of parameters.
@@ -2564,7 +2642,7 @@
 </h3><div class="docstring">
   <div class="discussion">
     
-<p>Set batch size of mini-batch learning. default -&gt; 1</p>
+<p>Set batch size of mini-batch learning.</p>
 
 
   </div>
@@ -2578,7 +2656,7 @@
         <span class='name'>size</span>
       
       
-        <span class='type'>(<tt>Int</tt>)</span>
+        <span class='type'>(<tt>Integer</tt>)</span>
       
       
         <em class="default">(defaults to: <tt>1</tt>)</em>
@@ -2616,15 +2694,179 @@
       <pre class="lines">
 
 
-319
-320
-321</pre>
+339
+340
+341</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'fast_neurons.rb', line 319</span>
+      <pre class="code"><span class="info file"># File 'fast_neurons.rb', line 339</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_set_batch_size'>set_batch_size</span><span class='lparen'>(</span><span class='id identifier rubyid_size'>size</span> <span class='op'>=</span> <span class='int'>1</span><span class='rparen'>)</span>
   <span class='ivar'>@batch_size</span> <span class='op'>=</span> <span class='id identifier rubyid_size'>size</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="set_coefficients-instance_method">
+  
+    #<strong>set_coefficients</strong>(coefficients)  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Set coefficients of derivatives.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  <p class="tag_title">Parameters:</p>
+<ul class="param">
+  
+    <li>
+      
+        <span class='name'>coefficients</span>
+      
+      
+        <span class='type'>(<tt>Array or Float</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>coefficients of derivatives.</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+<p class="tag_title">Since:</p>
+<ul class="since">
+  
+    <li>
+      
+      
+      
+      
+        
+        <div class='inline'>
+<p>1.3.0</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+328
+329
+330
+331
+332
+333
+334</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'fast_neurons.rb', line 328</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_set_coefficients'>set_coefficients</span><span class='lparen'>(</span><span class='id identifier rubyid_coefficients'>coefficients</span><span class='rparen'>)</span>
+  <span class='kw'>if</span> <span class='id identifier rubyid_coefficients'>coefficients</span><span class='period'>.</span><span class='id identifier rubyid_kind_of?'>kind_of?</span><span class='lparen'>(</span><span class='const'>Array</span><span class='rparen'>)</span>
+    <span class='ivar'>@coefficients</span> <span class='op'>=</span> <span class='const'>N</span><span class='lbracket'>[</span><span class='id identifier rubyid_coefficients'>coefficients</span><span class='period'>.</span><span class='id identifier rubyid_flatten'>flatten</span><span class='comma'>,</span> <span class='symbol'>:dtype</span> <span class='op'>=&gt;</span> <span class='symbol'>:float64</span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_transpose'>transpose</span>
+  <span class='kw'>elsif</span>
+    <span class='ivar'>@coefficients</span> <span class='op'>=</span> <span class='const'>NMatrix</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='lbracket'>[</span><span class='int'>1</span><span class='comma'>,</span> <span class='ivar'>@a</span><span class='lbracket'>[</span><span class='ivar'>@neuron_columns</span><span class='period'>.</span><span class='id identifier rubyid_size'>size</span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_size'>size</span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='id identifier rubyid_coefficients'>coefficients</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_transpose'>transpose</span>        
+  <span class='kw'>end</span>      
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="set_teaching_data-instance_method">
+  
+    #<strong>set_teaching_data</strong>(teaching_data = nil)  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Set the teaching data.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  <p class="tag_title">Parameters:</p>
+<ul class="param">
+  
+    <li>
+      
+        <span class='name'>teaching_data</span>
+      
+      
+        <span class='type'>(<tt>Array</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>nil</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>teaching data of neural network</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+<p class="tag_title">Since:</p>
+<ul class="since">
+  
+    <li>
+      
+      
+      
+      
+        
+        <div class='inline'>
+<p>1.3.0</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+321
+322
+323</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'fast_neurons.rb', line 321</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_set_teaching_data'>set_teaching_data</span><span class='lparen'>(</span><span class='id identifier rubyid_teaching_data'>teaching_data</span> <span class='op'>=</span> <span class='kw'>nil</span><span class='rparen'>)</span>
+  <span class='ivar'>@T</span> <span class='op'>=</span> <span class='id identifier rubyid_teaching_data'>teaching_data</span><span class='period'>.</span><span class='id identifier rubyid_nil?'>nil?</span> <span class='op'>?</span> <span class='const'>NMatrix</span><span class='period'>.</span><span class='id identifier rubyid_zeros_like'>zeros_like</span><span class='lparen'>(</span><span class='ivar'>@a</span><span class='lbracket'>[</span><span class='ivar'>@neuron_columns</span><span class='period'>.</span><span class='id identifier rubyid_size'>size</span><span class='rbracket'>]</span><span class='rparen'>)</span> <span class='op'>:</span> <span class='const'>N</span><span class='lbracket'>[</span><span class='id identifier rubyid_teaching_data'>teaching_data</span><span class='period'>.</span><span class='id identifier rubyid_flatten'>flatten</span><span class='comma'>,</span> <span class='symbol'>:dtype</span> <span class='op'>=&gt;</span> <span class='symbol'>:float64</span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_transpose'>transpose</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -2643,7 +2885,7 @@
 </h3><div class="docstring">
   <div class="discussion">
     
-<p>Set training rate. default -&gt; 0.1</p>
+<p>Set a training rate.</p>
 
 
   </div>
@@ -2695,12 +2937,12 @@
       <pre class="lines">
 
 
-311
-312
-313</pre>
+314
+315
+316</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'fast_neurons.rb', line 311</span>
+      <pre class="code"><span class="info file"># File 'fast_neurons.rb', line 314</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_set_training_rate'>set_training_rate</span><span class='lparen'>(</span><span class='id identifier rubyid_rate'>rate</span> <span class='op'>=</span> <span class='float'>0.1</span><span class='rparen'>)</span>
   <span class='ivar'>@training_rate</span> <span class='op'>=</span> <span class='id identifier rubyid_rate'>rate</span>
@@ -2736,7 +2978,7 @@
         <span class='name'>row</span>
       
       
-        <span class='type'>(<tt>Int</tt>)</span>
+        <span class='type'>(<tt>Integer</tt>)</span>
       
       
       
@@ -2772,13 +3014,13 @@
       <pre class="lines">
 
 
-286
-287
-288
-289</pre>
+289
+290
+291
+292</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'fast_neurons.rb', line 286</span>
+      <pre class="code"><span class="info file"># File 'fast_neurons.rb', line 289</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_update_biases'>update_biases</span><span class='lparen'>(</span><span class='id identifier rubyid_row'>row</span><span class='rparen'>)</span>
   <span class='ivar'>@loss_derivative_biases</span><span class='lbracket'>[</span><span class='id identifier rubyid_row'>row</span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='ivar'>@loss_derivative_biases</span><span class='lbracket'>[</span><span class='id identifier rubyid_row'>row</span><span class='rbracket'>]</span> <span class='op'>/</span> <span class='ivar'>@batch_size</span><span class='period'>.</span><span class='id identifier rubyid_to_f'>to_f</span>
@@ -2831,15 +3073,15 @@
       <pre class="lines">
 
 
-293
-294
-295
 296
 297
-298</pre>
+298
+299
+300
+301</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'fast_neurons.rb', line 293</span>
+      <pre class="code"><span class="info file"># File 'fast_neurons.rb', line 296</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_update_parameters'>update_parameters</span>
   <span class='lparen'>(</span><span class='ivar'>@neuron_columns</span><span class='period'>.</span><span class='id identifier rubyid_size'>size</span><span class='op'>-</span><span class='int'>1</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_downto'>downto</span><span class='lparen'>(</span><span class='int'>0</span><span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_i'>i</span><span class='op'>|</span>
@@ -2878,7 +3120,7 @@
         <span class='name'>row</span>
       
       
-        <span class='type'>(<tt>Int</tt>)</span>
+        <span class='type'>(<tt>Integer</tt>)</span>
       
       
       
@@ -2914,17 +3156,17 @@
       <pre class="lines">
 
 
-278
-279
-280
-281</pre>
+281
+282
+283
+284</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'fast_neurons.rb', line 278</span>
+      <pre class="code"><span class="info file"># File 'fast_neurons.rb', line 281</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_update_weights'>update_weights</span><span class='lparen'>(</span><span class='id identifier rubyid_row'>row</span><span class='rparen'>)</span>
   <span class='ivar'>@loss_derivative_weights</span><span class='lbracket'>[</span><span class='id identifier rubyid_row'>row</span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='ivar'>@loss_derivative_weights</span><span class='lbracket'>[</span><span class='id identifier rubyid_row'>row</span><span class='rbracket'>]</span> <span class='op'>/</span> <span class='ivar'>@batch_size</span><span class='period'>.</span><span class='id identifier rubyid_to_f'>to_f</span>
-  <span class='ivar'>@weights</span><span class='lbracket'>[</span><span class='id identifier rubyid_row'>row</span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='const'>NMatrix</span><span class='op'>::</span><span class='const'>BLAS</span><span class='period'>.</span><span class='id identifier rubyid_gemm'>gemm</span><span class='lparen'>(</span><span class='ivar'>@idn</span><span class='lbracket'>[</span><span class='id identifier rubyid_row'>row</span><span class='rbracket'>]</span><span class='comma'>,</span><span class='ivar'>@loss_derivative_weights</span><span class='lbracket'>[</span><span class='id identifier rubyid_row'>row</span><span class='rbracket'>]</span><span class='comma'>,</span><span class='ivar'>@weights</span><span class='lbracket'>[</span><span class='id identifier rubyid_row'>row</span><span class='rbracket'>]</span><span class='comma'>,</span><span class='op'>-</span><span class='lparen'>(</span><span class='ivar'>@training_rate</span><span class='rparen'>)</span><span class='comma'>,</span><span class='float'>1.0</span><span class='rparen'>)</span>
+  <span class='ivar'>@weights</span><span class='lbracket'>[</span><span class='id identifier rubyid_row'>row</span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='const'>NMatrix</span><span class='op'>::</span><span class='const'>BLAS</span><span class='period'>.</span><span class='id identifier rubyid_gemm'>gemm</span><span class='lparen'>(</span><span class='ivar'>@idn</span><span class='lbracket'>[</span><span class='id identifier rubyid_row'>row</span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='ivar'>@loss_derivative_weights</span><span class='lbracket'>[</span><span class='id identifier rubyid_row'>row</span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='ivar'>@weights</span><span class='lbracket'>[</span><span class='id identifier rubyid_row'>row</span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='op'>-</span><span class='lparen'>(</span><span class='ivar'>@training_rate</span><span class='rparen'>)</span><span class='comma'>,</span> <span class='float'>1.0</span><span class='rparen'>)</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -2973,12 +3215,12 @@
       <pre class="lines">
 
 
-155
-156
-157</pre>
+158
+159
+160</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'fast_neurons.rb', line 155</span>
+      <pre class="code"><span class="info file"># File 'fast_neurons.rb', line 158</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_weights'>weights</span>
   <span class='ivar'>@weights</span><span class='period'>.</span><span class='id identifier rubyid_map'>map</span> <span class='lbrace'>{</span> <span class='op'>|</span><span class='id identifier rubyid_mat'>mat</span><span class='op'>|</span> <span class='id identifier rubyid_mat'>mat</span><span class='period'>.</span><span class='id identifier rubyid_to_a'>to_a</span> <span class='rbrace'>}</span>
@@ -2993,7 +3235,7 @@
 </div>
 
       <div id="footer">
-  Generated on Sat Jun 20 17:55:48 2020 by
+  Generated on Wed Sep  9 16:21:02 2020 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.25 (ruby-2.6.3).
 </div>
