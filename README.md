@@ -76,3 +76,4 @@ puts "P(v|h): #{rbm.get_visible_probability}"
 
 ## Warning
 - This library is in the middle of implementation.Over time, more features will be added.
+- This library needs to install gems "NMatrix" and "RandomBell".
