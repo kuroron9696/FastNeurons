@@ -6,13 +6,13 @@ data = [[0,0],[0,1],[1,0],[1,1]]
 t = [[0],[1],[1],[0]]
 
 # Make a neural network.
-nn = FastNeurons::NN.new([2, 2, 1], [:Tanh, :Linear])
+nn = FastNeurons::NN.new([2, 2, 1], [:Tanh, :Tanh])
 
 # Set up the parameters to random values.
 nn.randomize
 
 # Load learned network.
-#nn.load_network("network.json")
+#nn.load_network("xor.json")
 
 puts "Runnning..."
 # learning
@@ -40,4 +40,5 @@ data.each_with_index do |inputs,i|
 
   puts "input: #{inputs}, ans: #{t[i]}, expected: #{nn.get_outputs}"
 end
-#nn.save_network("network.json") # save learned network
+
+#nn.save_network("xor.json") # save learned network

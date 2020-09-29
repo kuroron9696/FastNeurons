@@ -8,7 +8,7 @@ ALPHA = 1.6732632423543772848170429916717
 # FastNeurons is a simple and fast library using NMatrix for building neural networks.<br>
 # Currently, it supports fully connected neural network and restricted boltzmann machine.<br>
 # More models will be added gradually.<br>
-# @version 1.3.0
+# @version 1.3.1
 # @since 1.0.0
 # @author Ryota Sakai,Yusuke Tomimoto
 module FastNeurons
@@ -185,8 +185,8 @@ module FastNeurons
     # @param [Integer] row the number of layer currently computing
     # @since 1.0.0
     def compute_z(row)
-      # Compute the values before the activation function is applied.
-      @z[row] = NMatrix::BLAS.gemm(@weights[row],@a[row],@biases[row])
+      # Compute the values before the activation function is applied.      
+      @z[row] = NMatrix::BLAS.gemm(@weights[row], @a[row]) + @biases[row]
     end
 
     # Compute neurons statuses.
