@@ -8,7 +8,7 @@ ALPHA = 1.6732632423543772848170429916717
 # FastNeurons is a simple and fast library using NMatrix for building neural networks.<br>
 # Currently, it supports fully connected neural network and restricted boltzmann machine.<br>
 # More models will be added gradually.<br>
-# @version 1.3.0
+# @version 1.3.1
 # @since 1.0.0
 # @author Ryota Sakai,Yusuke Tomimoto
 module FastNeurons
