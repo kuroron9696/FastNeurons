@@ -226,7 +226,7 @@ module FastNeurons
     def backpropagate
       differentiate_a(@neuron_columns.size-1)
       @delta[@neuron_columns.size-1] = @g_dash[@neuron_columns.size-1] * (@a[@neuron_columns.size] - @T) * @coefficients
-      @loss_derivative_weights[@neuron_columns.size-1] += NMatrix::BLAS.gemm(@delta[@neuron_columns.size-1], @a[@neuron_columns.size-1].transpose, @loss_derivative_weights[@neuron_columns.size-1], 1.0, 0.0)
+      @loss_derivative_weights[@neuron_columns.size-1] += NMatrix::BLAS.gemm(@delta[@neuron_columns.size-1], @a[@neuron_columns.size-1].transpose)
       @loss_derivative_biases[@neuron_columns.size-1] += @delta[@neuron_columns.size-1]
 
       (@neuron_columns.size-2).downto(0) do |i|
@@ -258,7 +258,7 @@ module FastNeurons
     # @param [Integer] row the number of layer currently computing
     # @since 1.0.0
     def compute_delta(row)
-      @delta[row] = NMatrix::BLAS.gemm(@weights[row+1],@delta[row+1], nil, 1.0, 0.0, :transpose) * @g_dash[row]
+      @delta[row] = NMatrix::BLAS.gemm(@weights[row+1], @delta[row+1], nil, 1.0, 0.0, :transpose) * @g_dash[row]
     end
 
     # Compute derivative of weights.
@@ -288,7 +288,7 @@ module FastNeurons
     # @since 1.0.0
     def update_biases(row)
       @loss_derivative_biases[row] = @loss_derivative_biases[row] / @batch_size.to_f
-      @biases[row] = NMatrix::BLAS.gemm(@idn[row],@loss_derivative_biases[row],@biases[row],-(@training_rate),1.0)
+      @biases[row] = NMatrix::BLAS.gemm(@idn[row], @loss_derivative_biases[row], @biases[row], -(@training_rate), 1.0)
     end
 
     # Update biases and weights.

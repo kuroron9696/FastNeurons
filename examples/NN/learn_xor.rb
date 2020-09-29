@@ -27,7 +27,7 @@ puts "Runnning..."
 
     nn.run(1) # propagate and backpropagate
 
-    puts "ans: #{t[i]}, expected: #{nn.get_outputs}"
+    puts "input: #{inputs}, ans: #{t[i]}, expected: #{nn.get_outputs}"
   end
 end
 
@@ -36,9 +36,9 @@ puts "Understood!"
 # confirmation of learned network
 data.each_with_index do |inputs,i|
   nn.input(inputs,t[i])
-  nn.run(1)
+  nn.propagate
 
   puts "input: #{inputs}, ans: #{t[i]}, expected: #{nn.get_outputs}"
 end
 
-#nn.save_network("xor.json") # save learned network
+nn.save_network("xor.json") # save learned network
