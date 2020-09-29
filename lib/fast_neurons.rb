@@ -185,8 +185,8 @@ module FastNeurons
     # @param [Integer] row the number of layer currently computing
     # @since 1.0.0
     def compute_z(row)
-      # Compute the values before the activation function is applied.
-      @z[row] = NMatrix::BLAS.gemm(@weights[row],@a[row],@biases[row])
+      # Compute the values before the activation function is applied.      
+      @z[row] = NMatrix::BLAS.gemm(@weights[row], @a[row]) + @biases[row]
     end
 
     # Compute neurons statuses.
