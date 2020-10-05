@@ -8,7 +8,7 @@ ALPHA = 1.6732632423543772848170429916717
 # FastNeurons is a simple and fast library using NMatrix for building neural networks.<br>
 # Currently, it supports fully connected neural network and restricted boltzmann machine.<br>
 # More models will be added gradually.<br>
-# @version 1.3.1
+# @version 1.3.2
 # @since 1.0.0
 # @author Ryota Sakai,Yusuke Tomimoto
 module FastNeurons
@@ -226,7 +226,7 @@ module FastNeurons
     def backpropagate
       differentiate_a(@neuron_columns.size-1)
       @delta[@neuron_columns.size-1] = @g_dash[@neuron_columns.size-1] * (@a[@neuron_columns.size] - @T) * @coefficients
-      @loss_derivative_weights[@neuron_columns.size-1] += NMatrix::BLAS.gemm(@delta[@neuron_columns.size-1], @a[@neuron_columns.size-1].transpose, @loss_derivative_weights[@neuron_columns.size-1], 1.0, 0.0)
+      @loss_derivative_weights[@neuron_columns.size-1] += NMatrix::BLAS.gemm(@delta[@neuron_columns.size-1], @a[@neuron_columns.size-1].transpose)
       @loss_derivative_biases[@neuron_columns.size-1] += @delta[@neuron_columns.size-1]
 
       (@neuron_columns.size-2).downto(0) do |i|
@@ -258,7 +258,7 @@ module FastNeurons
     # @param [Integer] row the number of layer currently computing
     # @since 1.0.0
     def compute_delta(row)
-      @delta[row] = NMatrix::BLAS.gemm(@weights[row+1],@delta[row+1], nil, 1.0, 0.0, :transpose) * @g_dash[row]
+      @delta[row] = NMatrix::BLAS.gemm(@weights[row+1], @delta[row+1], nil, 1.0, 0.0, :transpose) * @g_dash[row]
     end
 
     # Compute derivative of weights.
@@ -288,7 +288,7 @@ module FastNeurons
     # @since 1.0.0
     def update_biases(row)
       @loss_derivative_biases[row] = @loss_derivative_biases[row] / @batch_size.to_f
-      @biases[row] = NMatrix::BLAS.gemm(@idn[row],@loss_derivative_biases[row],@biases[row],-(@training_rate),1.0)
+      @biases[row] = NMatrix::BLAS.gemm(@idn[row], @loss_derivative_biases[row], @biases[row], -(@training_rate), 1.0)
     end
 
     # Update biases and weights.
@@ -586,8 +586,8 @@ module FastNeurons
     # Compute P(hidden|visible) and sample hidden units.
     # @since 1.2.0
     def sample_hidden_units
-      # Compute conditional probability of hidden layer.
-      pre_sigmoid = NMatrix::BLAS.gemm(@units[0],@weights[0],@biases[0])
+      # Compute conditional probability of hidden layer.             
+      pre_sigmoid = NMatrix::BLAS.gemm(@units[0], @weights[0]) + @biases[0]      
       @probability[0] = @sigmoid.call(pre_sigmoid)
 
       # Sample hidden units from conditional probability.
@@ -606,7 +606,7 @@ module FastNeurons
     # @since 1.2.0
     def sample_from_bernoulli
       # Compute conditional probability of visible layer.
-      product_of_units_and_weights = NMatrix::BLAS.gemm(@weights[0],@units[1].transpose)
+      product_of_units_and_weights = NMatrix::BLAS.gemm(@weights[0], @units[1].transpose)
       pre_sigmoid = product_of_units_and_weights.transpose + @biases[1]
       @probability[1] = @sigmoid.call(pre_sigmoid)
 
@@ -620,7 +620,7 @@ module FastNeurons
     # @since 1.2.0
     def sample_from_gaussian
       # Compute product of hidden units and weights.
-      product_of_units_and_weights = NMatrix::BLAS.gemm(@weights[0],@units[1].transpose)
+      product_of_units_and_weights = NMatrix::BLAS.gemm(@weights[0], @units[1].transpose)
 
       # Compute mean of Gaussian distribution.
       mean_of_gaussian_distribution = product_of_units_and_weights.transpose + @biases[1]
