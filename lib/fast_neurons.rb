@@ -586,8 +586,8 @@ module FastNeurons
     # Compute P(hidden|visible) and sample hidden units.
     # @since 1.2.0
     def sample_hidden_units
-      # Compute conditional probability of hidden layer.
-      pre_sigmoid = NMatrix::BLAS.gemm(@units[0],@weights[0],@biases[0])
+      # Compute conditional probability of hidden layer.             
+      pre_sigmoid = NMatrix::BLAS.gemm(@units[0], @weights[0]) + @biases[0]      
       @probability[0] = @sigmoid.call(pre_sigmoid)
 
       # Sample hidden units from conditional probability.
@@ -606,7 +606,7 @@ module FastNeurons
     # @since 1.2.0
     def sample_from_bernoulli
       # Compute conditional probability of visible layer.
-      product_of_units_and_weights = NMatrix::BLAS.gemm(@weights[0],@units[1].transpose)
+      product_of_units_and_weights = NMatrix::BLAS.gemm(@weights[0], @units[1].transpose)
       pre_sigmoid = product_of_units_and_weights.transpose + @biases[1]
       @probability[1] = @sigmoid.call(pre_sigmoid)
 
@@ -620,7 +620,7 @@ module FastNeurons
     # @since 1.2.0
     def sample_from_gaussian
       # Compute product of hidden units and weights.
-      product_of_units_and_weights = NMatrix::BLAS.gemm(@weights[0],@units[1].transpose)
+      product_of_units_and_weights = NMatrix::BLAS.gemm(@weights[0], @units[1].transpose)
 
       # Compute mean of Gaussian distribution.
       mean_of_gaussian_distribution = product_of_units_and_weights.transpose + @biases[1]
