@@ -36,4 +36,4 @@ puts "output: #{rbm.get_outputs}"
 puts "P(v|h): #{rbm.get_visible_probability}"
 
 # Save learned network.
-rbm.save_network("network.json")
+#rbm.save_network("network.json")
