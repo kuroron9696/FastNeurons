@@ -6,8 +6,8 @@ data = [[0,0],[0,1],[1,0],[1,1]]
 t = [[0],[1],[1],[0]]
 
 # Make a neural network.
-nn = FastNeurons::NN.new([2, 2, 1], [:Sigmoid, :Softmax], :MeanSquare)
-#nn.disable_update
+nn = FastNeurons::NN.new([2, 2, 1], [:ReLU, :Linear], :MeanSquare)
+
 # Set up the parameters to random values.
 nn.randomize
 

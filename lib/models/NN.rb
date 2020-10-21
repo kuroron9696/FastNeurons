@@ -256,8 +256,12 @@ module FastNeurons
     # Compute backpropagation.
     # @since 1.0.0
     def backpropagate      
-      differentiate_a(@neuron_columns.size-1)
-      @delta[@neuron_columns.size-1] = @loss_derivative.call(@T, @a[-1]) * @g_dash[@neuron_columns.size-1] * @coefficients
+      if @keys[-1] == :Softmax
+        @delta[@neuron_columns.size-1] = @derivatives[-1].call(@T, @a[-1])
+      else
+        differentiate_a(@neuron_columns.size-1)
+        @delta[@neuron_columns.size-1] = @loss_derivative.call(@T, @a[-1]) * @g_dash[@neuron_columns.size-1] * @coefficients
+      end
       @loss_derivative_weights[@neuron_columns.size-1] += NMatrix::BLAS.gemm(@delta[@neuron_columns.size-1], @a[@neuron_columns.size-1].transpose)
       @loss_derivative_biases[@neuron_columns.size-1] += @delta[@neuron_columns.size-1]
 
@@ -292,7 +296,7 @@ module FastNeurons
     # @since 1.1.0
     def differentiate_a(row)
       # Judge the symbol of activation function.
-      arr = [:Linear, :Sigmoid, :Tanh].include?(@keys[row]) ? @a[row+1] : @z[row]
+      arr = [:Linear, :Sigmoid, :Tanh].include?(@keys[row]) ? @a[row+1] : @z[row] 
 
       # Defferentiate array correspond to activation function.
       @g_dash[row] = @derivatives[row].call(arr)
@@ -369,6 +373,13 @@ module FastNeurons
     # @since 1.0.0
     def get_outputs(row = @neuron_columns.size)
       return @a[row]
+    end
+
+    # Get derivative values.
+    # @return [Hash] the hash of derivative values.
+    # @since 1.5.0
+    def get_derivative_values
+      return { g_dash: @g_dash, delta: @delta, loss_derivative_weights: @loss_derivative_weights, loss_derivative_biases: @loss_derivative_biases } 
     end
 
     # Set a learning rate.

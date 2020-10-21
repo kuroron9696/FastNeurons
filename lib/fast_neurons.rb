@@ -182,19 +182,12 @@ module FastNeurons
   end
 
   # Differentiate softmax function.
-  # @param [NMatrix] a a vector of NMatrix containing neuron statuses
+  # @param [NMatrix] t a vector of NMatrix containing teaching data
+  # @param [NMatrix] a a vector of NMatrix containing outputs of neural network
   # @return [NMatrix] a vector of NMatrix that each elements are differentiated
   # @since 1.5.0
-  def self.differentiate_softmax(a)            
-    mat = NMatrix.new([a.size, a.size], 0.0)
-
-    a.size.times do |i|
-      a.size.times do |j|
-        mat[i, j] = i == j ? a[i] * (1 - a[i]) : -a[i] * a[j]
-      end
-    end      
-    
-    return mat
+  def self.differentiate_softmax(t, a)
+    return (a - t)
   end
 
   # activation functions
