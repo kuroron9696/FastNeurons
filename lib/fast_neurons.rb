@@ -95,6 +95,15 @@ module FastNeurons
     return z * tanh(softplus(z))
   end
 
+  # Apply softmax function to z.
+  # @param [NMatrix] z a vector of NMatrix containing the multiply accumulation of inputs, weights and biases
+  # @return [NMatrix] a vector of NMatrix that each elements are applied to softmax function
+  # @since 1.5.0
+  def self.softmax(z)
+    exp_z = (z - z.max[0]).exp
+    return exp_z / exp_z.sum[0]
+  end
+
   # Differentiate linear function.
   # @param [NMatrix] a a vector of NMatrix containing neuron statuses
   # @return [NMatrix] a vector of NMatrix that each elements are differentiated
@@ -172,6 +181,22 @@ module FastNeurons
     return (z.exp * omega) / (delta ** 2)
   end
 
+  # Differentiate softmax function.
+  # @param [NMatrix] a a vector of NMatrix containing neuron statuses
+  # @return [NMatrix] a vector of NMatrix that each elements are differentiated
+  # @since 1.5.0
+  def self.differentiate_softmax(a)            
+    mat = NMatrix.new([a.size, a.size], 0.0)
+
+    a.size.times do |i|
+      a.size.times do |j|
+        mat[i, j] = i == j ? a[i] * (1 - a[i]) : -a[i] * a[j]
+      end
+    end      
+    
+    return mat
+  end
+
   # activation functions
   Linear = { antiderivative: method(:linear), derivative: method(:differentiate_linear) }
   Sigmoid = { antiderivative: method(:sigmoid), derivative: method(:differentiate_sigmoid) }
@@ -183,21 +208,43 @@ module FastNeurons
   Softplus = { antiderivative: method(:softplus), derivative: method(:sigmoid) }
   Swish = { antiderivative: method(:swish), derivative: method(:differentiate_swish) }
   Mish = { antiderivative: method(:mish), derivative: method(:differentiate_mish) }
+  Softmax = { antiderivative: method(:softmax), derivative: method(:differentiate_softmax) }
 
+  # Compute the mean squared error.
+  # @param [NMatrix] t a vector of NMatrix containing teaching data
+  # @param [NMatrix] a a vector of NMatrix containing outputs of neural network
+  # @return [Float] loss
+  # @since 1.5.0
   def self.mean_square(t, a)
-    return ((t - a) ** 2).sum / a.size
+    return ((t - a) ** 2).sum[0] / a.size
   end
 
+  # Compute the cross entropy error.
+  # @param [NMatrix] t a vector of NMatrix containing teaching data
+  # @param [NMatrix] a a vector of NMatrix containing outputs of neural network
+  # @return [Float] loss 
+  # @since 1.5.0
   def self.cross_entropy(t, a)
-    return -(t * a.log).sum
+    delta = 1e-7
+    return -(t * (a + delta).log).sum[0]
   end
 
+  # Differentiate the mean squared error function.
+  # @param [NMatrix] t a vector of NMatrix containing teaching data
+  # @param [NMatrix] a a vector of NMatrix containing outputs of neural network
+  # @return [NMatrix] a vector of NMatrix that each elements are differentiated
+  # @since 1.5.0
   def self.differentiate_mean_square(t, a)
     return (t - a) * (2 / a.size)
   end
 
+  # Differentiate the cross entropy error function.
+  # @param [NMatrix] t a vector of NMatrix containing teaching data
+  # @param [NMatrix] a a vector of NMatrix containing outputs of neural network
+  # @return [NMatrix] a vector of NMatrix that each elements are differentiated
+  # @since 1.5.0
   def self.differentiate_cross_entropy(t, a)
-    return t
+    return -(t / a)
   end
 
   # loss functions

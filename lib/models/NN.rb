@@ -89,7 +89,8 @@ module FastNeurons
       # Make the hash of activation functions.
       @activation_functions = { Linear: Linear, Sigmoid: Sigmoid, Tanh: Tanh,
                                 ReLU: ReLU, LeakyReLU: LeakyReLU, ELU: Elu, SELU: SElu,
-                                Softplus: Softplus, Swish: Swish, Mish: Mish }
+                                Softplus: Softplus, Swish: Swish, Mish: Mish,
+                                Softmax: Softmax }
 
       # Set the proc object of antiderivative of a specified activation function.
       @antiderivatives = @keys.map{ |key| @activation_functions[key][:antiderivative] }.to_a
@@ -130,10 +131,10 @@ module FastNeurons
       initialize_loss_derivatives
 
       # Create the geometry of identity matrix.
-      @idn_geometry = @weights_geometry.clone
+      @idm_geometry = @weights_geometry.clone
 
       # Create identity matrix.
-      @idn = @idn_geometry.map{ |g| NMatrix.eye([g[0],g[0]]) }
+      @idm = @idm_geometry.map{ |g| NMatrix.eye([g[0],g[0]]) }
 
       # Set the coefficients of derivatives.
       @coefficients = NMatrix.ones_like(@a[@neuron_columns.size])
@@ -254,10 +255,9 @@ module FastNeurons
 
     # Compute backpropagation.
     # @since 1.0.0
-    def backpropagate
-      compute_loss
+    def backpropagate      
       differentiate_a(@neuron_columns.size-1)
-      @delta[@neuron_columns.size-1] = @g_dash[@neuron_columns.size-1] * @loss_derivative.call(@T, @a[-1]) * @coefficients
+      @delta[@neuron_columns.size-1] = @loss_derivative.call(@T, @a[-1]) * @g_dash[@neuron_columns.size-1] * @coefficients
       @loss_derivative_weights[@neuron_columns.size-1] += NMatrix::BLAS.gemm(@delta[@neuron_columns.size-1], @a[@neuron_columns.size-1].transpose)
       @loss_derivative_biases[@neuron_columns.size-1] += @delta[@neuron_columns.size-1]
 
@@ -302,7 +302,7 @@ module FastNeurons
     # @param [Integer] row the number of layer currently computing
     # @since 1.0.0
     def compute_delta(row)
-      @delta[row] = NMatrix::BLAS.gemm(@weights[row+1], @delta[row+1], nil, 1.0, 0.0, :transpose) * @g_dash[row]
+      @delta[row] = NMatrix::BLAS.gemm(@weights[row+1], @delta[row+1], nil, 1.0, 0.0, :transpose) * @g_dash[row]      
     end
 
     # Compute derivative of weights.
@@ -336,7 +336,7 @@ module FastNeurons
     # @since 1.0.0
     def update_weights(row)
       @loss_derivative_weights[row] = @loss_derivative_weights[row] / @batch_size.to_f
-      @weights[row] = NMatrix::BLAS.gemm(@idn[row], @loss_derivative_weights[row], @weights[row].clone, (@learning_rate), 1.0)
+      @weights[row] = NMatrix::BLAS.gemm(@idm[row], @loss_derivative_weights[row], @weights[row].clone, @learning_rate, 1.0)
     end
 
     # Update biases.
@@ -344,7 +344,7 @@ module FastNeurons
     # @since 1.0.0
     def update_biases(row)
       @loss_derivative_biases[row] = @loss_derivative_biases[row] / @batch_size.to_f
-      @biases[row] = NMatrix::BLAS.gemm(@idn[row], @loss_derivative_biases[row], @biases[row].clone, (@learning_rate), 1.0)
+      @biases[row] = NMatrix::BLAS.gemm(@idm[row], @loss_derivative_biases[row], @biases[row].clone, @learning_rate, 1.0)
     end
 
     # Update biases and weights.
@@ -359,14 +359,9 @@ module FastNeurons
     # Compute loss by loss function.
     # @since 1.5.0
     def compute_loss
-      @loss = @loss_antiderivative.call(@T, @a[-1])   
-    end
-
-    # Get loss by loss function.
-    # @since 1.5.0
-    def get_loss
-      return @loss
-    end
+      @loss = @loss_antiderivative.call(@T, @a[-1])
+      puts "loss : #{@loss}"
+    end    
 
     # Get outputs of the layer of neural network.
     # @param [Integer] row the row number you want to get outputs
