@@ -9,7 +9,7 @@ ALPHA = 1.6732632423543772848170429916717
 # FastNeurons is a simple and fast library using NMatrix for building neural networks.<br>
 # Currently, it supports fully connected neural network and restricted boltzmann machine.<br>
 # More models will be added gradually.<br>
-# @version 1.4.0
+# @version 1.5.0
 # @since 1.0.0
 # @author Ryota Sakai, Yusuke Tomimoto
 module FastNeurons
@@ -95,6 +95,15 @@ module FastNeurons
     return z * tanh(softplus(z))
   end
 
+  # Apply softmax function to z.
+  # @param [NMatrix] z a vector of NMatrix containing the multiply accumulation of inputs, weights and biases
+  # @return [NMatrix] a vector of NMatrix that each elements are applied to softmax function
+  # @since 1.5.0
+  def self.softmax(z)
+    exp_z = (z - z.max[0]).exp
+    return exp_z / exp_z.sum[0]
+  end
+
   # Differentiate linear function.
   # @param [NMatrix] a a vector of NMatrix containing neuron statuses
   # @return [NMatrix] a vector of NMatrix that each elements are differentiated
@@ -172,6 +181,16 @@ module FastNeurons
     return (z.exp * omega) / (delta ** 2)
   end
 
+  # Differentiate softmax function.
+  # @param [NMatrix] t a vector of NMatrix containing teaching data
+  # @param [NMatrix] a a vector of NMatrix containing outputs of neural network
+  # @return [NMatrix] a vector of NMatrix that each elements are differentiated
+  # @since 1.5.0
+  def self.differentiate_softmax(t, a)
+    return (a - t)
+  end
+
+  # activation functions
   Linear = { antiderivative: method(:linear), derivative: method(:differentiate_linear) }
   Sigmoid = { antiderivative: method(:sigmoid), derivative: method(:differentiate_sigmoid) }
   Tanh = { antiderivative: method(:tanh), derivative: method(:differentiate_tanh) }
@@ -182,4 +201,46 @@ module FastNeurons
   Softplus = { antiderivative: method(:softplus), derivative: method(:sigmoid) }
   Swish = { antiderivative: method(:swish), derivative: method(:differentiate_swish) }
   Mish = { antiderivative: method(:mish), derivative: method(:differentiate_mish) }
+  Softmax = { antiderivative: method(:softmax), derivative: method(:differentiate_softmax) }
+
+  # Compute the mean squared error.
+  # @param [NMatrix] t a vector of NMatrix containing teaching data
+  # @param [NMatrix] a a vector of NMatrix containing outputs of neural network
+  # @return [Float] loss
+  # @since 1.5.0
+  def self.mean_square(t, a)
+    return ((t - a) ** 2).sum[0] / a.size
+  end
+
+  # Compute the cross entropy error.
+  # @param [NMatrix] t a vector of NMatrix containing teaching data
+  # @param [NMatrix] a a vector of NMatrix containing outputs of neural network
+  # @return [Float] loss 
+  # @since 1.5.0
+  def self.cross_entropy(t, a)
+    delta = 1e-7
+    return -(t * (a + delta).log).sum[0]
+  end
+
+  # Differentiate the mean squared error function.
+  # @param [NMatrix] t a vector of NMatrix containing teaching data
+  # @param [NMatrix] a a vector of NMatrix containing outputs of neural network
+  # @return [NMatrix] a vector of NMatrix that each elements are differentiated
+  # @since 1.5.0
+  def self.differentiate_mean_square(t, a)
+    return (t - a) * (2 / a.size)
+  end
+
+  # Differentiate the cross entropy error function.
+  # @param [NMatrix] t a vector of NMatrix containing teaching data
+  # @param [NMatrix] a a vector of NMatrix containing outputs of neural network
+  # @return [NMatrix] a vector of NMatrix that each elements are differentiated
+  # @since 1.5.0
+  def self.differentiate_cross_entropy(t, a)
+    return -(t / a)
+  end
+
+  # loss functions
+  MeanSquare = { antiderivative: method(:mean_square), derivative: method(:differentiate_mean_square) }
+  CrossEntropy = { antiderivative: method(:cross_entropy), derivative: method(:differentiate_cross_entropy) }
 end

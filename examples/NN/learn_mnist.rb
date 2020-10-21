@@ -10,10 +10,10 @@ images = mnist.load_images
 puts "Initializing network"
 
 # Initialize a neural network.
-nn = FastNeurons::NN.new([784,15,784], [:Tanh, :Sigmoid])
+nn = FastNeurons::NN.new([784,15,784], [:Sigmoid, :Sigmoid])
 
-# Set training rate.
-nn.set_training_rate(0.001)
+# Set learning rate.
+nn.set_learning_rate(0.1)
 
 # Set mini-batch size.
 nn.set_batch_size(1)
@@ -43,7 +43,7 @@ puts "Runnning..."
 end
 
 puts "Understood!"
-nn.save_network("network.json") # save learned network
+#nn.save_network("network.json") # save learned network
 gets
 
 # confirmation of network
