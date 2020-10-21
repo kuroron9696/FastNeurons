@@ -9,7 +9,7 @@ ALPHA = 1.6732632423543772848170429916717
 # FastNeurons is a simple and fast library using NMatrix for building neural networks.<br>
 # Currently, it supports fully connected neural network and restricted boltzmann machine.<br>
 # More models will be added gradually.<br>
-# @version 1.4.0
+# @version 1.5.0
 # @since 1.0.0
 # @author Ryota Sakai, Yusuke Tomimoto
 module FastNeurons
@@ -172,6 +172,7 @@ module FastNeurons
     return (z.exp * omega) / (delta ** 2)
   end
 
+  # activation functions
   Linear = { antiderivative: method(:linear), derivative: method(:differentiate_linear) }
   Sigmoid = { antiderivative: method(:sigmoid), derivative: method(:differentiate_sigmoid) }
   Tanh = { antiderivative: method(:tanh), derivative: method(:differentiate_tanh) }
@@ -182,4 +183,24 @@ module FastNeurons
   Softplus = { antiderivative: method(:softplus), derivative: method(:sigmoid) }
   Swish = { antiderivative: method(:swish), derivative: method(:differentiate_swish) }
   Mish = { antiderivative: method(:mish), derivative: method(:differentiate_mish) }
+
+  def self.mean_square(t, a)
+    return ((t - a) ** 2).sum / a.size
+  end
+
+  def self.cross_entropy(t, a)
+    return -(t * a.log).sum
+  end
+
+  def self.differentiate_mean_square(t, a)
+    return (t - a) * (2 / a.size)
+  end
+
+  def self.differentiate_cross_entropy(t, a)
+    return t
+  end
+
+  # loss functions
+  MeanSquare = { antiderivative: method(:mean_square), derivative: method(:differentiate_mean_square) }
+  CrossEntropy = { antiderivative: method(:cross_entropy), derivative: method(:differentiate_cross_entropy) }
 end

@@ -7,7 +7,7 @@ t = [[0],[1],[1],[0]]
 
 # Make a neural network.
 nn = FastNeurons::NN.new([2, 2, 1], [:Tanh, :Tanh])
-
+#nn.disable_update
 # Set up the parameters to random values.
 nn.randomize
 
@@ -26,6 +26,7 @@ puts "Runnning..."
     # nn.input(inputs, t[i])
 
     nn.run(1) # propagate and backpropagate
+    puts nn.get_loss
 
     puts "input: #{inputs}, ans: #{t[i]}, expected: #{nn.get_outputs}"
   end
@@ -41,4 +42,4 @@ data.each_with_index do |inputs,i|
   puts "input: #{inputs}, ans: #{t[i]}, expected: #{nn.get_outputs}"
 end
 
-nn.save_network("xor.json") # save learned network
+#nn.save_network("xor.json") # save learned network
