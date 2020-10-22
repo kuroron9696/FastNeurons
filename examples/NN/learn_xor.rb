@@ -36,10 +36,10 @@ puts "Understood!"
 
 # confirmation of learned network
 data.each_with_index do |inputs,i|
-  nn.input(inputs,t[i])
+  nn.input(inputs, t[i])
   nn.propagate
 
   puts "input: #{inputs}, ans: #{t[i]}, expected: #{nn.get_outputs}"
 end
 
-#nn.save_network("xor2.json") # save learned network
+#nn.save_network("xor.json") # save learned network
