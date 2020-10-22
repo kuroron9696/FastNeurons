@@ -83,6 +83,7 @@ module FastNeurons
         end
       else
         # Set Sigmoid as default activation function.
+        # If activation function isn't passed, set Sigmoid function to all layer.
         @keys.map!{ |key| key = :Sigmoid }
       end
 
@@ -123,7 +124,7 @@ module FastNeurons
       @a = @columns.map{ |col| NMatrix.new([1,col],0.0).transpose }
 
       # the array stored derivatives of neurons statuses
-      @g_dash = @biases_geometry.clone
+      @derivative_activation_function = @biases_geometry.clone
 
       # need for backpropagation
       @delta = @biases_geometry.clone
@@ -255,21 +256,25 @@ module FastNeurons
 
     # Compute backpropagation.
     # @since 1.0.0
-    def backpropagate      
+    def backpropagate
+      # If Softmax function is used on output layer with cross entropy function as loss function, do the following process.
       if @keys[-1] == :Softmax
         @delta[@neuron_columns.size-1] = @derivatives[-1].call(@T, @a[-1])
       else
-        differentiate_a(@neuron_columns.size-1)
-        @delta[@neuron_columns.size-1] = @loss_derivative.call(@T, @a[-1]) * @g_dash[@neuron_columns.size-1] * @coefficients
+        # the process in all cases except Softmax with cross entropy
+        differentiate_activation_function(@neuron_columns.size-1)
+        @delta[@neuron_columns.size-1] = @loss_derivative.call(@T, @a[-1]) * @derivative_activation_function[@neuron_columns.size-1] * @coefficients
       end
+
+      # Compute loss derivatives.
       @loss_derivative_weights[@neuron_columns.size-1] += NMatrix::BLAS.gemm(@delta[@neuron_columns.size-1], @a[@neuron_columns.size-1].transpose)
       @loss_derivative_biases[@neuron_columns.size-1] += @delta[@neuron_columns.size-1]
 
       (@neuron_columns.size-2).downto(0) do |i|
-        differentiate_a(i)
+        differentiate_activation_function(i)
         compute_delta(i)
-        differentiate_weights(i)
-        differentiate_biases(i)
+        compute_weights_derivatives(i)
+        compute_biases_derivatives(i)
       end
 
       # If updating parameters is enable, updates biases and weights.
@@ -279,47 +284,38 @@ module FastNeurons
           update_parameters
           initialize_loss_derivatives
         end
-      else
-        if @count == @batch_size
-          (@neuron_columns.size - 1).downto(0) do |row|
-            puts "@g_dash[#{row}] : #{@g_dash[row]}"
-            puts "@delta[#{row}] : #{@delta[row]}"
-            puts "@loss_derivative_weights[#{row}] : #{@loss_derivative_weights[row]}"
-            puts "@loss_derivative_biases[#{row}] : #{@loss_derivative_biases[row]}"
-          end
-        end
       end
     end
 
     # Differentiate neurons statuses.
     # @param [Integer] row the number of layer currently computing
     # @since 1.1.0
-    def differentiate_a(row)
+    def differentiate_activation_function(row)
       # Judge the symbol of activation function.
-      arr = [:Linear, :Sigmoid, :Tanh].include?(@keys[row]) ? @a[row+1] : @z[row] 
+      array = [:Linear, :Sigmoid, :Tanh].include?(@keys[row]) ? @a[row+1] : @z[row] 
 
       # Defferentiate array correspond to activation function.
-      @g_dash[row] = @derivatives[row].call(arr)
+      @derivative_activation_function[row] = @derivatives[row].call(array)
     end
 
     # Compute delta.
     # @param [Integer] row the number of layer currently computing
     # @since 1.0.0
     def compute_delta(row)
-      @delta[row] = NMatrix::BLAS.gemm(@weights[row+1], @delta[row+1], nil, 1.0, 0.0, :transpose) * @g_dash[row]      
+      @delta[row] = NMatrix::BLAS.gemm(@weights[row+1], @delta[row+1], nil, 1.0, 0.0, :transpose) * @derivative_activation_function[row]      
     end
 
-    # Compute derivative of weights.
+    # Compute derivatives of weights.
     # @param [Integer] row the number of layer currently computing
     # @since 1.2.0
-    def differentiate_weights(row)
+    def compute_weights_derivatives(row)
       @loss_derivative_weights[row] += NMatrix::BLAS.gemm(@delta[row], @a[row].transpose)
     end
 
-    # Compute derivative of biases.
+    # Compute derivatives of biases.
     # @param [Integer] row the number of layer currently computing
     # @since 1.2.0
-    def differentiate_biases(row)
+    def compute_biases_derivatives(row)
       @loss_derivative_biases[row] += @delta[row]
     end
 
@@ -379,7 +375,17 @@ module FastNeurons
     # @return [Hash] the hash of derivative values.
     # @since 1.5.0
     def get_derivative_values
-      return { g_dash: @g_dash, delta: @delta, loss_derivative_weights: @loss_derivative_weights, loss_derivative_biases: @loss_derivative_biases } 
+      return { activation_function: @derivative_activation_function, delta: @delta, weights: @loss_derivative_weights, biases: @loss_derivative_biases } 
+    end
+
+    # Set derivative values.
+    # @param [Hash] derivative_values the hash of derivative values
+    # @since 1.6.0
+    def set_derivative_values(derivative_values)
+      @derivative_activation_function = derivative_values[:activation_function]
+      @delta = derivative_values[:delta]
+      @loss_derivative_weights = derivative_values[:weights]
+      @loss_derivative_biases = derivative_values[:biases]
     end
 
     # Set a learning rate.
@@ -428,7 +434,7 @@ module FastNeurons
     # @param [String] path file path
     # @since 1.0.0
     def save_network(path)
-      # Make hash of parameters.
+      # Make a hash of parameters.
       hash = { "columns" => @columns, "activation_function" => @keys, "biases" => @biases, "weights" => @weights }
 
       # Save file.
