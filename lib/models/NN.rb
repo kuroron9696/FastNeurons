@@ -21,6 +21,8 @@ require 'HDLRuby/hruby_verilog.rb'
 require 'HDLRuby/backend/hruby_allocator'
 require 'HDLRuby/backend/hruby_c_allocator'
 
+require 'random_bell'
+
 configure_high
 require_relative 'modules/network_constructor.rb'
 
@@ -43,17 +45,21 @@ module FastNeurons
     # constructor <br>
     # Creates a NN from columns giving each the size of a column of neurons (input and output comprised). <br>
     # You can use the following activation functions.<br>
-    # ':Linear', ':Sigmoid', ':Tanh', ':ReLU', ':LeakyReLU', ':ELU', ':SELU', ':Softplus', ':Swish', or ':Mish' <br>
+    # ':Linear', ':Sigmoid', ':Tanh', ':ReLU', ':LeakyReLU', ':ELU', ':SELU', ':Softplus', ':Swish', ':Mish', or ':Softmax' <br>
+    # And, you can use the following loss functions.<br>
+    # ':MeanSquare', ':CrossEntropy' <br>
     # @param [Array] columns the array showing the shape of a neural network
-    # @param [Symbol or Array] activation_function the name of the activation function you want to use
+    # @param [Symbol or Array] activation_function the symbol of the activation function you want to use
+    # @param [Symbol] loss_function the symbol of the loss function you want to use
     # @example initialization of the neural network
     #   nn = FastNeurons::NN.new([784,15,784])
     #   nn = FastNeurons::NN.new([784,15,784], :Sigmoid)
     #   nn = FastNeurons::NN.new([784,15,784], [:Sigmoid, :Tanh])
+    #   nn = FastNeurons::NN.new([784,15,784], [:Sigmoid, :Tanh], :CrossEntropy)
     # @since 1.0.0
     def initialize(columns, activation_function = nil, loss_function = :MeanSquare)
       # training rate
-      @learning_rate = 0.1
+      @learning_rate = 0.01
 
       # batch size
       @batch_size = 1
@@ -79,7 +85,7 @@ module FastNeurons
         if activation_function.size == @keys.size
           @keys = activation_function
         else
-          raise(ArgumentError, "The size of the activation functions' array does not match the number of hidden and output layers.\n")
+          raise(ArgumentError, "The size of the activation functions' array needs to match the number of hidden and output layers.\n")
         end
       else
         # Set Sigmoid as default activation function.
@@ -145,6 +151,9 @@ module FastNeurons
 
       # loss of neural network
       @loss = 0
+
+      # normal distribution
+      @normal = RandomBell.new(mu: 0, sigma: 1, range: -Float::INFINITY..Float::INFINITY)
     end
 
     # Initialize loss derivatives.
@@ -157,27 +166,176 @@ module FastNeurons
     end
 
     # Set up the NN to random values.
+    # @param [Symbol] weights_method the method of initializing weights
+    # @param [Symbol] biases_method the method of initializing biases
+    # @example randomize in specified methods
+    #   nn.randomize
+    #   nn.randomize(:Normal, :Zeros)
+    #   nn.randomize([:Uniform, :Ones], [:Zeros, :Zeros])
     # @since 1.0.0
-    def randomize
-      # Create random fast matrices for the biases.
-      @biases = @biases_geometry.map { |geo| NMatrix.random(geo, :dtype => :float64)}
+    def randomize(weights_method = nil, biases_method = nil)
+      weights_methods, biases_methods = set_initializing_methods(weights_method, biases_method)
 
-      # Convert a range of biases from 0 ~ 1 to -0.5 ~ 0.5.
-      @biases.size.times do |i|
-        @biases[i] -= 0.5
-      end
-      puts "@biases: #{@biases}"
+      # Initialize weights in the specified method.
+      @weights = []
+      weights_methods.each_with_index do |method, i|
+        fan_in = @weights_geometry[i][1] # a number of input units of layer
+        fan_out = @weights_geometry[i][0] # a number of output units of layer
 
-      # Create random fast matrices for the weights.
-      @weights = @weights_geometry.map do |geo|
-        NMatrix.random(geo, :dtype => :float64)
-      end
+        case method
+        when :Uniform
+          # Initialize weights with a uniform random number of a range from -1.0 to 1.0.
+          # Create random fast matrices for the weights.
+          weights_array = NMatrix.random(@weights_geometry[i], :dtype => :float64)
+  
+          # Convert a range of weights from 0 ~ 1 to -1.0 ~ 1.0.
+          weights_array -= 0.5
+          weights_array *= 2.0
 
-      # Convert a range of weights from 0 ~ 1 to -0.5 ~ 0.5.
-      @weights.size.times do |i|
-        @weights[i] -= 0.5
+          @weights.push(weights_array)
+        when :Normal
+          # Initialize weights with a random number from a Gaussian distribution that has μ = 0, σ = 1.0.
+          weights_array = (fan_in * fan_out).times.map{ |size| @normal.rand }
+          @weights.push(NMatrix.new(@weights_geometry[i], weights_array, :dtype => :float64))
+        when :Zeros
+          # Initialize weights with zeros.
+          @weights.push(NMatrix.new(@weights_geometry[i], 0.0))
+        when :Ones
+          # Initialize weights with ones.
+          @weights.push(NMatrix.new(@weights_geometry[i], 1.0))
+        when :XavierUniform
+          # Initialize weights with a random number from a Xavier's uniform distribution.
+          limit = Math.sqrt(6.0 / (fan_in + fan_out))
+          weights_array = (fan_in * fan_out).times.map{ |size| rand(-limit..limit) }
+          @weights.push(NMatrix.new(@weights_geometry[i], weights_array, :dtype => :float64))
+        when :XavierNormal
+          # Initialize weights with a random number from a Xavier's normal distribution.
+          xavier_normal = RandomBell.new(mu: 0, sigma: Math.sqrt(2.0 / (fan_in + fan_out)), range: -Float::INFINITY..Float::INFINITY)
+          weights_array = (fan_in * fan_out).times.map{ |size| xavier_normal.rand }
+          @weights.push(NMatrix.new(@weights_geometry[i], weights_array, :dtype => :float64))
+        when :HeUniform
+          limit = Math.sqrt(6.0 / fan_in)
+          weights_array = (fan_in * fan_out).times.map{ |size| rand(-limit..limit) }
+          @weights.push(NMatrix.new(@weights_geometry[i], weights_array, :dtype => :float64))
+        when :HeNormal
+          he_normal = RandomBell.new(mu: 0, sigma: Math.sqrt(2.0 / fan_in), range: -Float::INFINITY..Float::INFINITY)
+          weights_array = (fan_in * fan_out).times.map{ |size| he_normal.rand }
+          @weights.push(NMatrix.new(@weights_geometry[i], weights_array, :dtype => :float64))
+        when :LecunUniform
+          limit = Math.sqrt(3.0 / fan_in)
+          weights_array = (fan_in * fan_out).times.map{ |size| rand(-limit..limit) }
+          @weights.push(NMatrix.new(@weights_geometry[i], weights_array, :dtype => :float64))
+        when :LecunNormal
+          lecun_normal = RandomBell.new(mu: 0, sigma: Math.sqrt(1.0 / fan_in), range: -Float::INFINITY..Float::INFINITY)
+          weights_array = (fan_in * fan_out).times.map{ |size| lecun_normal.rand }
+          @weights.push(NMatrix.new(@weights_geometry[i], weights_array, :dtype => :float64))
+        end
       end
+      
+      # Initialize biasess in the specified method.
+      @biases = []
+      biases_methods.each_with_index do |method, i|
+        fan_in = @biases_geometry[i][1] # a number of input units of layer
+        fan_out = @biases_geometry[i][0] # a number of output units of layer
+
+        case method
+        when :Uniform 
+          # Initialize biases with a uniform random number of a range from -1.0 to 1.0.
+          # Create random fast matrices for the biases.
+          biases_array = NMatrix.random(@biases_geometry[i], :dtype => :float64)
+  
+          # Convert a range of biases from 0 ~ 1 to -1.0 ~ 1.0.
+          biases_array -= 0.5
+          biases_array *= 2.0
+
+          @biases.push(biases_array)
+        when :Normal
+          # Initialize biases with a random number from a Gaussian distribution that has μ = 0, σ = 1.0.
+          @biases.push(N[@biases_geometry[i][0].times.map{ @normal.rand }, :dtype => :float64].transpose)
+        when :Zeros
+          # Initialize biases with zeros.
+          @biases.push(NMatrix.new(@biases_geometry[i], 0.0))
+        when :Ones
+          # Initialize biases with ones.          
+          @biases.push(NMatrix.new(@biases_geometry[i], 1.0))
+        when :XavierUniform
+          # Initialize weights with a random number from a Xavier's uniform distribution.
+          limit = Math.sqrt(6.0 / (fan_in + fan_out))
+          biases_array = (fan_in * fan_out).times.map{ |size| rand(-limit..limit) }
+          @biases.push(NMatrix.new(@biases_geometry[i], biases_array, :dtype => :float64))
+        when :XavierNormal
+          # Initialize weights with a random number from a Xavier's normal distribution.
+          xavier_normal = RandomBell.new(mu: 0, sigma: Math.sqrt(2.0 / (fan_in + fan_out)), range: -Float::INFINITY..Float::INFINITY)
+          biases_array = (fan_in * fan_out).times.map{ |size| xavier_normal.rand }
+          @biases.push(NMatrix.new(@biases_geometry[i], biases_array, :dtype => :float64))
+        when :HeUniform
+          limit = Math.sqrt(6.0 / fan_in)
+          biases_array = (fan_in * fan_out).times.map{ |size| rand(-limit..limit) }
+          @biases.push(NMatrix.new(@biases_geometry[i], biases_array, :dtype => :float64))
+        when :HeNormal
+          he_normal = RandomBell.new(mu: 0, sigma: Math.sqrt(2.0 / fan_in), range: -Float::INFINITY..Float::INFINITY)
+          biases_array = (fan_in * fan_out).times.map{ |size| he_normal.rand }
+          @biases.push(NMatrix.new(@biases_geometry[i], biases_array, :dtype => :float64))
+        when :LecunUniform
+          limit = Math.sqrt(3.0 / fan_in)
+          biases_array = (fan_in * fan_out).times.map{ |size| rand(-limit..limit) }
+          @biases.push(NMatrix.new(@biases_geometry[i], biases_array, :dtype => :float64))
+        when :LecunNormal
+          lecun_normal = RandomBell.new(mu: 0, sigma: Math.sqrt(1.0 / fan_in), range: -Float::INFINITY..Float::INFINITY)
+          biases_array = (fan_in * fan_out).times.map{ |size| lecun_normal.rand }
+          @biases.push(NMatrix.new(@biases_geometry[i], biases_array, :dtype => :float64))
+        end
+      end
+      
+      # Output the weights and biases.
       puts "@weights: #{@weights}"
+      puts "@biases: #{@biases}"
+    end
+
+    # Set the initializing methods to each weights and biases.
+    # @param [Symbol or Array] weights_method the symbol or the array of initializing method of weights
+    # @param [Symbol or Array] biases_method the symbol or the array of initializing method of biases
+    # @return [Array] the array of intializing methods for weights and biases
+    # @since 1.7.0
+    def set_initializing_methods(weights_method, biases_method)
+      weights_methods = Array.new(@neuron_columns.size)
+      biases_methods = Array.new(@neuron_columns.size)
+
+      # Judge the arguments of initializing methods.
+      if weights_method.kind_of?(Symbol)
+        # Set the initializing method passed as a symbol in the argument to weights.
+        weights_methods.map!{ |method| method = weights_method }
+      elsif weights_method.kind_of?(Array)
+        # Set the initializing method passed as an array of symbol in the argument to weights.
+        if weights_method.size == weights_methods.size
+          weights_methods = weights_method
+        else
+          raise(ArgumentError, "The size of the initializing methods' array of weights needs to match the number of hidden and output layers.\n")
+        end
+      else
+        # Set Uniform as default method.
+        # If initializing method isn't passed, set Uniform to all weights.
+        weights_methods.map!{ |method| method = :Uniform }
+      end
+
+      # Judge the arguments of initializing methods.
+      if biases_method.kind_of?(Symbol)
+        # Set the initializing method passed as a symbol in the argument to biases.
+        biases_methods.map!{ |method| method = biases_method }
+      elsif biases_method.kind_of?(Array)
+        # Set the initializing method passed as an array of symbol in the argument to biases.
+        if biases_method.size == biases_methods.size
+          biases_methods = biases_method
+        else
+          raise(ArgumentError, "The size of the initializing methods' array of biasess needs to match the number of hidden and output layers.\n")
+        end
+      else
+        # Set Sigmoid as default activation function.
+        # If initializing method isn't passed, set Uniform to all weights.
+        biases_methods.map!{ |method| method = :Uniform }
+      end
+
+      return weights_methods, biases_methods
     end
 
     # Get the biases as an array.
@@ -391,7 +549,7 @@ module FastNeurons
     # Set a learning rate.
     # @param [Float] rate learning rate
     # @since 1.1.0
-    def set_learning_rate(rate = 0.1)
+    def set_learning_rate(rate = 0.01)
       @learning_rate = rate
     end
 
@@ -508,7 +666,7 @@ module FastNeurons
     end
 
     # Generate the Verilog files of neural network module.
-    # @poram [String] folder_name output folder's name
+    # @param [String] folder_name output folder's name
     # @since 1.4.0
     def to_verilog(folder_name)
       # Generate the low level representation.
