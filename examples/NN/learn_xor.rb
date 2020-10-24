@@ -9,7 +9,7 @@ t = [[0],[1],[1],[0]]
 nn = FastNeurons::NN.new([2, 2, 1], [:ReLU, :Linear], :MeanSquare)
 
 # Set up the parameters to random values.
-nn.randomize
+nn.randomize(:HeNormal, :Zeros)
 
 # Load learned network.
 #nn.load_network("xor.json")
