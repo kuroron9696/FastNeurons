@@ -1,5 +1,6 @@
 require 'nmatrix'
 require 'json'
+require 'random_bell'
 require_relative 'models/NN.rb'
 require_relative 'models/RBM.rb'
 
