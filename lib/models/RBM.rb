@@ -1,5 +1,3 @@
-require 'random_bell'
-
 module FastNeurons
   # Describes a restricted boltzmann machine.
   # @example learning

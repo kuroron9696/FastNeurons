@@ -21,8 +21,6 @@ require 'HDLRuby/hruby_verilog.rb'
 require 'HDLRuby/backend/hruby_allocator'
 require 'HDLRuby/backend/hruby_c_allocator'
 
-require 'random_bell'
-
 configure_high
 require_relative 'modules/network_constructor.rb'
 
@@ -203,29 +201,33 @@ module FastNeurons
         when :Ones
           # Initialize weights with ones.
           @weights.push(NMatrix.new(@weights_geometry[i], 1.0))
-        when :XavierUniform
-          # Initialize weights with a random number from a Xavier's uniform distribution.
+        when :GlorotUniform
+          # Initialize weights with a random number from a Glorot's uniform distribution.
           limit = Math.sqrt(6.0 / (fan_in + fan_out))
           weights_array = (fan_in * fan_out).times.map{ |size| rand(-limit..limit) }
           @weights.push(NMatrix.new(@weights_geometry[i], weights_array, :dtype => :float64))
-        when :XavierNormal
-          # Initialize weights with a random number from a Xavier's normal distribution.
-          xavier_normal = RandomBell.new(mu: 0, sigma: Math.sqrt(2.0 / (fan_in + fan_out)), range: -Float::INFINITY..Float::INFINITY)
-          weights_array = (fan_in * fan_out).times.map{ |size| xavier_normal.rand }
+        when :GlorotNormal
+          # Initialize weights with a random number from a Glorot's normal distribution.
+          glorot_normal = RandomBell.new(mu: 0, sigma: Math.sqrt(2.0 / (fan_in + fan_out)), range: -Float::INFINITY..Float::INFINITY)
+          weights_array = (fan_in * fan_out).times.map{ |size| glorot_normal.rand }
           @weights.push(NMatrix.new(@weights_geometry[i], weights_array, :dtype => :float64))
         when :HeUniform
+          # Initialize weights with a random number from a He's uniform distribution.
           limit = Math.sqrt(6.0 / fan_in)
           weights_array = (fan_in * fan_out).times.map{ |size| rand(-limit..limit) }
           @weights.push(NMatrix.new(@weights_geometry[i], weights_array, :dtype => :float64))
         when :HeNormal
+          # Initialize weights with a random number from a He's normal distribution.
           he_normal = RandomBell.new(mu: 0, sigma: Math.sqrt(2.0 / fan_in), range: -Float::INFINITY..Float::INFINITY)
           weights_array = (fan_in * fan_out).times.map{ |size| he_normal.rand }
           @weights.push(NMatrix.new(@weights_geometry[i], weights_array, :dtype => :float64))
-        when :LecunUniform
+        when :LeCunUniform
+          # Initialize weights with a random number from a LeCun's uniform distribution.
           limit = Math.sqrt(3.0 / fan_in)
           weights_array = (fan_in * fan_out).times.map{ |size| rand(-limit..limit) }
           @weights.push(NMatrix.new(@weights_geometry[i], weights_array, :dtype => :float64))
-        when :LecunNormal
+        when :LeCunNormal
+          # Initialize weights with a random number from a LeCun's normal distribution.
           lecun_normal = RandomBell.new(mu: 0, sigma: Math.sqrt(1.0 / fan_in), range: -Float::INFINITY..Float::INFINITY)
           weights_array = (fan_in * fan_out).times.map{ |size| lecun_normal.rand }
           @weights.push(NMatrix.new(@weights_geometry[i], weights_array, :dtype => :float64))
@@ -258,29 +260,33 @@ module FastNeurons
         when :Ones
           # Initialize biases with ones.          
           @biases.push(NMatrix.new(@biases_geometry[i], 1.0))
-        when :XavierUniform
-          # Initialize weights with a random number from a Xavier's uniform distribution.
+        when :GlorotUniform
+          # Initialize weights with a random number from a Glorot's uniform distribution.
           limit = Math.sqrt(6.0 / (fan_in + fan_out))
           biases_array = (fan_in * fan_out).times.map{ |size| rand(-limit..limit) }
           @biases.push(NMatrix.new(@biases_geometry[i], biases_array, :dtype => :float64))
-        when :XavierNormal
-          # Initialize weights with a random number from a Xavier's normal distribution.
-          xavier_normal = RandomBell.new(mu: 0, sigma: Math.sqrt(2.0 / (fan_in + fan_out)), range: -Float::INFINITY..Float::INFINITY)
-          biases_array = (fan_in * fan_out).times.map{ |size| xavier_normal.rand }
+        when :GlorotNormal
+          # Initialize weights with a random number from a Glorot's normal distribution.
+          glorot_normal = RandomBell.new(mu: 0, sigma: Math.sqrt(2.0 / (fan_in + fan_out)), range: -Float::INFINITY..Float::INFINITY)
+          biases_array = (fan_in * fan_out).times.map{ |size| glorot_normal.rand }
           @biases.push(NMatrix.new(@biases_geometry[i], biases_array, :dtype => :float64))
         when :HeUniform
+          # Initialize weights with a random number from a He's uniform distribution.
           limit = Math.sqrt(6.0 / fan_in)
           biases_array = (fan_in * fan_out).times.map{ |size| rand(-limit..limit) }
           @biases.push(NMatrix.new(@biases_geometry[i], biases_array, :dtype => :float64))
         when :HeNormal
+          # Initialize weights with a random number from a He's normal distribution.
           he_normal = RandomBell.new(mu: 0, sigma: Math.sqrt(2.0 / fan_in), range: -Float::INFINITY..Float::INFINITY)
           biases_array = (fan_in * fan_out).times.map{ |size| he_normal.rand }
           @biases.push(NMatrix.new(@biases_geometry[i], biases_array, :dtype => :float64))
-        when :LecunUniform
+        when :LeCunUniform
+          # Initialize weights with a random number from a LeCun's uniform distribution.
           limit = Math.sqrt(3.0 / fan_in)
           biases_array = (fan_in * fan_out).times.map{ |size| rand(-limit..limit) }
           @biases.push(NMatrix.new(@biases_geometry[i], biases_array, :dtype => :float64))
-        when :LecunNormal
+        when :LeCunNormal
+          # Initialize weights with a random number from a LeCun's normal distribution.
           lecun_normal = RandomBell.new(mu: 0, sigma: Math.sqrt(1.0 / fan_in), range: -Float::INFINITY..Float::INFINITY)
           biases_array = (fan_in * fan_out).times.map{ |size| lecun_normal.rand }
           @biases.push(NMatrix.new(@biases_geometry[i], biases_array, :dtype => :float64))
