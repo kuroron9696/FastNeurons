@@ -94,7 +94,7 @@
   
   <dl>
     <dt>Defined in:</dt>
-    <dd>models/NN.rb</dd>
+    <dd>.\models\NN.rb</dd>
   </dl>
   
 </div>
@@ -501,6 +501,30 @@
         <li class="public ">
   <span class="summary_signature">
     
+      <a href="#initialize_loss-instance_method" title="#initialize_loss (instance method)">#<strong>initialize_loss</strong>  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Initialize and output loss by loss function.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
       <a href="#initialize_loss_derivatives-instance_method" title="#initialize_loss_derivatives (instance method)">#<strong>initialize_loss_derivatives</strong>  &#x21d2; Object </a>
     
 
@@ -565,30 +589,6 @@
   
     <span class="summary_desc"><div class='inline'>
 <p>Input to the hidden layer.</p>
-</div></span>
-  
-</li>
-
-      
-        <li class="public ">
-  <span class="summary_signature">
-    
-      <a href="#instantiate-instance_method" title="#instantiate (instance method)">#<strong>instantiate</strong>(functions, integer_width, decimal_width, address_width, inputs, weights = nil, biases = nil)  &#x21d2; Object </a>
-    
-
-    
-  </span>
-  
-  
-  
-  
-  
-  
-  
-
-  
-    <span class="summary_desc"><div class='inline'>
-<p>Instantiate neural network module written by HDLRuby.</p>
 </div></span>
   
 </li>
@@ -885,30 +885,6 @@
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#to_verilog-instance_method" title="#to_verilog (instance method)">#<strong>to_verilog</strong>(folder_name)  &#x21d2; Object </a>
-    
-
-    
-  </span>
-  
-  
-  
-  
-  
-  
-  
-
-  
-    <span class="summary_desc"><div class='inline'>
-<p>Generate the Verilog files of neural network module.</p>
-</div></span>
-  
-</li>
-
-      
-        <li class="public ">
-  <span class="summary_signature">
-    
       <a href="#update_biases-instance_method" title="#update_biases (instance method)">#<strong>update_biases</strong>(row)  &#x21d2; Object </a>
     
 
@@ -1121,6 +1097,37 @@
       <pre class="lines">
 
 
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
 60
 61
 62
@@ -1187,41 +1194,10 @@
 123
 124
 125
-126
-127
-128
-129
-130
-131
-132
-133
-134
-135
-136
-137
-138
-139
-140
-141
-142
-143
-144
-145
-146
-147
-148
-149
-150
-151
-152
-153
-154
-155
-156
-157</pre>
+126</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'models/NN.rb', line 60</span>
+      <pre class="code"><span class="info file"># File '.\models\NN.rb', line 29</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_initialize'>initialize</span><span class='lparen'>(</span><span class='id identifier rubyid_columns'>columns</span><span class='comma'>,</span> <span class='id identifier rubyid_activation_function'>activation_function</span> <span class='op'>=</span> <span class='kw'>nil</span><span class='comma'>,</span> <span class='id identifier rubyid_loss_function'>loss_function</span> <span class='op'>=</span> <span class='symbol'>:MeanSquare</span><span class='rparen'>)</span>
   <span class='comment'># training rate
@@ -1307,7 +1283,7 @@
 </span>  <span class='ivar'>@idm_geometry</span> <span class='op'>=</span> <span class='ivar'>@weights_geometry</span><span class='period'>.</span><span class='id identifier rubyid_clone'>clone</span>
 
   <span class='comment'># Create identity matrix.
-</span>  <span class='ivar'>@idm</span> <span class='op'>=</span> <span class='ivar'>@idm_geometry</span><span class='period'>.</span><span class='id identifier rubyid_map'>map</span><span class='lbrace'>{</span> <span class='op'>|</span><span class='id identifier rubyid_g'>g</span><span class='op'>|</span> <span class='const'>NMatrix</span><span class='period'>.</span><span class='id identifier rubyid_eye'>eye</span><span class='lparen'>(</span><span class='lbracket'>[</span><span class='id identifier rubyid_g'>g</span><span class='lbracket'>[</span><span class='int'>0</span><span class='rbracket'>]</span><span class='comma'>,</span><span class='id identifier rubyid_g'>g</span><span class='lbracket'>[</span><span class='int'>0</span><span class='rbracket'>]</span><span class='rbracket'>]</span><span class='rparen'>)</span> <span class='rbrace'>}</span>
+</span>  <span class='ivar'>@idm</span> <span class='op'>=</span> <span class='ivar'>@idm_geometry</span><span class='period'>.</span><span class='id identifier rubyid_map'>map</span><span class='lbrace'>{</span> <span class='op'>|</span><span class='id identifier rubyid_g'>g</span><span class='op'>|</span> <span class='const'>NMatrix</span><span class='period'>.</span><span class='id identifier rubyid_eye'>eye</span><span class='lparen'>(</span><span class='lbracket'>[</span><span class='id identifier rubyid_g'>g</span><span class='lbracket'>[</span><span class='int'>0</span><span class='rbracket'>]</span><span class='comma'>,</span><span class='id identifier rubyid_g'>g</span><span class='lbracket'>[</span><span class='int'>0</span><span class='rbracket'>]</span><span class='rbracket'>]</span><span class='rparen'>)</span> <span class='rbrace'>}</span>            
 
   <span class='comment'># Set the coefficients of derivatives.
 </span>  <span class='ivar'>@coefficients</span> <span class='op'>=</span> <span class='const'>NMatrix</span><span class='period'>.</span><span class='id identifier rubyid_ones_like'>ones_like</span><span class='lparen'>(</span><span class='ivar'>@a</span><span class='lbracket'>[</span><span class='ivar'>@neuron_columns</span><span class='period'>.</span><span class='id identifier rubyid_size'>size</span><span class='rbracket'>]</span><span class='rparen'>)</span>
@@ -1375,6 +1351,21 @@
       <pre class="lines">
 
 
+402
+403
+404
+405
+406
+407
+408
+409
+410
+411
+412
+413
+414
+415
+416
 417
 418
 419
@@ -1389,25 +1380,10 @@
 428
 429
 430
-431
-432
-433
-434
-435
-436
-437
-438
-439
-440
-441
-442
-443
-444
-445
-446</pre>
+431</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'models/NN.rb', line 417</span>
+      <pre class="code"><span class="info file"># File '.\models\NN.rb', line 402</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_backpropagate'>backpropagate</span>
   <span class='comment'># If Softmax function is used on output layer with cross entropy function as loss function, do the following process.
@@ -1419,8 +1395,8 @@
     <span class='ivar'>@delta</span><span class='lbracket'>[</span><span class='ivar'>@neuron_columns</span><span class='period'>.</span><span class='id identifier rubyid_size'>size</span><span class='op'>-</span><span class='int'>1</span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='ivar'>@loss_derivative</span><span class='period'>.</span><span class='id identifier rubyid_call'>call</span><span class='lparen'>(</span><span class='ivar'>@T</span><span class='comma'>,</span> <span class='ivar'>@a</span><span class='lbracket'>[</span><span class='op'>-</span><span class='int'>1</span><span class='rbracket'>]</span><span class='rparen'>)</span> <span class='op'>*</span> <span class='ivar'>@derivative_activation_function</span><span class='lbracket'>[</span><span class='ivar'>@neuron_columns</span><span class='period'>.</span><span class='id identifier rubyid_size'>size</span><span class='op'>-</span><span class='int'>1</span><span class='rbracket'>]</span> <span class='op'>*</span> <span class='ivar'>@coefficients</span>
   <span class='kw'>end</span>
 
-  <span class='comment'># Compute loss derivatives.
-</span>  <span class='ivar'>@loss_derivative_weights</span><span class='lbracket'>[</span><span class='ivar'>@neuron_columns</span><span class='period'>.</span><span class='id identifier rubyid_size'>size</span><span class='op'>-</span><span class='int'>1</span><span class='rbracket'>]</span> <span class='op'>+=</span> <span class='const'>NMatrix</span><span class='op'>::</span><span class='const'>BLAS</span><span class='period'>.</span><span class='id identifier rubyid_gemm'>gemm</span><span class='lparen'>(</span><span class='ivar'>@delta</span><span class='lbracket'>[</span><span class='ivar'>@neuron_columns</span><span class='period'>.</span><span class='id identifier rubyid_size'>size</span><span class='op'>-</span><span class='int'>1</span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='ivar'>@a</span><span class='lbracket'>[</span><span class='ivar'>@neuron_columns</span><span class='period'>.</span><span class='id identifier rubyid_size'>size</span><span class='op'>-</span><span class='int'>1</span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_transpose'>transpose</span><span class='rparen'>)</span>
+  <span class='comment'># Compute loss derivatives.            
+</span>  <span class='ivar'>@loss_derivative_weights</span><span class='lbracket'>[</span><span class='ivar'>@neuron_columns</span><span class='period'>.</span><span class='id identifier rubyid_size'>size</span><span class='op'>-</span><span class='int'>1</span><span class='rbracket'>]</span> <span class='op'>+=</span> <span class='const'>NMatrix</span><span class='op'>::</span><span class='const'>BLAS</span><span class='period'>.</span><span class='id identifier rubyid_gemm'>gemm</span><span class='lparen'>(</span><span class='ivar'>@delta</span><span class='lbracket'>[</span><span class='ivar'>@neuron_columns</span><span class='period'>.</span><span class='id identifier rubyid_size'>size</span><span class='op'>-</span><span class='int'>1</span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='ivar'>@a</span><span class='lbracket'>[</span><span class='ivar'>@neuron_columns</span><span class='period'>.</span><span class='id identifier rubyid_size'>size</span><span class='op'>-</span><span class='int'>1</span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_transpose'>transpose</span><span class='rparen'>)</span>      
   <span class='ivar'>@loss_derivative_biases</span><span class='lbracket'>[</span><span class='ivar'>@neuron_columns</span><span class='period'>.</span><span class='id identifier rubyid_size'>size</span><span class='op'>-</span><span class='int'>1</span><span class='rbracket'>]</span> <span class='op'>+=</span> <span class='ivar'>@delta</span><span class='lbracket'>[</span><span class='ivar'>@neuron_columns</span><span class='period'>.</span><span class='id identifier rubyid_size'>size</span><span class='op'>-</span><span class='int'>1</span><span class='rbracket'>]</span>
 
   <span class='lparen'>(</span><span class='ivar'>@neuron_columns</span><span class='period'>.</span><span class='id identifier rubyid_size'>size</span><span class='op'>-</span><span class='int'>2</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_downto'>downto</span><span class='lparen'>(</span><span class='int'>0</span><span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_i'>i</span><span class='op'>|</span>
@@ -1486,12 +1462,12 @@
       <pre class="lines">
 
 
-343
-344
-345</pre>
+320
+321
+322</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'models/NN.rb', line 343</span>
+      <pre class="code"><span class="info file"># File '.\models\NN.rb', line 320</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_biases'>biases</span>
   <span class='ivar'>@biases</span><span class='period'>.</span><span class='id identifier rubyid_map'>map</span> <span class='lbrace'>{</span> <span class='op'>|</span><span class='id identifier rubyid_mat'>mat</span><span class='op'>|</span> <span class='id identifier rubyid_mat'>mat</span><span class='period'>.</span><span class='id identifier rubyid_to_a'>to_a</span> <span class='rbrace'>}</span>
@@ -1563,12 +1539,12 @@
       <pre class="lines">
 
 
-387
-388
-389</pre>
+372
+373
+374</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'models/NN.rb', line 387</span>
+      <pre class="code"><span class="info file"># File '.\models\NN.rb', line 372</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_compute_a'>compute_a</span><span class='lparen'>(</span><span class='id identifier rubyid_row'>row</span><span class='rparen'>)</span>
   <span class='ivar'>@a</span><span class='lbracket'>[</span><span class='id identifier rubyid_row'>row</span><span class='op'>+</span><span class='int'>1</span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='ivar'>@antiderivatives</span><span class='lbracket'>[</span><span class='id identifier rubyid_row'>row</span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_call'>call</span><span class='lparen'>(</span><span class='ivar'>@z</span><span class='lbracket'>[</span><span class='id identifier rubyid_row'>row</span><span class='rbracket'>]</span><span class='rparen'>)</span>
@@ -1640,12 +1616,12 @@
       <pre class="lines">
 
 
-476
-477
-478</pre>
+461
+462
+463</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'models/NN.rb', line 476</span>
+      <pre class="code"><span class="info file"># File '.\models\NN.rb', line 461</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_compute_biases_derivatives'>compute_biases_derivatives</span><span class='lparen'>(</span><span class='id identifier rubyid_row'>row</span><span class='rparen'>)</span>
   <span class='ivar'>@loss_derivative_biases</span><span class='lbracket'>[</span><span class='id identifier rubyid_row'>row</span><span class='rbracket'>]</span> <span class='op'>+=</span> <span class='ivar'>@delta</span><span class='lbracket'>[</span><span class='id identifier rubyid_row'>row</span><span class='rbracket'>]</span>
@@ -1717,12 +1693,12 @@
       <pre class="lines">
 
 
-462
-463
-464</pre>
+447
+448
+449</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'models/NN.rb', line 462</span>
+      <pre class="code"><span class="info file"># File '.\models\NN.rb', line 447</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_compute_delta'>compute_delta</span><span class='lparen'>(</span><span class='id identifier rubyid_row'>row</span><span class='rparen'>)</span>
   <span class='ivar'>@delta</span><span class='lbracket'>[</span><span class='id identifier rubyid_row'>row</span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='const'>NMatrix</span><span class='op'>::</span><span class='const'>BLAS</span><span class='period'>.</span><span class='id identifier rubyid_gemm'>gemm</span><span class='lparen'>(</span><span class='ivar'>@weights</span><span class='lbracket'>[</span><span class='id identifier rubyid_row'>row</span><span class='op'>+</span><span class='int'>1</span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='ivar'>@delta</span><span class='lbracket'>[</span><span class='id identifier rubyid_row'>row</span><span class='op'>+</span><span class='int'>1</span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='kw'>nil</span><span class='comma'>,</span> <span class='float'>1.0</span><span class='comma'>,</span> <span class='float'>0.0</span><span class='comma'>,</span> <span class='symbol'>:transpose</span><span class='rparen'>)</span> <span class='op'>*</span> <span class='ivar'>@derivative_activation_function</span><span class='lbracket'>[</span><span class='id identifier rubyid_row'>row</span><span class='rbracket'>]</span>      
@@ -1774,17 +1750,15 @@
       <pre class="lines">
 
 
-519
-520
-521
-522</pre>
+504
+505
+506</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'models/NN.rb', line 519</span>
+      <pre class="code"><span class="info file"># File '.\models\NN.rb', line 504</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_compute_loss'>compute_loss</span>
-  <span class='ivar'>@loss</span> <span class='op'>=</span> <span class='ivar'>@loss_antiderivative</span><span class='period'>.</span><span class='id identifier rubyid_call'>call</span><span class='lparen'>(</span><span class='ivar'>@T</span><span class='comma'>,</span> <span class='ivar'>@a</span><span class='lbracket'>[</span><span class='op'>-</span><span class='int'>1</span><span class='rbracket'>]</span><span class='rparen'>)</span>
-  <span class='id identifier rubyid_puts'>puts</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>loss : </span><span class='embexpr_beg'>#{</span><span class='ivar'>@loss</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span>
+  <span class='ivar'>@loss</span> <span class='op'>+=</span> <span class='ivar'>@loss_antiderivative</span><span class='period'>.</span><span class='id identifier rubyid_call'>call</span><span class='lparen'>(</span><span class='ivar'>@T</span><span class='comma'>,</span> <span class='ivar'>@a</span><span class='lbracket'>[</span><span class='op'>-</span><span class='int'>1</span><span class='rbracket'>]</span><span class='rparen'>)</span>      
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -1853,15 +1827,15 @@
       <pre class="lines">
 
 
-469
-470
-471</pre>
+454
+455
+456</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'models/NN.rb', line 469</span>
+      <pre class="code"><span class="info file"># File '.\models\NN.rb', line 454</span>
 
-<span class='kw'>def</span> <span class='id identifier rubyid_compute_weights_derivatives'>compute_weights_derivatives</span><span class='lparen'>(</span><span class='id identifier rubyid_row'>row</span><span class='rparen'>)</span>
-  <span class='ivar'>@loss_derivative_weights</span><span class='lbracket'>[</span><span class='id identifier rubyid_row'>row</span><span class='rbracket'>]</span> <span class='op'>+=</span> <span class='const'>NMatrix</span><span class='op'>::</span><span class='const'>BLAS</span><span class='period'>.</span><span class='id identifier rubyid_gemm'>gemm</span><span class='lparen'>(</span><span class='ivar'>@delta</span><span class='lbracket'>[</span><span class='id identifier rubyid_row'>row</span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='ivar'>@a</span><span class='lbracket'>[</span><span class='id identifier rubyid_row'>row</span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_transpose'>transpose</span><span class='rparen'>)</span>
+<span class='kw'>def</span> <span class='id identifier rubyid_compute_weights_derivatives'>compute_weights_derivatives</span><span class='lparen'>(</span><span class='id identifier rubyid_row'>row</span><span class='rparen'>)</span>                  
+  <span class='ivar'>@loss_derivative_weights</span><span class='lbracket'>[</span><span class='id identifier rubyid_row'>row</span><span class='rbracket'>]</span> <span class='op'>+=</span> <span class='const'>NMatrix</span><span class='op'>::</span><span class='const'>BLAS</span><span class='period'>.</span><span class='id identifier rubyid_gemm'>gemm</span><span class='lparen'>(</span><span class='ivar'>@delta</span><span class='lbracket'>[</span><span class='id identifier rubyid_row'>row</span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='ivar'>@a</span><span class='lbracket'>[</span><span class='id identifier rubyid_row'>row</span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_transpose'>transpose</span><span class='rparen'>)</span>      
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -1930,17 +1904,33 @@
       <pre class="lines">
 
 
-378
-379
-380
-381</pre>
+355
+356
+357
+358
+359
+360
+361
+362
+363
+364
+365
+366</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'models/NN.rb', line 378</span>
+      <pre class="code"><span class="info file"># File '.\models\NN.rb', line 355</span>
 
-<span class='kw'>def</span> <span class='id identifier rubyid_compute_z'>compute_z</span><span class='lparen'>(</span><span class='id identifier rubyid_row'>row</span><span class='rparen'>)</span>
-  <span class='comment'># Compute the values before the activation function is applied.      
-</span>  <span class='ivar'>@z</span><span class='lbracket'>[</span><span class='id identifier rubyid_row'>row</span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='const'>NMatrix</span><span class='op'>::</span><span class='const'>BLAS</span><span class='period'>.</span><span class='id identifier rubyid_gemm'>gemm</span><span class='lparen'>(</span><span class='ivar'>@weights</span><span class='lbracket'>[</span><span class='id identifier rubyid_row'>row</span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='ivar'>@a</span><span class='lbracket'>[</span><span class='id identifier rubyid_row'>row</span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='ivar'>@biases</span><span class='lbracket'>[</span><span class='id identifier rubyid_row'>row</span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_clone'>clone</span><span class='comma'>,</span> <span class='float'>1.0</span><span class='comma'>,</span> <span class='float'>1.0</span><span class='rparen'>)</span>      
+<span class='kw'>def</span> <span class='id identifier rubyid_compute_z'>compute_z</span><span class='lparen'>(</span><span class='id identifier rubyid_row'>row</span><span class='rparen'>)</span>      
+  <span class='comment'># BLAS.gemm performs the following calculations.
+</span>  <span class='comment'>#   C = (alpha * A * B) + (beta * C)
+</span>  <span class='comment'># In this case, the calculation results are stored in Matrix C.
+</span>  <span class='comment'># For this reason, need to duplicate the @biases[row] value in @z[row] in advance.
+</span>
+  <span class='comment'># Duplicate @biases[row] value to @z[row].
+</span>  <span class='ivar'>@z</span><span class='lbracket'>[</span><span class='id identifier rubyid_row'>row</span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='const'>NMatrix</span><span class='op'>::</span><span class='const'>BLAS</span><span class='period'>.</span><span class='id identifier rubyid_gemm'>gemm</span><span class='lparen'>(</span><span class='ivar'>@idm</span><span class='lbracket'>[</span><span class='id identifier rubyid_row'>row</span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='ivar'>@biases</span><span class='lbracket'>[</span><span class='id identifier rubyid_row'>row</span><span class='rbracket'>]</span><span class='rparen'>)</span>
+  
+  <span class='comment'># Compute the values before the activation function is applied.  
+</span>  <span class='ivar'>@z</span><span class='lbracket'>[</span><span class='id identifier rubyid_row'>row</span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='const'>NMatrix</span><span class='op'>::</span><span class='const'>BLAS</span><span class='period'>.</span><span class='id identifier rubyid_gemm'>gemm</span><span class='lparen'>(</span><span class='ivar'>@weights</span><span class='lbracket'>[</span><span class='id identifier rubyid_row'>row</span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='ivar'>@a</span><span class='lbracket'>[</span><span class='id identifier rubyid_row'>row</span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='ivar'>@z</span><span class='lbracket'>[</span><span class='id identifier rubyid_row'>row</span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='float'>1.0</span><span class='comma'>,</span> <span class='float'>1.0</span><span class='rparen'>)</span>                        
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -2009,16 +1999,16 @@
       <pre class="lines">
 
 
-451
-452
-453
-454
-455
-456
-457</pre>
+436
+437
+438
+439
+440
+441
+442</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'models/NN.rb', line 451</span>
+      <pre class="code"><span class="info file"># File '.\models\NN.rb', line 436</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_differentiate_activation_function'>differentiate_activation_function</span><span class='lparen'>(</span><span class='id identifier rubyid_row'>row</span><span class='rparen'>)</span>
   <span class='comment'># Judge the symbol of activation function.
@@ -2074,12 +2064,12 @@
       <pre class="lines">
 
 
-488
-489
-490</pre>
+473
+474
+475</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'models/NN.rb', line 488</span>
+      <pre class="code"><span class="info file"># File '.\models\NN.rb', line 473</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_disable_update'>disable_update</span>
   <span class='ivar'>@updating_is_enabled</span> <span class='op'>=</span> <span class='kw'>false</span>
@@ -2131,12 +2121,12 @@
       <pre class="lines">
 
 
-482
-483
-484</pre>
+467
+468
+469</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'models/NN.rb', line 482</span>
+      <pre class="code"><span class="info file"># File '.\models\NN.rb', line 467</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_enable_update'>enable_update</span>
   <span class='ivar'>@updating_is_enabled</span> <span class='op'>=</span> <span class='kw'>true</span>
@@ -2206,12 +2196,12 @@
       <pre class="lines">
 
 
-535
-536
-537</pre>
+526
+527
+528</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'models/NN.rb', line 535</span>
+      <pre class="code"><span class="info file"># File '.\models\NN.rb', line 526</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_get_derivative_values'>get_derivative_values</span>
   <span class='kw'>return</span> <span class='lbrace'>{</span> <span class='label'>activation_function:</span> <span class='ivar'>@derivative_activation_function</span><span class='comma'>,</span> <span class='label'>delta:</span> <span class='ivar'>@delta</span><span class='comma'>,</span> <span class='label'>weights:</span> <span class='ivar'>@loss_derivative_weights</span><span class='comma'>,</span> <span class='label'>biases:</span> <span class='ivar'>@loss_derivative_biases</span> <span class='rbrace'>}</span> 
@@ -2303,15 +2293,74 @@
       <pre class="lines">
 
 
-528
-529
-530</pre>
+519
+520
+521</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'models/NN.rb', line 528</span>
+      <pre class="code"><span class="info file"># File '.\models\NN.rb', line 519</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_get_outputs'>get_outputs</span><span class='lparen'>(</span><span class='id identifier rubyid_row'>row</span> <span class='op'>=</span> <span class='ivar'>@neuron_columns</span><span class='period'>.</span><span class='id identifier rubyid_size'>size</span><span class='rparen'>)</span>
   <span class='kw'>return</span> <span class='ivar'>@a</span><span class='lbracket'>[</span><span class='id identifier rubyid_row'>row</span><span class='rbracket'>]</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="initialize_loss-instance_method">
+  
+    #<strong>initialize_loss</strong>  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Initialize and output loss by loss function.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Since:</p>
+<ul class="since">
+  
+    <li>
+      
+      
+      
+      
+        
+        <div class='inline'>
+<p>1.8.0</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+510
+511
+512
+513</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File '.\models\NN.rb', line 510</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_initialize_loss'>initialize_loss</span>
+  <span class='id identifier rubyid_puts'>puts</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>loss : </span><span class='embexpr_beg'>#{</span><span class='ivar'>@loss</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span>
+  <span class='ivar'>@loss</span> <span class='op'>=</span> <span class='float'>0.0</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -2360,14 +2409,14 @@
       <pre class="lines">
 
 
-162
-163
-164
-165
-166</pre>
+131
+132
+133
+134
+135</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'models/NN.rb', line 162</span>
+      <pre class="code"><span class="info file"># File '.\models\NN.rb', line 131</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_initialize_loss_derivatives'>initialize_loss_derivatives</span>
   <span class='comment'># the arrays of derivatives.
@@ -2459,16 +2508,16 @@
       <pre class="lines">
 
 
-357
-358
-359
-360
-361
-362
-363</pre>
+334
+335
+336
+337
+338
+339
+340</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'models/NN.rb', line 357</span>
+      <pre class="code"><span class="info file"># File '.\models\NN.rb', line 334</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_input'>input</span><span class='lparen'>(</span><span class='id identifier rubyid_values'>values</span><span class='comma'>,</span> <span class='id identifier rubyid_teaching_data'>teaching_data</span> <span class='op'>=</span> <span class='kw'>nil</span><span class='rparen'>)</span>
   <span class='comment'># The inputs are stored into a[0] as a NMatrix vector.
@@ -2560,216 +2609,15 @@
       <pre class="lines">
 
 
-370
-371
-372</pre>
+347
+348
+349</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'models/NN.rb', line 370</span>
+      <pre class="code"><span class="info file"># File '.\models\NN.rb', line 347</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_input_hidden'>input_hidden</span><span class='lparen'>(</span><span class='id identifier rubyid_row'>row</span><span class='comma'>,</span><span class='op'>*</span><span class='id identifier rubyid_values'>values</span><span class='rparen'>)</span>
   <span class='ivar'>@a</span><span class='lbracket'>[</span><span class='id identifier rubyid_row'>row</span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='const'>N</span><span class='lbracket'>[</span><span class='id identifier rubyid_values'>values</span><span class='period'>.</span><span class='id identifier rubyid_flatten'>flatten</span><span class='comma'>,</span> <span class='symbol'>:dtype</span> <span class='op'>=&gt;</span> <span class='symbol'>:float64</span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_transpose'>transpose</span>
-<span class='kw'>end</span></pre>
-    </td>
-  </tr>
-</table>
-</div>
-    
-      <div class="method_details ">
-  <h3 class="signature " id="instantiate-instance_method">
-  
-    #<strong>instantiate</strong>(functions, integer_width, decimal_width, address_width, inputs, weights = nil, biases = nil)  &#x21d2; <tt>Object</tt> 
-  
-
-  
-
-  
-</h3><div class="docstring">
-  <div class="discussion">
-    
-<p>Instantiate neural network module written by HDLRuby.</p>
-
-
-  </div>
-</div>
-<div class="tags">
-  <p class="tag_title">Parameters:</p>
-<ul class="param">
-  
-    <li>
-      
-        <span class='name'>functions</span>
-      
-      
-        <span class='type'>(<tt>Array or proc</tt>)</span>
-      
-      
-      
-        &mdash;
-        <div class='inline'>
-<p>an activation function of each layer</p>
-</div>
-      
-    </li>
-  
-    <li>
-      
-        <span class='name'>integer_width</span>
-      
-      
-        <span class='type'>(<tt>Integer</tt>)</span>
-      
-      
-      
-        &mdash;
-        <div class='inline'>
-<p>the width of integer part of fixed point</p>
-</div>
-      
-    </li>
-  
-    <li>
-      
-        <span class='name'>decimal_width</span>
-      
-      
-        <span class='type'>(<tt>Integer</tt>)</span>
-      
-      
-      
-        &mdash;
-        <div class='inline'>
-<p>the width of decimal part of fixed point</p>
-</div>
-      
-    </li>
-  
-    <li>
-      
-        <span class='name'>address_width</span>
-      
-      
-        <span class='type'>(<tt>Integer</tt>)</span>
-      
-      
-      
-        &mdash;
-        <div class='inline'>
-<p>the width of address for Look up table of activation functions</p>
-</div>
-      
-    </li>
-  
-    <li>
-      
-        <span class='name'>inputs</span>
-      
-      
-        <span class='type'>(<tt>Array</tt>)</span>
-      
-      
-      
-        &mdash;
-        <div class='inline'>
-<p>inputs of neural network(for simulation)</p>
-</div>
-      
-    </li>
-  
-    <li>
-      
-        <span class='name'>weights</span>
-      
-      
-        <span class='type'>(<tt>Array</tt>)</span>
-      
-      
-        <em class="default">(defaults to: <tt>nil</tt>)</em>
-      
-      
-        &mdash;
-        <div class='inline'>
-<p>an array of all weights of neural network</p>
-</div>
-      
-    </li>
-  
-    <li>
-      
-        <span class='name'>biases</span>
-      
-      
-        <span class='type'>(<tt>Array</tt>)</span>
-      
-      
-        <em class="default">(defaults to: <tt>nil</tt>)</em>
-      
-      
-        &mdash;
-        <div class='inline'>
-<p>an array of all biases of neural network</p>
-</div>
-      
-    </li>
-  
-</ul>
-
-<p class="tag_title">Since:</p>
-<ul class="since">
-  
-    <li>
-      
-      
-      
-      
-        
-        <div class='inline'>
-<p>1.4.0</p>
-</div>
-      
-    </li>
-  
-</ul>
-
-</div><table class="source_code">
-  <tr>
-    <td>
-      <pre class="lines">
-
-
-652
-653
-654
-655
-656
-657
-658
-659
-660
-661
-662
-663
-664
-665
-666</pre>
-    </td>
-    <td>
-      <pre class="code"><span class="info file"># File 'models/NN.rb', line 652</span>
-
-<span class='kw'>def</span> <span class='id identifier rubyid_instantiate'>instantiate</span><span class='lparen'>(</span><span class='id identifier rubyid_functions'>functions</span><span class='comma'>,</span> <span class='id identifier rubyid_integer_width'>integer_width</span><span class='comma'>,</span> <span class='id identifier rubyid_decimal_width'>decimal_width</span><span class='comma'>,</span> <span class='id identifier rubyid_address_width'>address_width</span><span class='comma'>,</span> <span class='id identifier rubyid_inputs'>inputs</span><span class='comma'>,</span> <span class='id identifier rubyid_weights'>weights</span> <span class='op'>=</span> <span class='kw'>nil</span><span class='comma'>,</span> <span class='id identifier rubyid_biases'>biases</span> <span class='op'>=</span> <span class='kw'>nil</span><span class='rparen'>)</span>
-  <span class='ivar'>@functions</span> <span class='op'>=</span> <span class='id identifier rubyid_functions'>functions</span>
-  <span class='ivar'>@integer_width</span> <span class='op'>=</span> <span class='id identifier rubyid_integer_width'>integer_width</span>
-  <span class='ivar'>@decimal_width</span> <span class='op'>=</span> <span class='id identifier rubyid_decimal_width'>decimal_width</span>
-  <span class='ivar'>@address_width</span> <span class='op'>=</span> <span class='id identifier rubyid_address_width'>address_width</span>
-
-  <span class='ivar'>@types</span> <span class='op'>=</span> <span class='id identifier rubyid_signed'>signed</span><span class='lbracket'>[</span><span class='ivar'>@integer_width</span><span class='comma'>,</span> <span class='ivar'>@decimal_width</span><span class='rbracket'>]</span>
-
-  <span class='ivar'>@inputs</span> <span class='op'>=</span> <span class='id identifier rubyid_inputs'>inputs</span>
-  <span class='ivar'>@module_weights</span> <span class='op'>=</span> <span class='id identifier rubyid_weights'>weights</span><span class='period'>.</span><span class='id identifier rubyid_nil?'>nil?</span> <span class='op'>?</span> <span class='ivar'>@weights</span><span class='period'>.</span><span class='id identifier rubyid_map'>map</span><span class='period'>.</span><span class='id identifier rubyid_with_index'>with_index</span><span class='lbrace'>{</span> <span class='op'>|</span><span class='id identifier rubyid_w'>w</span><span class='comma'>,</span> <span class='id identifier rubyid_i'>i</span><span class='op'>|</span> <span class='id identifier rubyid_w'>w</span><span class='period'>.</span><span class='id identifier rubyid_to_a'>to_a</span><span class='period'>.</span><span class='id identifier rubyid_flatten'>flatten</span><span class='period'>.</span><span class='id identifier rubyid_each_slice'>each_slice</span><span class='lparen'>(</span><span class='ivar'>@weights_geometry</span><span class='lbracket'>[</span><span class='id identifier rubyid_i'>i</span><span class='rbracket'>]</span><span class='lbracket'>[</span><span class='int'>1</span><span class='rbracket'>]</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_to_a'>to_a</span> <span class='rbrace'>}</span> <span class='op'>:</span> <span class='id identifier rubyid_weights'>weights</span>
-  <span class='ivar'>@module_biases</span> <span class='op'>=</span> <span class='id identifier rubyid_biases'>biases</span><span class='period'>.</span><span class='id identifier rubyid_nil?'>nil?</span> <span class='op'>?</span> <span class='ivar'>@biases</span><span class='period'>.</span><span class='id identifier rubyid_map'>map</span><span class='lbrace'>{</span> <span class='op'>|</span><span class='id identifier rubyid_b'>b</span><span class='op'>|</span> <span class='id identifier rubyid_b'>b</span><span class='period'>.</span><span class='id identifier rubyid_to_a'>to_a</span><span class='period'>.</span><span class='id identifier rubyid_flatten'>flatten</span> <span class='rbrace'>}</span> <span class='op'>:</span> <span class='id identifier rubyid_biases'>biases</span>
-
-
-  <span class='ivar'>@instance</span> <span class='op'>=</span>  <span class='gvar'>$network_constructor_caller</span><span class='period'>.</span><span class='lparen'>(</span><span class='ivar'>@columns</span><span class='comma'>,</span> <span class='ivar'>@functions</span><span class='comma'>,</span> <span class='ivar'>@types</span><span class='comma'>,</span> <span class='ivar'>@integer_width</span><span class='comma'>,</span> <span class='ivar'>@decimal_width</span><span class='comma'>,</span> <span class='ivar'>@address_width</span><span class='comma'>,</span> <span class='ivar'>@inputs</span><span class='comma'>,</span> <span class='ivar'>@module_weights</span><span class='comma'>,</span> <span class='ivar'>@module_biases</span><span class='rparen'>)</span><span class='period'>.</span><span class='lparen'>(</span><span class='symbol'>:neural_network</span><span class='rparen'>)</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -2856,6 +2704,15 @@
       <pre class="lines">
 
 
+599
+600
+601
+602
+603
+604
+605
+606
+607
 608
 609
 610
@@ -2880,19 +2737,10 @@
 629
 630
 631
-632
-633
-634
-635
-636
-637
-638
-639
-640
-641</pre>
+632</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'models/NN.rb', line 608</span>
+      <pre class="code"><span class="info file"># File '.\models\NN.rb', line 599</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_load_network'>load_network</span><span class='lparen'>(</span><span class='id identifier rubyid_path'>path</span><span class='comma'>,</span> <span class='id identifier rubyid_activation_function'>activation_function</span> <span class='op'>=</span> <span class='kw'>nil</span><span class='rparen'>)</span>
   <span class='comment'># Open file.
@@ -2975,18 +2823,18 @@
       <pre class="lines">
 
 
-393
-394
-395
-396
-397
-398
-399
-400
-401</pre>
+378
+379
+380
+381
+382
+383
+384
+385
+386</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'models/NN.rb', line 393</span>
+      <pre class="code"><span class="info file"># File '.\models\NN.rb', line 378</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_propagate'>propagate</span>
   <span class='comment'># Compute as many times as layers of the neural network.
@@ -3064,15 +2912,15 @@
       <pre class="lines">
 
 
-408
-409
-410
-411
-412
-413</pre>
+393
+394
+395
+396
+397
+398</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'models/NN.rb', line 408</span>
+      <pre class="code"><span class="info file"># File '.\models\NN.rb', line 393</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_propagate_from_hidden'>propagate_from_hidden</span><span class='lparen'>(</span><span class='id identifier rubyid_row'>row</span><span class='rparen'>)</span>
   <span class='lparen'>(</span><span class='id identifier rubyid_row'>row</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_upto'>upto</span><span class='lparen'>(</span><span class='ivar'>@neuron_columns</span><span class='period'>.</span><span class='id identifier rubyid_size'>size</span><span class='op'>-</span><span class='int'>1</span><span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_i'>i</span><span class='op'>|</span>
@@ -3181,6 +3029,37 @@
       <pre class="lines">
 
 
+145
+146
+147
+148
+149
+150
+151
+152
+153
+154
+155
+156
+157
+158
+159
+160
+161
+162
+163
+164
+165
+166
+167
+168
+169
+170
+171
+172
+173
+174
+175
 176
 177
 178
@@ -3275,33 +3154,10 @@
 267
 268
 269
-270
-271
-272
-273
-274
-275
-276
-277
-278
-279
-280
-281
-282
-283
-284
-285
-286
-287
-288
-289
-290
-291
-292
-293</pre>
+270</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'models/NN.rb', line 176</span>
+      <pre class="code"><span class="info file"># File '.\models\NN.rb', line 145</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_randomize'>randomize</span><span class='lparen'>(</span><span class='id identifier rubyid_weights_method'>weights_method</span> <span class='op'>=</span> <span class='kw'>nil</span><span class='comma'>,</span> <span class='id identifier rubyid_biases_method'>biases_method</span> <span class='op'>=</span> <span class='kw'>nil</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_weights_methods'>weights_methods</span><span class='comma'>,</span> <span class='id identifier rubyid_biases_methods'>biases_methods</span> <span class='op'>=</span> <span class='id identifier rubyid_set_initializing_methods'>set_initializing_methods</span><span class='lparen'>(</span><span class='id identifier rubyid_weights_method'>weights_method</span><span class='comma'>,</span> <span class='id identifier rubyid_biases_method'>biases_method</span><span class='rparen'>)</span>
@@ -3333,30 +3189,34 @@
     <span class='kw'>when</span> <span class='symbol'>:Ones</span>
       <span class='comment'># Initialize weights with ones.
 </span>      <span class='ivar'>@weights</span><span class='period'>.</span><span class='id identifier rubyid_push'>push</span><span class='lparen'>(</span><span class='const'>NMatrix</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='ivar'>@weights_geometry</span><span class='lbracket'>[</span><span class='id identifier rubyid_i'>i</span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='float'>1.0</span><span class='rparen'>)</span><span class='rparen'>)</span>
-    <span class='kw'>when</span> <span class='symbol'>:XavierUniform</span>
-      <span class='comment'># Initialize weights with a random number from a Xavier&#39;s uniform distribution.
+    <span class='kw'>when</span> <span class='symbol'>:GlorotUniform</span>
+      <span class='comment'># Initialize weights with a random number from a Glorot&#39;s uniform distribution.
 </span>      <span class='id identifier rubyid_limit'>limit</span> <span class='op'>=</span> <span class='const'>Math</span><span class='period'>.</span><span class='id identifier rubyid_sqrt'>sqrt</span><span class='lparen'>(</span><span class='float'>6.0</span> <span class='op'>/</span> <span class='lparen'>(</span><span class='id identifier rubyid_fan_in'>fan_in</span> <span class='op'>+</span> <span class='id identifier rubyid_fan_out'>fan_out</span><span class='rparen'>)</span><span class='rparen'>)</span>
       <span class='id identifier rubyid_weights_array'>weights_array</span> <span class='op'>=</span> <span class='lparen'>(</span><span class='id identifier rubyid_fan_in'>fan_in</span> <span class='op'>*</span> <span class='id identifier rubyid_fan_out'>fan_out</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_times'>times</span><span class='period'>.</span><span class='id identifier rubyid_map'>map</span><span class='lbrace'>{</span> <span class='op'>|</span><span class='id identifier rubyid_size'>size</span><span class='op'>|</span> <span class='id identifier rubyid_rand'>rand</span><span class='lparen'>(</span><span class='op'>-</span><span class='id identifier rubyid_limit'>limit</span><span class='op'>..</span><span class='id identifier rubyid_limit'>limit</span><span class='rparen'>)</span> <span class='rbrace'>}</span>
       <span class='ivar'>@weights</span><span class='period'>.</span><span class='id identifier rubyid_push'>push</span><span class='lparen'>(</span><span class='const'>NMatrix</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='ivar'>@weights_geometry</span><span class='lbracket'>[</span><span class='id identifier rubyid_i'>i</span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='id identifier rubyid_weights_array'>weights_array</span><span class='comma'>,</span> <span class='symbol'>:dtype</span> <span class='op'>=&gt;</span> <span class='symbol'>:float64</span><span class='rparen'>)</span><span class='rparen'>)</span>
-    <span class='kw'>when</span> <span class='symbol'>:XavierNormal</span>
-      <span class='comment'># Initialize weights with a random number from a Xavier&#39;s normal distribution.
-</span>      <span class='id identifier rubyid_xavier_normal'>xavier_normal</span> <span class='op'>=</span> <span class='const'>RandomBell</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='label'>mu:</span> <span class='int'>0</span><span class='comma'>,</span> <span class='label'>sigma:</span> <span class='const'>Math</span><span class='period'>.</span><span class='id identifier rubyid_sqrt'>sqrt</span><span class='lparen'>(</span><span class='float'>2.0</span> <span class='op'>/</span> <span class='lparen'>(</span><span class='id identifier rubyid_fan_in'>fan_in</span> <span class='op'>+</span> <span class='id identifier rubyid_fan_out'>fan_out</span><span class='rparen'>)</span><span class='rparen'>)</span><span class='comma'>,</span> <span class='label'>range:</span> <span class='op'>-</span><span class='const'>Float</span><span class='op'>::</span><span class='const'>INFINITY</span><span class='op'>..</span><span class='const'>Float</span><span class='op'>::</span><span class='const'>INFINITY</span><span class='rparen'>)</span>
-      <span class='id identifier rubyid_weights_array'>weights_array</span> <span class='op'>=</span> <span class='lparen'>(</span><span class='id identifier rubyid_fan_in'>fan_in</span> <span class='op'>*</span> <span class='id identifier rubyid_fan_out'>fan_out</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_times'>times</span><span class='period'>.</span><span class='id identifier rubyid_map'>map</span><span class='lbrace'>{</span> <span class='op'>|</span><span class='id identifier rubyid_size'>size</span><span class='op'>|</span> <span class='id identifier rubyid_xavier_normal'>xavier_normal</span><span class='period'>.</span><span class='id identifier rubyid_rand'>rand</span> <span class='rbrace'>}</span>
+    <span class='kw'>when</span> <span class='symbol'>:GlorotNormal</span>
+      <span class='comment'># Initialize weights with a random number from a Glorot&#39;s normal distribution.
+</span>      <span class='id identifier rubyid_glorot_normal'>glorot_normal</span> <span class='op'>=</span> <span class='const'>RandomBell</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='label'>mu:</span> <span class='int'>0</span><span class='comma'>,</span> <span class='label'>sigma:</span> <span class='const'>Math</span><span class='period'>.</span><span class='id identifier rubyid_sqrt'>sqrt</span><span class='lparen'>(</span><span class='float'>2.0</span> <span class='op'>/</span> <span class='lparen'>(</span><span class='id identifier rubyid_fan_in'>fan_in</span> <span class='op'>+</span> <span class='id identifier rubyid_fan_out'>fan_out</span><span class='rparen'>)</span><span class='rparen'>)</span><span class='comma'>,</span> <span class='label'>range:</span> <span class='op'>-</span><span class='const'>Float</span><span class='op'>::</span><span class='const'>INFINITY</span><span class='op'>..</span><span class='const'>Float</span><span class='op'>::</span><span class='const'>INFINITY</span><span class='rparen'>)</span>
+      <span class='id identifier rubyid_weights_array'>weights_array</span> <span class='op'>=</span> <span class='lparen'>(</span><span class='id identifier rubyid_fan_in'>fan_in</span> <span class='op'>*</span> <span class='id identifier rubyid_fan_out'>fan_out</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_times'>times</span><span class='period'>.</span><span class='id identifier rubyid_map'>map</span><span class='lbrace'>{</span> <span class='op'>|</span><span class='id identifier rubyid_size'>size</span><span class='op'>|</span> <span class='id identifier rubyid_glorot_normal'>glorot_normal</span><span class='period'>.</span><span class='id identifier rubyid_rand'>rand</span> <span class='rbrace'>}</span>
       <span class='ivar'>@weights</span><span class='period'>.</span><span class='id identifier rubyid_push'>push</span><span class='lparen'>(</span><span class='const'>NMatrix</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='ivar'>@weights_geometry</span><span class='lbracket'>[</span><span class='id identifier rubyid_i'>i</span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='id identifier rubyid_weights_array'>weights_array</span><span class='comma'>,</span> <span class='symbol'>:dtype</span> <span class='op'>=&gt;</span> <span class='symbol'>:float64</span><span class='rparen'>)</span><span class='rparen'>)</span>
     <span class='kw'>when</span> <span class='symbol'>:HeUniform</span>
-      <span class='id identifier rubyid_limit'>limit</span> <span class='op'>=</span> <span class='const'>Math</span><span class='period'>.</span><span class='id identifier rubyid_sqrt'>sqrt</span><span class='lparen'>(</span><span class='float'>6.0</span> <span class='op'>/</span> <span class='id identifier rubyid_fan_in'>fan_in</span><span class='rparen'>)</span>
+      <span class='comment'># Initialize weights with a random number from a He&#39;s uniform distribution.
+</span>      <span class='id identifier rubyid_limit'>limit</span> <span class='op'>=</span> <span class='const'>Math</span><span class='period'>.</span><span class='id identifier rubyid_sqrt'>sqrt</span><span class='lparen'>(</span><span class='float'>6.0</span> <span class='op'>/</span> <span class='id identifier rubyid_fan_in'>fan_in</span><span class='rparen'>)</span>
       <span class='id identifier rubyid_weights_array'>weights_array</span> <span class='op'>=</span> <span class='lparen'>(</span><span class='id identifier rubyid_fan_in'>fan_in</span> <span class='op'>*</span> <span class='id identifier rubyid_fan_out'>fan_out</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_times'>times</span><span class='period'>.</span><span class='id identifier rubyid_map'>map</span><span class='lbrace'>{</span> <span class='op'>|</span><span class='id identifier rubyid_size'>size</span><span class='op'>|</span> <span class='id identifier rubyid_rand'>rand</span><span class='lparen'>(</span><span class='op'>-</span><span class='id identifier rubyid_limit'>limit</span><span class='op'>..</span><span class='id identifier rubyid_limit'>limit</span><span class='rparen'>)</span> <span class='rbrace'>}</span>
       <span class='ivar'>@weights</span><span class='period'>.</span><span class='id identifier rubyid_push'>push</span><span class='lparen'>(</span><span class='const'>NMatrix</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='ivar'>@weights_geometry</span><span class='lbracket'>[</span><span class='id identifier rubyid_i'>i</span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='id identifier rubyid_weights_array'>weights_array</span><span class='comma'>,</span> <span class='symbol'>:dtype</span> <span class='op'>=&gt;</span> <span class='symbol'>:float64</span><span class='rparen'>)</span><span class='rparen'>)</span>
     <span class='kw'>when</span> <span class='symbol'>:HeNormal</span>
-      <span class='id identifier rubyid_he_normal'>he_normal</span> <span class='op'>=</span> <span class='const'>RandomBell</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='label'>mu:</span> <span class='int'>0</span><span class='comma'>,</span> <span class='label'>sigma:</span> <span class='const'>Math</span><span class='period'>.</span><span class='id identifier rubyid_sqrt'>sqrt</span><span class='lparen'>(</span><span class='float'>2.0</span> <span class='op'>/</span> <span class='id identifier rubyid_fan_in'>fan_in</span><span class='rparen'>)</span><span class='comma'>,</span> <span class='label'>range:</span> <span class='op'>-</span><span class='const'>Float</span><span class='op'>::</span><span class='const'>INFINITY</span><span class='op'>..</span><span class='const'>Float</span><span class='op'>::</span><span class='const'>INFINITY</span><span class='rparen'>)</span>
+      <span class='comment'># Initialize weights with a random number from a He&#39;s normal distribution.
+</span>      <span class='id identifier rubyid_he_normal'>he_normal</span> <span class='op'>=</span> <span class='const'>RandomBell</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='label'>mu:</span> <span class='int'>0</span><span class='comma'>,</span> <span class='label'>sigma:</span> <span class='const'>Math</span><span class='period'>.</span><span class='id identifier rubyid_sqrt'>sqrt</span><span class='lparen'>(</span><span class='float'>2.0</span> <span class='op'>/</span> <span class='id identifier rubyid_fan_in'>fan_in</span><span class='rparen'>)</span><span class='comma'>,</span> <span class='label'>range:</span> <span class='op'>-</span><span class='const'>Float</span><span class='op'>::</span><span class='const'>INFINITY</span><span class='op'>..</span><span class='const'>Float</span><span class='op'>::</span><span class='const'>INFINITY</span><span class='rparen'>)</span>
       <span class='id identifier rubyid_weights_array'>weights_array</span> <span class='op'>=</span> <span class='lparen'>(</span><span class='id identifier rubyid_fan_in'>fan_in</span> <span class='op'>*</span> <span class='id identifier rubyid_fan_out'>fan_out</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_times'>times</span><span class='period'>.</span><span class='id identifier rubyid_map'>map</span><span class='lbrace'>{</span> <span class='op'>|</span><span class='id identifier rubyid_size'>size</span><span class='op'>|</span> <span class='id identifier rubyid_he_normal'>he_normal</span><span class='period'>.</span><span class='id identifier rubyid_rand'>rand</span> <span class='rbrace'>}</span>
       <span class='ivar'>@weights</span><span class='period'>.</span><span class='id identifier rubyid_push'>push</span><span class='lparen'>(</span><span class='const'>NMatrix</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='ivar'>@weights_geometry</span><span class='lbracket'>[</span><span class='id identifier rubyid_i'>i</span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='id identifier rubyid_weights_array'>weights_array</span><span class='comma'>,</span> <span class='symbol'>:dtype</span> <span class='op'>=&gt;</span> <span class='symbol'>:float64</span><span class='rparen'>)</span><span class='rparen'>)</span>
-    <span class='kw'>when</span> <span class='symbol'>:LecunUniform</span>
-      <span class='id identifier rubyid_limit'>limit</span> <span class='op'>=</span> <span class='const'>Math</span><span class='period'>.</span><span class='id identifier rubyid_sqrt'>sqrt</span><span class='lparen'>(</span><span class='float'>3.0</span> <span class='op'>/</span> <span class='id identifier rubyid_fan_in'>fan_in</span><span class='rparen'>)</span>
+    <span class='kw'>when</span> <span class='symbol'>:LeCunUniform</span>
+      <span class='comment'># Initialize weights with a random number from a LeCun&#39;s uniform distribution.
+</span>      <span class='id identifier rubyid_limit'>limit</span> <span class='op'>=</span> <span class='const'>Math</span><span class='period'>.</span><span class='id identifier rubyid_sqrt'>sqrt</span><span class='lparen'>(</span><span class='float'>3.0</span> <span class='op'>/</span> <span class='id identifier rubyid_fan_in'>fan_in</span><span class='rparen'>)</span>
       <span class='id identifier rubyid_weights_array'>weights_array</span> <span class='op'>=</span> <span class='lparen'>(</span><span class='id identifier rubyid_fan_in'>fan_in</span> <span class='op'>*</span> <span class='id identifier rubyid_fan_out'>fan_out</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_times'>times</span><span class='period'>.</span><span class='id identifier rubyid_map'>map</span><span class='lbrace'>{</span> <span class='op'>|</span><span class='id identifier rubyid_size'>size</span><span class='op'>|</span> <span class='id identifier rubyid_rand'>rand</span><span class='lparen'>(</span><span class='op'>-</span><span class='id identifier rubyid_limit'>limit</span><span class='op'>..</span><span class='id identifier rubyid_limit'>limit</span><span class='rparen'>)</span> <span class='rbrace'>}</span>
       <span class='ivar'>@weights</span><span class='period'>.</span><span class='id identifier rubyid_push'>push</span><span class='lparen'>(</span><span class='const'>NMatrix</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='ivar'>@weights_geometry</span><span class='lbracket'>[</span><span class='id identifier rubyid_i'>i</span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='id identifier rubyid_weights_array'>weights_array</span><span class='comma'>,</span> <span class='symbol'>:dtype</span> <span class='op'>=&gt;</span> <span class='symbol'>:float64</span><span class='rparen'>)</span><span class='rparen'>)</span>
-    <span class='kw'>when</span> <span class='symbol'>:LecunNormal</span>
-      <span class='id identifier rubyid_lecun_normal'>lecun_normal</span> <span class='op'>=</span> <span class='const'>RandomBell</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='label'>mu:</span> <span class='int'>0</span><span class='comma'>,</span> <span class='label'>sigma:</span> <span class='const'>Math</span><span class='period'>.</span><span class='id identifier rubyid_sqrt'>sqrt</span><span class='lparen'>(</span><span class='float'>1.0</span> <span class='op'>/</span> <span class='id identifier rubyid_fan_in'>fan_in</span><span class='rparen'>)</span><span class='comma'>,</span> <span class='label'>range:</span> <span class='op'>-</span><span class='const'>Float</span><span class='op'>::</span><span class='const'>INFINITY</span><span class='op'>..</span><span class='const'>Float</span><span class='op'>::</span><span class='const'>INFINITY</span><span class='rparen'>)</span>
+    <span class='kw'>when</span> <span class='symbol'>:LeCunNormal</span>
+      <span class='comment'># Initialize weights with a random number from a LeCun&#39;s normal distribution.
+</span>      <span class='id identifier rubyid_lecun_normal'>lecun_normal</span> <span class='op'>=</span> <span class='const'>RandomBell</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='label'>mu:</span> <span class='int'>0</span><span class='comma'>,</span> <span class='label'>sigma:</span> <span class='const'>Math</span><span class='period'>.</span><span class='id identifier rubyid_sqrt'>sqrt</span><span class='lparen'>(</span><span class='float'>1.0</span> <span class='op'>/</span> <span class='id identifier rubyid_fan_in'>fan_in</span><span class='rparen'>)</span><span class='comma'>,</span> <span class='label'>range:</span> <span class='op'>-</span><span class='const'>Float</span><span class='op'>::</span><span class='const'>INFINITY</span><span class='op'>..</span><span class='const'>Float</span><span class='op'>::</span><span class='const'>INFINITY</span><span class='rparen'>)</span>
       <span class='id identifier rubyid_weights_array'>weights_array</span> <span class='op'>=</span> <span class='lparen'>(</span><span class='id identifier rubyid_fan_in'>fan_in</span> <span class='op'>*</span> <span class='id identifier rubyid_fan_out'>fan_out</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_times'>times</span><span class='period'>.</span><span class='id identifier rubyid_map'>map</span><span class='lbrace'>{</span> <span class='op'>|</span><span class='id identifier rubyid_size'>size</span><span class='op'>|</span> <span class='id identifier rubyid_lecun_normal'>lecun_normal</span><span class='period'>.</span><span class='id identifier rubyid_rand'>rand</span> <span class='rbrace'>}</span>
       <span class='ivar'>@weights</span><span class='period'>.</span><span class='id identifier rubyid_push'>push</span><span class='lparen'>(</span><span class='const'>NMatrix</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='ivar'>@weights_geometry</span><span class='lbracket'>[</span><span class='id identifier rubyid_i'>i</span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='id identifier rubyid_weights_array'>weights_array</span><span class='comma'>,</span> <span class='symbol'>:dtype</span> <span class='op'>=&gt;</span> <span class='symbol'>:float64</span><span class='rparen'>)</span><span class='rparen'>)</span>
     <span class='kw'>end</span>
@@ -3388,30 +3248,34 @@
     <span class='kw'>when</span> <span class='symbol'>:Ones</span>
       <span class='comment'># Initialize biases with ones.          
 </span>      <span class='ivar'>@biases</span><span class='period'>.</span><span class='id identifier rubyid_push'>push</span><span class='lparen'>(</span><span class='const'>NMatrix</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='ivar'>@biases_geometry</span><span class='lbracket'>[</span><span class='id identifier rubyid_i'>i</span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='float'>1.0</span><span class='rparen'>)</span><span class='rparen'>)</span>
-    <span class='kw'>when</span> <span class='symbol'>:XavierUniform</span>
-      <span class='comment'># Initialize weights with a random number from a Xavier&#39;s uniform distribution.
+    <span class='kw'>when</span> <span class='symbol'>:GlorotUniform</span>
+      <span class='comment'># Initialize weights with a random number from a Glorot&#39;s uniform distribution.
 </span>      <span class='id identifier rubyid_limit'>limit</span> <span class='op'>=</span> <span class='const'>Math</span><span class='period'>.</span><span class='id identifier rubyid_sqrt'>sqrt</span><span class='lparen'>(</span><span class='float'>6.0</span> <span class='op'>/</span> <span class='lparen'>(</span><span class='id identifier rubyid_fan_in'>fan_in</span> <span class='op'>+</span> <span class='id identifier rubyid_fan_out'>fan_out</span><span class='rparen'>)</span><span class='rparen'>)</span>
       <span class='id identifier rubyid_biases_array'>biases_array</span> <span class='op'>=</span> <span class='lparen'>(</span><span class='id identifier rubyid_fan_in'>fan_in</span> <span class='op'>*</span> <span class='id identifier rubyid_fan_out'>fan_out</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_times'>times</span><span class='period'>.</span><span class='id identifier rubyid_map'>map</span><span class='lbrace'>{</span> <span class='op'>|</span><span class='id identifier rubyid_size'>size</span><span class='op'>|</span> <span class='id identifier rubyid_rand'>rand</span><span class='lparen'>(</span><span class='op'>-</span><span class='id identifier rubyid_limit'>limit</span><span class='op'>..</span><span class='id identifier rubyid_limit'>limit</span><span class='rparen'>)</span> <span class='rbrace'>}</span>
       <span class='ivar'>@biases</span><span class='period'>.</span><span class='id identifier rubyid_push'>push</span><span class='lparen'>(</span><span class='const'>NMatrix</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='ivar'>@biases_geometry</span><span class='lbracket'>[</span><span class='id identifier rubyid_i'>i</span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='id identifier rubyid_biases_array'>biases_array</span><span class='comma'>,</span> <span class='symbol'>:dtype</span> <span class='op'>=&gt;</span> <span class='symbol'>:float64</span><span class='rparen'>)</span><span class='rparen'>)</span>
-    <span class='kw'>when</span> <span class='symbol'>:XavierNormal</span>
-      <span class='comment'># Initialize weights with a random number from a Xavier&#39;s normal distribution.
-</span>      <span class='id identifier rubyid_xavier_normal'>xavier_normal</span> <span class='op'>=</span> <span class='const'>RandomBell</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='label'>mu:</span> <span class='int'>0</span><span class='comma'>,</span> <span class='label'>sigma:</span> <span class='const'>Math</span><span class='period'>.</span><span class='id identifier rubyid_sqrt'>sqrt</span><span class='lparen'>(</span><span class='float'>2.0</span> <span class='op'>/</span> <span class='lparen'>(</span><span class='id identifier rubyid_fan_in'>fan_in</span> <span class='op'>+</span> <span class='id identifier rubyid_fan_out'>fan_out</span><span class='rparen'>)</span><span class='rparen'>)</span><span class='comma'>,</span> <span class='label'>range:</span> <span class='op'>-</span><span class='const'>Float</span><span class='op'>::</span><span class='const'>INFINITY</span><span class='op'>..</span><span class='const'>Float</span><span class='op'>::</span><span class='const'>INFINITY</span><span class='rparen'>)</span>
-      <span class='id identifier rubyid_biases_array'>biases_array</span> <span class='op'>=</span> <span class='lparen'>(</span><span class='id identifier rubyid_fan_in'>fan_in</span> <span class='op'>*</span> <span class='id identifier rubyid_fan_out'>fan_out</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_times'>times</span><span class='period'>.</span><span class='id identifier rubyid_map'>map</span><span class='lbrace'>{</span> <span class='op'>|</span><span class='id identifier rubyid_size'>size</span><span class='op'>|</span> <span class='id identifier rubyid_xavier_normal'>xavier_normal</span><span class='period'>.</span><span class='id identifier rubyid_rand'>rand</span> <span class='rbrace'>}</span>
+    <span class='kw'>when</span> <span class='symbol'>:GlorotNormal</span>
+      <span class='comment'># Initialize weights with a random number from a Glorot&#39;s normal distribution.
+</span>      <span class='id identifier rubyid_glorot_normal'>glorot_normal</span> <span class='op'>=</span> <span class='const'>RandomBell</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='label'>mu:</span> <span class='int'>0</span><span class='comma'>,</span> <span class='label'>sigma:</span> <span class='const'>Math</span><span class='period'>.</span><span class='id identifier rubyid_sqrt'>sqrt</span><span class='lparen'>(</span><span class='float'>2.0</span> <span class='op'>/</span> <span class='lparen'>(</span><span class='id identifier rubyid_fan_in'>fan_in</span> <span class='op'>+</span> <span class='id identifier rubyid_fan_out'>fan_out</span><span class='rparen'>)</span><span class='rparen'>)</span><span class='comma'>,</span> <span class='label'>range:</span> <span class='op'>-</span><span class='const'>Float</span><span class='op'>::</span><span class='const'>INFINITY</span><span class='op'>..</span><span class='const'>Float</span><span class='op'>::</span><span class='const'>INFINITY</span><span class='rparen'>)</span>
+      <span class='id identifier rubyid_biases_array'>biases_array</span> <span class='op'>=</span> <span class='lparen'>(</span><span class='id identifier rubyid_fan_in'>fan_in</span> <span class='op'>*</span> <span class='id identifier rubyid_fan_out'>fan_out</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_times'>times</span><span class='period'>.</span><span class='id identifier rubyid_map'>map</span><span class='lbrace'>{</span> <span class='op'>|</span><span class='id identifier rubyid_size'>size</span><span class='op'>|</span> <span class='id identifier rubyid_glorot_normal'>glorot_normal</span><span class='period'>.</span><span class='id identifier rubyid_rand'>rand</span> <span class='rbrace'>}</span>
       <span class='ivar'>@biases</span><span class='period'>.</span><span class='id identifier rubyid_push'>push</span><span class='lparen'>(</span><span class='const'>NMatrix</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='ivar'>@biases_geometry</span><span class='lbracket'>[</span><span class='id identifier rubyid_i'>i</span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='id identifier rubyid_biases_array'>biases_array</span><span class='comma'>,</span> <span class='symbol'>:dtype</span> <span class='op'>=&gt;</span> <span class='symbol'>:float64</span><span class='rparen'>)</span><span class='rparen'>)</span>
     <span class='kw'>when</span> <span class='symbol'>:HeUniform</span>
-      <span class='id identifier rubyid_limit'>limit</span> <span class='op'>=</span> <span class='const'>Math</span><span class='period'>.</span><span class='id identifier rubyid_sqrt'>sqrt</span><span class='lparen'>(</span><span class='float'>6.0</span> <span class='op'>/</span> <span class='id identifier rubyid_fan_in'>fan_in</span><span class='rparen'>)</span>
+      <span class='comment'># Initialize weights with a random number from a He&#39;s uniform distribution.
+</span>      <span class='id identifier rubyid_limit'>limit</span> <span class='op'>=</span> <span class='const'>Math</span><span class='period'>.</span><span class='id identifier rubyid_sqrt'>sqrt</span><span class='lparen'>(</span><span class='float'>6.0</span> <span class='op'>/</span> <span class='id identifier rubyid_fan_in'>fan_in</span><span class='rparen'>)</span>
       <span class='id identifier rubyid_biases_array'>biases_array</span> <span class='op'>=</span> <span class='lparen'>(</span><span class='id identifier rubyid_fan_in'>fan_in</span> <span class='op'>*</span> <span class='id identifier rubyid_fan_out'>fan_out</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_times'>times</span><span class='period'>.</span><span class='id identifier rubyid_map'>map</span><span class='lbrace'>{</span> <span class='op'>|</span><span class='id identifier rubyid_size'>size</span><span class='op'>|</span> <span class='id identifier rubyid_rand'>rand</span><span class='lparen'>(</span><span class='op'>-</span><span class='id identifier rubyid_limit'>limit</span><span class='op'>..</span><span class='id identifier rubyid_limit'>limit</span><span class='rparen'>)</span> <span class='rbrace'>}</span>
       <span class='ivar'>@biases</span><span class='period'>.</span><span class='id identifier rubyid_push'>push</span><span class='lparen'>(</span><span class='const'>NMatrix</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='ivar'>@biases_geometry</span><span class='lbracket'>[</span><span class='id identifier rubyid_i'>i</span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='id identifier rubyid_biases_array'>biases_array</span><span class='comma'>,</span> <span class='symbol'>:dtype</span> <span class='op'>=&gt;</span> <span class='symbol'>:float64</span><span class='rparen'>)</span><span class='rparen'>)</span>
     <span class='kw'>when</span> <span class='symbol'>:HeNormal</span>
-      <span class='id identifier rubyid_he_normal'>he_normal</span> <span class='op'>=</span> <span class='const'>RandomBell</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='label'>mu:</span> <span class='int'>0</span><span class='comma'>,</span> <span class='label'>sigma:</span> <span class='const'>Math</span><span class='period'>.</span><span class='id identifier rubyid_sqrt'>sqrt</span><span class='lparen'>(</span><span class='float'>2.0</span> <span class='op'>/</span> <span class='id identifier rubyid_fan_in'>fan_in</span><span class='rparen'>)</span><span class='comma'>,</span> <span class='label'>range:</span> <span class='op'>-</span><span class='const'>Float</span><span class='op'>::</span><span class='const'>INFINITY</span><span class='op'>..</span><span class='const'>Float</span><span class='op'>::</span><span class='const'>INFINITY</span><span class='rparen'>)</span>
+      <span class='comment'># Initialize weights with a random number from a He&#39;s normal distribution.
+</span>      <span class='id identifier rubyid_he_normal'>he_normal</span> <span class='op'>=</span> <span class='const'>RandomBell</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='label'>mu:</span> <span class='int'>0</span><span class='comma'>,</span> <span class='label'>sigma:</span> <span class='const'>Math</span><span class='period'>.</span><span class='id identifier rubyid_sqrt'>sqrt</span><span class='lparen'>(</span><span class='float'>2.0</span> <span class='op'>/</span> <span class='id identifier rubyid_fan_in'>fan_in</span><span class='rparen'>)</span><span class='comma'>,</span> <span class='label'>range:</span> <span class='op'>-</span><span class='const'>Float</span><span class='op'>::</span><span class='const'>INFINITY</span><span class='op'>..</span><span class='const'>Float</span><span class='op'>::</span><span class='const'>INFINITY</span><span class='rparen'>)</span>
       <span class='id identifier rubyid_biases_array'>biases_array</span> <span class='op'>=</span> <span class='lparen'>(</span><span class='id identifier rubyid_fan_in'>fan_in</span> <span class='op'>*</span> <span class='id identifier rubyid_fan_out'>fan_out</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_times'>times</span><span class='period'>.</span><span class='id identifier rubyid_map'>map</span><span class='lbrace'>{</span> <span class='op'>|</span><span class='id identifier rubyid_size'>size</span><span class='op'>|</span> <span class='id identifier rubyid_he_normal'>he_normal</span><span class='period'>.</span><span class='id identifier rubyid_rand'>rand</span> <span class='rbrace'>}</span>
       <span class='ivar'>@biases</span><span class='period'>.</span><span class='id identifier rubyid_push'>push</span><span class='lparen'>(</span><span class='const'>NMatrix</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='ivar'>@biases_geometry</span><span class='lbracket'>[</span><span class='id identifier rubyid_i'>i</span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='id identifier rubyid_biases_array'>biases_array</span><span class='comma'>,</span> <span class='symbol'>:dtype</span> <span class='op'>=&gt;</span> <span class='symbol'>:float64</span><span class='rparen'>)</span><span class='rparen'>)</span>
-    <span class='kw'>when</span> <span class='symbol'>:LecunUniform</span>
-      <span class='id identifier rubyid_limit'>limit</span> <span class='op'>=</span> <span class='const'>Math</span><span class='period'>.</span><span class='id identifier rubyid_sqrt'>sqrt</span><span class='lparen'>(</span><span class='float'>3.0</span> <span class='op'>/</span> <span class='id identifier rubyid_fan_in'>fan_in</span><span class='rparen'>)</span>
+    <span class='kw'>when</span> <span class='symbol'>:LeCunUniform</span>
+      <span class='comment'># Initialize weights with a random number from a LeCun&#39;s uniform distribution.
+</span>      <span class='id identifier rubyid_limit'>limit</span> <span class='op'>=</span> <span class='const'>Math</span><span class='period'>.</span><span class='id identifier rubyid_sqrt'>sqrt</span><span class='lparen'>(</span><span class='float'>3.0</span> <span class='op'>/</span> <span class='id identifier rubyid_fan_in'>fan_in</span><span class='rparen'>)</span>
       <span class='id identifier rubyid_biases_array'>biases_array</span> <span class='op'>=</span> <span class='lparen'>(</span><span class='id identifier rubyid_fan_in'>fan_in</span> <span class='op'>*</span> <span class='id identifier rubyid_fan_out'>fan_out</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_times'>times</span><span class='period'>.</span><span class='id identifier rubyid_map'>map</span><span class='lbrace'>{</span> <span class='op'>|</span><span class='id identifier rubyid_size'>size</span><span class='op'>|</span> <span class='id identifier rubyid_rand'>rand</span><span class='lparen'>(</span><span class='op'>-</span><span class='id identifier rubyid_limit'>limit</span><span class='op'>..</span><span class='id identifier rubyid_limit'>limit</span><span class='rparen'>)</span> <span class='rbrace'>}</span>
       <span class='ivar'>@biases</span><span class='period'>.</span><span class='id identifier rubyid_push'>push</span><span class='lparen'>(</span><span class='const'>NMatrix</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='ivar'>@biases_geometry</span><span class='lbracket'>[</span><span class='id identifier rubyid_i'>i</span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='id identifier rubyid_biases_array'>biases_array</span><span class='comma'>,</span> <span class='symbol'>:dtype</span> <span class='op'>=&gt;</span> <span class='symbol'>:float64</span><span class='rparen'>)</span><span class='rparen'>)</span>
-    <span class='kw'>when</span> <span class='symbol'>:LecunNormal</span>
-      <span class='id identifier rubyid_lecun_normal'>lecun_normal</span> <span class='op'>=</span> <span class='const'>RandomBell</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='label'>mu:</span> <span class='int'>0</span><span class='comma'>,</span> <span class='label'>sigma:</span> <span class='const'>Math</span><span class='period'>.</span><span class='id identifier rubyid_sqrt'>sqrt</span><span class='lparen'>(</span><span class='float'>1.0</span> <span class='op'>/</span> <span class='id identifier rubyid_fan_in'>fan_in</span><span class='rparen'>)</span><span class='comma'>,</span> <span class='label'>range:</span> <span class='op'>-</span><span class='const'>Float</span><span class='op'>::</span><span class='const'>INFINITY</span><span class='op'>..</span><span class='const'>Float</span><span class='op'>::</span><span class='const'>INFINITY</span><span class='rparen'>)</span>
+    <span class='kw'>when</span> <span class='symbol'>:LeCunNormal</span>
+      <span class='comment'># Initialize weights with a random number from a LeCun&#39;s normal distribution.
+</span>      <span class='id identifier rubyid_lecun_normal'>lecun_normal</span> <span class='op'>=</span> <span class='const'>RandomBell</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='label'>mu:</span> <span class='int'>0</span><span class='comma'>,</span> <span class='label'>sigma:</span> <span class='const'>Math</span><span class='period'>.</span><span class='id identifier rubyid_sqrt'>sqrt</span><span class='lparen'>(</span><span class='float'>1.0</span> <span class='op'>/</span> <span class='id identifier rubyid_fan_in'>fan_in</span><span class='rparen'>)</span><span class='comma'>,</span> <span class='label'>range:</span> <span class='op'>-</span><span class='const'>Float</span><span class='op'>::</span><span class='const'>INFINITY</span><span class='op'>..</span><span class='const'>Float</span><span class='op'>::</span><span class='const'>INFINITY</span><span class='rparen'>)</span>
       <span class='id identifier rubyid_biases_array'>biases_array</span> <span class='op'>=</span> <span class='lparen'>(</span><span class='id identifier rubyid_fan_in'>fan_in</span> <span class='op'>*</span> <span class='id identifier rubyid_fan_out'>fan_out</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_times'>times</span><span class='period'>.</span><span class='id identifier rubyid_map'>map</span><span class='lbrace'>{</span> <span class='op'>|</span><span class='id identifier rubyid_size'>size</span><span class='op'>|</span> <span class='id identifier rubyid_lecun_normal'>lecun_normal</span><span class='period'>.</span><span class='id identifier rubyid_rand'>rand</span> <span class='rbrace'>}</span>
       <span class='ivar'>@biases</span><span class='period'>.</span><span class='id identifier rubyid_push'>push</span><span class='lparen'>(</span><span class='const'>NMatrix</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='ivar'>@biases_geometry</span><span class='lbracket'>[</span><span class='id identifier rubyid_i'>i</span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='id identifier rubyid_biases_array'>biases_array</span><span class='comma'>,</span> <span class='symbol'>:dtype</span> <span class='op'>=&gt;</span> <span class='symbol'>:float64</span><span class='rparen'>)</span><span class='rparen'>)</span>
     <span class='kw'>end</span>
@@ -3490,15 +3354,15 @@
       <pre class="lines">
 
 
-584
-585
-586
-587
-588
-589</pre>
+575
+576
+577
+578
+579
+580</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'models/NN.rb', line 584</span>
+      <pre class="code"><span class="info file"># File '.\models\NN.rb', line 575</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_run'>run</span><span class='lparen'>(</span><span class='id identifier rubyid_times_of_learning'>times_of_learning</span> <span class='op'>=</span> <span class='int'>1</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_times_of_learning'>times_of_learning</span><span class='period'>.</span><span class='id identifier rubyid_times'>times</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_i'>i</span><span class='op'>|</span>
@@ -3573,18 +3437,18 @@
       <pre class="lines">
 
 
-594
-595
-596
-597
-598
-599
-600
-601
-602</pre>
+585
+586
+587
+588
+589
+590
+591
+592
+593</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'models/NN.rb', line 594</span>
+      <pre class="code"><span class="info file"># File '.\models\NN.rb', line 585</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_save_network'>save_network</span><span class='lparen'>(</span><span class='id identifier rubyid_path'>path</span><span class='rparen'>)</span>
   <span class='comment'># Make a hash of parameters.
@@ -3664,12 +3528,12 @@
       <pre class="lines">
 
 
-577
-578
-579</pre>
+568
+569
+570</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'models/NN.rb', line 577</span>
+      <pre class="code"><span class="info file"># File '.\models\NN.rb', line 568</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_set_batch_size'>set_batch_size</span><span class='lparen'>(</span><span class='id identifier rubyid_size'>size</span> <span class='op'>=</span> <span class='int'>1</span><span class='rparen'>)</span>
   <span class='ivar'>@batch_size</span> <span class='op'>=</span> <span class='id identifier rubyid_size'>size</span>
@@ -3741,16 +3605,16 @@
       <pre class="lines">
 
 
-566
-567
-568
-569
-570
-571
-572</pre>
+557
+558
+559
+560
+561
+562
+563</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'models/NN.rb', line 566</span>
+      <pre class="code"><span class="info file"># File '.\models\NN.rb', line 557</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_set_coefficients'>set_coefficients</span><span class='lparen'>(</span><span class='id identifier rubyid_coefficients'>coefficients</span><span class='rparen'>)</span>
   <span class='kw'>if</span> <span class='id identifier rubyid_coefficients'>coefficients</span><span class='period'>.</span><span class='id identifier rubyid_kind_of?'>kind_of?</span><span class='lparen'>(</span><span class='const'>Array</span><span class='rparen'>)</span>
@@ -3826,15 +3690,15 @@
       <pre class="lines">
 
 
-542
-543
-544
-545
-546
-547</pre>
+533
+534
+535
+536
+537
+538</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'models/NN.rb', line 542</span>
+      <pre class="code"><span class="info file"># File '.\models\NN.rb', line 533</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_set_derivative_values'>set_derivative_values</span><span class='lparen'>(</span><span class='id identifier rubyid_derivative_values'>derivative_values</span><span class='rparen'>)</span>
   <span class='ivar'>@derivative_activation_function</span> <span class='op'>=</span> <span class='id identifier rubyid_derivative_values'>derivative_values</span><span class='lbracket'>[</span><span class='symbol'>:activation_function</span><span class='rbracket'>]</span>
@@ -3943,6 +3807,29 @@
       <pre class="lines">
 
 
+277
+278
+279
+280
+281
+282
+283
+284
+285
+286
+287
+288
+289
+290
+291
+292
+293
+294
+295
+296
+297
+298
+299
 300
 301
 302
@@ -3959,33 +3846,10 @@
 313
 314
 315
-316
-317
-318
-319
-320
-321
-322
-323
-324
-325
-326
-327
-328
-329
-330
-331
-332
-333
-334
-335
-336
-337
-338
-339</pre>
+316</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'models/NN.rb', line 300</span>
+      <pre class="code"><span class="info file"># File '.\models\NN.rb', line 277</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_set_initializing_methods'>set_initializing_methods</span><span class='lparen'>(</span><span class='id identifier rubyid_weights_method'>weights_method</span><span class='comma'>,</span> <span class='id identifier rubyid_biases_method'>biases_method</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_weights_methods'>weights_methods</span> <span class='op'>=</span> <span class='const'>Array</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='ivar'>@neuron_columns</span><span class='period'>.</span><span class='id identifier rubyid_size'>size</span><span class='rparen'>)</span>
@@ -4096,12 +3960,12 @@
       <pre class="lines">
 
 
-552
-553
-554</pre>
+543
+544
+545</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'models/NN.rb', line 552</span>
+      <pre class="code"><span class="info file"># File '.\models\NN.rb', line 543</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_set_learning_rate'>set_learning_rate</span><span class='lparen'>(</span><span class='id identifier rubyid_rate'>rate</span> <span class='op'>=</span> <span class='float'>0.01</span><span class='rparen'>)</span>
   <span class='ivar'>@learning_rate</span> <span class='op'>=</span> <span class='id identifier rubyid_rate'>rate</span>
@@ -4175,168 +4039,15 @@
       <pre class="lines">
 
 
-559
-560
-561</pre>
+550
+551
+552</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'models/NN.rb', line 559</span>
+      <pre class="code"><span class="info file"># File '.\models\NN.rb', line 550</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_set_teaching_data'>set_teaching_data</span><span class='lparen'>(</span><span class='id identifier rubyid_teaching_data'>teaching_data</span> <span class='op'>=</span> <span class='kw'>nil</span><span class='rparen'>)</span>
   <span class='ivar'>@T</span> <span class='op'>=</span> <span class='id identifier rubyid_teaching_data'>teaching_data</span><span class='period'>.</span><span class='id identifier rubyid_nil?'>nil?</span> <span class='op'>?</span> <span class='const'>NMatrix</span><span class='period'>.</span><span class='id identifier rubyid_zeros_like'>zeros_like</span><span class='lparen'>(</span><span class='ivar'>@a</span><span class='lbracket'>[</span><span class='ivar'>@neuron_columns</span><span class='period'>.</span><span class='id identifier rubyid_size'>size</span><span class='rbracket'>]</span><span class='rparen'>)</span> <span class='op'>:</span> <span class='const'>N</span><span class='lbracket'>[</span><span class='id identifier rubyid_teaching_data'>teaching_data</span><span class='period'>.</span><span class='id identifier rubyid_flatten'>flatten</span><span class='comma'>,</span> <span class='symbol'>:dtype</span> <span class='op'>=&gt;</span> <span class='symbol'>:float64</span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_transpose'>transpose</span>
-<span class='kw'>end</span></pre>
-    </td>
-  </tr>
-</table>
-</div>
-    
-      <div class="method_details ">
-  <h3 class="signature " id="to_verilog-instance_method">
-  
-    #<strong>to_verilog</strong>(folder_name)  &#x21d2; <tt>Object</tt> 
-  
-
-  
-
-  
-</h3><div class="docstring">
-  <div class="discussion">
-    
-<p>Generate the Verilog files of neural network module.</p>
-
-
-  </div>
-</div>
-<div class="tags">
-  <p class="tag_title">Parameters:</p>
-<ul class="param">
-  
-    <li>
-      
-        <span class='name'>folder_name</span>
-      
-      
-        <span class='type'>(<tt>String</tt>)</span>
-      
-      
-      
-        &mdash;
-        <div class='inline'>
-<p>output folder&#39;s name</p>
-</div>
-      
-    </li>
-  
-</ul>
-
-<p class="tag_title">Since:</p>
-<ul class="since">
-  
-    <li>
-      
-      
-      
-      
-        
-        <div class='inline'>
-<p>1.4.0</p>
-</div>
-      
-    </li>
-  
-</ul>
-
-</div><table class="source_code">
-  <tr>
-    <td>
-      <pre class="lines">
-
-
-671
-672
-673
-674
-675
-676
-677
-678
-679
-680
-681
-682
-683
-684
-685
-686
-687
-688
-689
-690
-691
-692
-693
-694
-695
-696
-697
-698
-699
-700
-701
-702
-703
-704
-705
-706
-707
-708
-709
-710
-711</pre>
-    </td>
-    <td>
-      <pre class="code"><span class="info file"># File 'models/NN.rb', line 671</span>
-
-<span class='kw'>def</span> <span class='id identifier rubyid_to_verilog'>to_verilog</span><span class='lparen'>(</span><span class='id identifier rubyid_folder_name'>folder_name</span><span class='rparen'>)</span>
-  <span class='comment'># Generate the low level representation.
-</span>  <span class='id identifier rubyid_top_system'>top_system</span> <span class='op'>=</span> <span class='ivar'>@instance</span><span class='period'>.</span><span class='id identifier rubyid_to_low'>to_low</span><span class='period'>.</span><span class='id identifier rubyid_systemT'>systemT</span>
-
-  <span class='id identifier rubyid_top_system'>top_system</span><span class='period'>.</span><span class='id identifier rubyid_each_systemT_deep'>each_systemT_deep</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_systemT'>systemT</span><span class='op'>|</span>
-    <span class='id identifier rubyid_systemT'>systemT</span><span class='period'>.</span><span class='id identifier rubyid_to_upper_space!'>to_upper_space!</span>
-    <span class='id identifier rubyid_systemT'>systemT</span><span class='period'>.</span><span class='id identifier rubyid_to_global_systemTs!'>to_global_systemTs!</span>
-    <span class='id identifier rubyid_systemT'>systemT</span><span class='period'>.</span><span class='id identifier rubyid_initial_concat_to_timed!'>initial_concat_to_timed!</span>
-    <span class='id identifier rubyid_systemT'>systemT</span><span class='period'>.</span><span class='id identifier rubyid_with_port!'>with_port!</span>
-  <span class='kw'>end</span>
-
-  <span class='id identifier rubyid_output'>output</span> <span class='op'>=</span> <span class='id identifier rubyid_folder_name'>folder_name</span>
-  <span class='id identifier rubyid_basename'>basename</span> <span class='op'>=</span> <span class='id identifier rubyid_output'>output</span> <span class='op'>+</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>/neural_network</span><span class='tstring_end'>&quot;</span></span>
-
-  <span class='comment'># Create a directory if necessary.
-</span>  <span class='kw'>unless</span> <span class='const'>File</span><span class='period'>.</span><span class='id identifier rubyid_directory?'>directory?</span><span class='lparen'>(</span><span class='id identifier rubyid_output'>output</span><span class='rparen'>)</span>
-    <span class='const'>FileUtils</span><span class='period'>.</span><span class='id identifier rubyid_mkdir_p'>mkdir_p</span><span class='lparen'>(</span><span class='id identifier rubyid_output'>output</span><span class='rparen'>)</span>
-  <span class='kw'>end</span>
-
-  <span class='comment'># Prepare the initial name for the main file.
-</span>  <span class='id identifier rubyid_name'>name</span> <span class='op'>=</span> <span class='id identifier rubyid_basename'>basename</span> <span class='op'>+</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>.v</span><span class='tstring_end'>&quot;</span></span>
-  <span class='comment'># Multiple files generation mode.
-</span>  <span class='id identifier rubyid_top_system'>top_system</span><span class='period'>.</span><span class='id identifier rubyid_each_systemT_deep'>each_systemT_deep</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_systemT'>systemT</span><span class='op'>|</span>
-    <span class='comment'># Generate the name if necessary.
-</span>    <span class='kw'>unless</span> <span class='id identifier rubyid_name'>name</span>
-      <span class='id identifier rubyid_name'>name</span> <span class='op'>=</span> <span class='id identifier rubyid_output'>output</span> <span class='op'>+</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>/</span><span class='tstring_end'>&quot;</span></span> <span class='op'>+</span> <span class='const'>HDLRuby</span><span class='op'>::</span><span class='const'>Verilog</span><span class='period'>.</span><span class='id identifier rubyid_name_to_verilog'>name_to_verilog</span><span class='lparen'>(</span><span class='id identifier rubyid_systemT'>systemT</span><span class='period'>.</span><span class='id identifier rubyid_name'>name</span><span class='rparen'>)</span> <span class='op'>+</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>.v</span><span class='tstring_end'>&quot;</span></span>
-    <span class='kw'>end</span>
-    
-    <span class='comment'># Open the file for current systemT
-</span>    <span class='id identifier rubyid_outfile'>outfile</span> <span class='op'>=</span> <span class='const'>File</span><span class='period'>.</span><span class='id identifier rubyid_open'>open</span><span class='lparen'>(</span><span class='id identifier rubyid_name'>name</span><span class='comma'>,</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>w</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
-
-    <span class='comment'># Generate the Verilog code in to.    
-</span>    <span class='id identifier rubyid_outfile'>outfile</span> <span class='op'>&lt;&lt;</span> <span class='id identifier rubyid_systemT'>systemT</span><span class='period'>.</span><span class='id identifier rubyid_to_verilog'>to_verilog</span>
-
-    <span class='comment'># Close the file.
-</span>    <span class='id identifier rubyid_outfile'>outfile</span><span class='period'>.</span><span class='id identifier rubyid_close'>close</span>
-
-    <span class='comment'># Clears the name.
-</span>    <span class='id identifier rubyid_name'>name</span> <span class='op'>=</span> <span class='kw'>nil</span>
-  <span class='kw'>end</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -4405,17 +4116,17 @@
       <pre class="lines">
 
 
-503
-504
-505
-506</pre>
+488
+489
+490
+491</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'models/NN.rb', line 503</span>
+      <pre class="code"><span class="info file"># File '.\models\NN.rb', line 488</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_update_biases'>update_biases</span><span class='lparen'>(</span><span class='id identifier rubyid_row'>row</span><span class='rparen'>)</span>
-  <span class='ivar'>@loss_derivative_biases</span><span class='lbracket'>[</span><span class='id identifier rubyid_row'>row</span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='ivar'>@loss_derivative_biases</span><span class='lbracket'>[</span><span class='id identifier rubyid_row'>row</span><span class='rbracket'>]</span> <span class='op'>/</span> <span class='ivar'>@batch_size</span><span class='period'>.</span><span class='id identifier rubyid_to_f'>to_f</span>
-  <span class='ivar'>@biases</span><span class='lbracket'>[</span><span class='id identifier rubyid_row'>row</span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='const'>NMatrix</span><span class='op'>::</span><span class='const'>BLAS</span><span class='period'>.</span><span class='id identifier rubyid_gemm'>gemm</span><span class='lparen'>(</span><span class='ivar'>@idm</span><span class='lbracket'>[</span><span class='id identifier rubyid_row'>row</span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='ivar'>@loss_derivative_biases</span><span class='lbracket'>[</span><span class='id identifier rubyid_row'>row</span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='ivar'>@biases</span><span class='lbracket'>[</span><span class='id identifier rubyid_row'>row</span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_clone'>clone</span><span class='comma'>,</span> <span class='ivar'>@learning_rate</span><span class='comma'>,</span> <span class='float'>1.0</span><span class='rparen'>)</span>
+  <span class='ivar'>@loss_derivative_biases</span><span class='lbracket'>[</span><span class='id identifier rubyid_row'>row</span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='ivar'>@loss_derivative_biases</span><span class='lbracket'>[</span><span class='id identifier rubyid_row'>row</span><span class='rbracket'>]</span> <span class='op'>/</span> <span class='ivar'>@batch_size</span><span class='period'>.</span><span class='id identifier rubyid_to_f'>to_f</span>      
+  <span class='ivar'>@biases</span><span class='lbracket'>[</span><span class='id identifier rubyid_row'>row</span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='const'>NMatrix</span><span class='op'>::</span><span class='const'>BLAS</span><span class='period'>.</span><span class='id identifier rubyid_gemm'>gemm</span><span class='lparen'>(</span><span class='ivar'>@idm</span><span class='lbracket'>[</span><span class='id identifier rubyid_row'>row</span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='ivar'>@loss_derivative_biases</span><span class='lbracket'>[</span><span class='id identifier rubyid_row'>row</span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='ivar'>@biases</span><span class='lbracket'>[</span><span class='id identifier rubyid_row'>row</span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='ivar'>@learning_rate</span><span class='comma'>,</span> <span class='float'>1.0</span><span class='rparen'>)</span>            
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -4464,15 +4175,15 @@
       <pre class="lines">
 
 
-510
-511
-512
-513
-514
-515</pre>
+495
+496
+497
+498
+499
+500</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'models/NN.rb', line 510</span>
+      <pre class="code"><span class="info file"># File '.\models\NN.rb', line 495</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_update_parameters'>update_parameters</span>
   <span class='lparen'>(</span><span class='ivar'>@neuron_columns</span><span class='period'>.</span><span class='id identifier rubyid_size'>size</span><span class='op'>-</span><span class='int'>1</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_downto'>downto</span><span class='lparen'>(</span><span class='int'>0</span><span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_i'>i</span><span class='op'>|</span>
@@ -4547,17 +4258,17 @@
       <pre class="lines">
 
 
-495
-496
-497
-498</pre>
+480
+481
+482
+483</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'models/NN.rb', line 495</span>
+      <pre class="code"><span class="info file"># File '.\models\NN.rb', line 480</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_update_weights'>update_weights</span><span class='lparen'>(</span><span class='id identifier rubyid_row'>row</span><span class='rparen'>)</span>
   <span class='ivar'>@loss_derivative_weights</span><span class='lbracket'>[</span><span class='id identifier rubyid_row'>row</span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='ivar'>@loss_derivative_weights</span><span class='lbracket'>[</span><span class='id identifier rubyid_row'>row</span><span class='rbracket'>]</span> <span class='op'>/</span> <span class='ivar'>@batch_size</span><span class='period'>.</span><span class='id identifier rubyid_to_f'>to_f</span>
-  <span class='ivar'>@weights</span><span class='lbracket'>[</span><span class='id identifier rubyid_row'>row</span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='const'>NMatrix</span><span class='op'>::</span><span class='const'>BLAS</span><span class='period'>.</span><span class='id identifier rubyid_gemm'>gemm</span><span class='lparen'>(</span><span class='ivar'>@idm</span><span class='lbracket'>[</span><span class='id identifier rubyid_row'>row</span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='ivar'>@loss_derivative_weights</span><span class='lbracket'>[</span><span class='id identifier rubyid_row'>row</span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='ivar'>@weights</span><span class='lbracket'>[</span><span class='id identifier rubyid_row'>row</span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_clone'>clone</span><span class='comma'>,</span> <span class='ivar'>@learning_rate</span><span class='comma'>,</span> <span class='float'>1.0</span><span class='rparen'>)</span>
+  <span class='ivar'>@weights</span><span class='lbracket'>[</span><span class='id identifier rubyid_row'>row</span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='const'>NMatrix</span><span class='op'>::</span><span class='const'>BLAS</span><span class='period'>.</span><span class='id identifier rubyid_gemm'>gemm</span><span class='lparen'>(</span><span class='ivar'>@idm</span><span class='lbracket'>[</span><span class='id identifier rubyid_row'>row</span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='ivar'>@loss_derivative_weights</span><span class='lbracket'>[</span><span class='id identifier rubyid_row'>row</span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='ivar'>@weights</span><span class='lbracket'>[</span><span class='id identifier rubyid_row'>row</span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='ivar'>@learning_rate</span><span class='comma'>,</span> <span class='float'>1.0</span><span class='rparen'>)</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -4606,12 +4317,12 @@
       <pre class="lines">
 
 
-349
-350
-351</pre>
+326
+327
+328</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'models/NN.rb', line 349</span>
+      <pre class="code"><span class="info file"># File '.\models\NN.rb', line 326</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_weights'>weights</span>
   <span class='ivar'>@weights</span><span class='period'>.</span><span class='id identifier rubyid_map'>map</span> <span class='lbrace'>{</span> <span class='op'>|</span><span class='id identifier rubyid_mat'>mat</span><span class='op'>|</span> <span class='id identifier rubyid_mat'>mat</span><span class='period'>.</span><span class='id identifier rubyid_to_a'>to_a</span> <span class='rbrace'>}</span>
@@ -4626,7 +4337,7 @@
 </div>
 
       <div id="footer">
-  Generated on Sun Oct 25 04:56:23 2020 by
+  Generated on Wed Oct 28 17:54:35 2020 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.25 (ruby-2.6.3).
 </div>

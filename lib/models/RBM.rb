@@ -19,8 +19,8 @@ module FastNeurons
     # @param [Array] columns the array showing the shape of a restricted boltzmann machine
     # @param [Symbol] type the visible units' type you want to use
     # @example initialization of the restricted boltzmann machine
-    #   rbm = RBMR::RBM.new([5,4])
-    #   rbm = RBMR::RBM.new([5,4],:Gaussian)
+    #   rbm = FastNeurons::RBM.new([5,4])
+    #   rbm = FastNeurons::RBM.new([5,4],:Gaussian)
     # @since 1.2.0
     def initialize(columns,type = :Bernoulli)
       # training_rate

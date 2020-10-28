@@ -1,14 +1,17 @@
 require_relative '../../lib/fast_neurons'
+require_relative '../../lib/models/NN/NN4H'
 
 puts "Initializing network"
 
 tanh = proc{ |i| Math.tanh(i) }
+relu = proc{ |i| (i + i.abs) / 2.0 }
+linear = proc{ |i| i }
 
 data = [[0,0],[0,1],[1,0],[1,1]]
 t = [[0],[1],[1],[0]]
 
 # Make a neural network.
-nn = FastNeurons::NN.new([2, 2, 1], [:Tanh, :Tanh])
+nn = FastNeurons::NN.new([2, 2, 1], [:ReLU, :Linear])
 
 # Set up the parameters to random values.
 nn.randomize
@@ -46,7 +49,7 @@ end
 #nn.save_network("xor.json") # save learned network
 
 # Instantiate neural network module written by HDLRuby.
-nn.instantiate(tanh, 4, 4, 4, [1, 1])
+nn.instantiate([relu, linear], 4, 4, 4, [1, 1])
 
 # Generate the Verilog description.
 nn.to_verilog("xor")

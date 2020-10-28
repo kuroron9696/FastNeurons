@@ -94,7 +94,7 @@
   
   <dl>
     <dt>Defined in:</dt>
-    <dd>models/RBM.rb</dd>
+    <dd>.\models\RBM.rb</dd>
   </dl>
   
 </div>
@@ -818,8 +818,8 @@
 <p>initialization of the restricted boltzmann machine</p>
 </div></p>
       
-      <pre class="example code"><code><span class='id identifier rubyid_rbm'>rbm</span> <span class='op'>=</span> <span class='const'>RBMR</span><span class='op'>::</span><span class='const'>RBM</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='lbracket'>[</span><span class='int'>5</span><span class='comma'>,</span><span class='int'>4</span><span class='rbracket'>]</span><span class='rparen'>)</span>
-<span class='id identifier rubyid_rbm'>rbm</span> <span class='op'>=</span> <span class='const'>RBMR</span><span class='op'>::</span><span class='const'>RBM</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='lbracket'>[</span><span class='int'>5</span><span class='comma'>,</span><span class='int'>4</span><span class='rbracket'>]</span><span class='comma'>,</span><span class='symbol'>:Gaussian</span><span class='rparen'>)</span></code></pre>
+      <pre class="example code"><code><span class='id identifier rubyid_rbm'>rbm</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="../FastNeurons.html" title="FastNeurons (module)">FastNeurons</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="" title="FastNeurons::RBM (class)">RBM</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='lbracket'>[</span><span class='int'>5</span><span class='comma'>,</span><span class='int'>4</span><span class='rbracket'>]</span><span class='rparen'>)</span>
+<span class='id identifier rubyid_rbm'>rbm</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="../FastNeurons.html" title="FastNeurons (module)">FastNeurons</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="" title="FastNeurons::RBM (class)">RBM</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='lbracket'>[</span><span class='int'>5</span><span class='comma'>,</span><span class='int'>4</span><span class='rbracket'>]</span><span class='comma'>,</span><span class='symbol'>:Gaussian</span><span class='rparen'>)</span></code></pre>
     
   </div>
 <p class="tag_title">Parameters:</p>
@@ -884,6 +884,8 @@
       <pre class="lines">
 
 
+25
+26
 27
 28
 29
@@ -934,12 +936,10 @@
 74
 75
 76
-77
-78
-79</pre>
+77</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'models/RBM.rb', line 27</span>
+      <pre class="code"><span class="info file"># File '.\models\RBM.rb', line 25</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_initialize'>initialize</span><span class='lparen'>(</span><span class='id identifier rubyid_columns'>columns</span><span class='comma'>,</span><span class='id identifier rubyid_type'>type</span> <span class='op'>=</span> <span class='symbol'>:Bernoulli</span><span class='rparen'>)</span>
   <span class='comment'># training_rate
@@ -1048,15 +1048,15 @@
       <pre class="lines">
 
 
+280
+281
 282
 283
 284
-285
-286
-287</pre>
+285</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'models/RBM.rb', line 282</span>
+      <pre class="code"><span class="info file"># File '.\models\RBM.rb', line 280</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_compute_cross_entropy'>compute_cross_entropy</span>
   <span class='id identifier rubyid_log_probability'>log_probability</span> <span class='op'>=</span> <span class='ivar'>@probability</span><span class='lbracket'>[</span><span class='int'>1</span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_log'>log</span>
@@ -1111,6 +1111,8 @@
       <pre class="lines">
 
 
+236
+237
 238
 239
 240
@@ -1119,12 +1121,10 @@
 243
 244
 245
-246
-247
-248</pre>
+246</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'models/RBM.rb', line 238</span>
+      <pre class="code"><span class="info file"># File '.\models\RBM.rb', line 236</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_compute_derivatives'>compute_derivatives</span>
   <span class='comment'># Judge RBM type.
@@ -1204,14 +1204,14 @@
       <pre class="lines">
 
 
+290
+291
 292
 293
-294
-295
-296</pre>
+294</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'models/RBM.rb', line 292</span>
+      <pre class="code"><span class="info file"># File '.\models\RBM.rb', line 290</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_compute_mean_cross_entropy'>compute_mean_cross_entropy</span><span class='lparen'>(</span><span class='id identifier rubyid_number_of_data'>number_of_data</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_mean_cross_entropy'>mean_cross_entropy</span> <span class='op'>=</span> <span class='op'>-</span><span class='ivar'>@cross_entropy</span><span class='period'>.</span><span class='id identifier rubyid_to_a'>to_a</span><span class='period'>.</span><span class='id identifier rubyid_sum'>sum</span> <span class='op'>/</span> <span class='id identifier rubyid_number_of_data'>number_of_data</span><span class='period'>.</span><span class='id identifier rubyid_to_f'>to_f</span>
@@ -1283,13 +1283,13 @@
       <pre class="lines">
 
 
+299
+300
 301
-302
-303
-304</pre>
+302</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'models/RBM.rb', line 301</span>
+      <pre class="code"><span class="info file"># File '.\models\RBM.rb', line 299</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_get_outputs'>get_outputs</span>
   <span class='ivar'>@type</span> <span class='op'>==</span> <span class='symbol'>:Gaussian</span> <span class='op'>?</span> <span class='id identifier rubyid_unstandardize'>unstandardize</span> <span class='op'>:</span> <span class='kw'>nil</span>
@@ -1360,12 +1360,12 @@
       <pre class="lines">
 
 
-309
-310
-311</pre>
+307
+308
+309</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'models/RBM.rb', line 309</span>
+      <pre class="code"><span class="info file"># File '.\models\RBM.rb', line 307</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_get_visible_probability'>get_visible_probability</span>
   <span class='kw'>return</span> <span class='ivar'>@probability</span><span class='lbracket'>[</span><span class='int'>1</span><span class='rbracket'>]</span>
@@ -1417,16 +1417,16 @@
       <pre class="lines">
 
 
+82
+83
 84
 85
 86
 87
-88
-89
-90</pre>
+88</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'models/RBM.rb', line 84</span>
+      <pre class="code"><span class="info file"># File '.\models\RBM.rb', line 82</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_initialize_derivatives'>initialize_derivatives</span>
   <span class='comment'># Initialize derivative matrix of biases.
@@ -1502,16 +1502,16 @@
       <pre class="lines">
 
 
+115
+116
 117
 118
 119
 120
-121
-122
-123</pre>
+121</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'models/RBM.rb', line 117</span>
+      <pre class="code"><span class="info file"># File '.\models\RBM.rb', line 115</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_input'>input</span><span class='lparen'>(</span><span class='id identifier rubyid_values'>values</span><span class='rparen'>)</span>
   <span class='ivar'>@units</span><span class='lbracket'>[</span><span class='int'>0</span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='const'>N</span><span class='lbracket'>[</span><span class='id identifier rubyid_values'>values</span><span class='period'>.</span><span class='id identifier rubyid_flatten'>flatten</span><span class='comma'>,</span><span class='symbol'>:dtype</span> <span class='op'>=&gt;</span> <span class='symbol'>:float64</span><span class='rbracket'>]</span>
@@ -1587,13 +1587,13 @@
       <pre class="lines">
 
 
+127
+128
 129
-130
-131
-132</pre>
+130</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'models/RBM.rb', line 129</span>
+      <pre class="code"><span class="info file"># File '.\models\RBM.rb', line 127</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_input_hidden_layer'>input_hidden_layer</span><span class='lparen'>(</span><span class='id identifier rubyid_values'>values</span><span class='rparen'>)</span>
   <span class='ivar'>@units</span><span class='lbracket'>[</span><span class='int'>1</span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='const'>N</span><span class='lbracket'>[</span><span class='id identifier rubyid_values'>values</span><span class='period'>.</span><span class='id identifier rubyid_flatten'>flatten</span><span class='comma'>,</span><span class='symbol'>:dtype</span> <span class='op'>=&gt;</span> <span class='symbol'>:float64</span><span class='rbracket'>]</span>
@@ -1666,6 +1666,8 @@
       <pre class="lines">
 
 
+342
+343
 344
 345
 346
@@ -1694,12 +1696,10 @@
 369
 370
 371
-372
-373
-374</pre>
+372</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'models/RBM.rb', line 344</span>
+      <pre class="code"><span class="info file"># File '.\models\RBM.rb', line 342</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_load_network'>load_network</span><span class='lparen'>(</span><span class='id identifier rubyid_path'>path</span><span class='rparen'>)</span>
   <span class='comment'># Open file.
@@ -1779,6 +1779,8 @@
       <pre class="lines">
 
 
+92
+93
 94
 95
 96
@@ -1795,12 +1797,10 @@
 107
 108
 109
-110
-111
-112</pre>
+110</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'models/RBM.rb', line 94</span>
+      <pre class="code"><span class="info file"># File '.\models\RBM.rb', line 92</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_randomize'>randomize</span>
   <span class='comment'># Create fast matrices for the biases.
@@ -1888,14 +1888,14 @@
       <pre class="lines">
 
 
+272
+273
 274
 275
-276
-277
-278</pre>
+276</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'models/RBM.rb', line 274</span>
+      <pre class="code"><span class="info file"># File '.\models\RBM.rb', line 272</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_reconstruct'>reconstruct</span><span class='lparen'>(</span><span class='id identifier rubyid_values'>values</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_input'>input</span><span class='lparen'>(</span><span class='id identifier rubyid_values'>values</span><span class='rparen'>)</span>
@@ -1969,6 +1969,8 @@
       <pre class="lines">
 
 
+151
+152
 153
 154
 155
@@ -1977,12 +1979,10 @@
 158
 159
 160
-161
-162
-163</pre>
+161</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'models/RBM.rb', line 153</span>
+      <pre class="code"><span class="info file"># File '.\models\RBM.rb', line 151</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_run'>run</span><span class='lparen'>(</span><span class='id identifier rubyid_number_of_steps'>number_of_steps</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_sample'>sample</span><span class='lparen'>(</span><span class='id identifier rubyid_number_of_steps'>number_of_steps</span><span class='rparen'>)</span>
@@ -2062,6 +2062,8 @@
       <pre class="lines">
 
 
+166
+167
 168
 169
 170
@@ -2074,12 +2076,10 @@
 177
 178
 179
-180
-181
-182</pre>
+180</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'models/RBM.rb', line 168</span>
+      <pre class="code"><span class="info file"># File '.\models\RBM.rb', line 166</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_sample'>sample</span><span class='lparen'>(</span><span class='id identifier rubyid_number_of_steps'>number_of_steps</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_sample_hidden_units'>sample_hidden_units</span>
@@ -2143,6 +2143,8 @@
       <pre class="lines">
 
 
+203
+204
 205
 206
 207
@@ -2151,12 +2153,10 @@
 210
 211
 212
-213
-214
-215</pre>
+213</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'models/RBM.rb', line 205</span>
+      <pre class="code"><span class="info file"># File '.\models\RBM.rb', line 203</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_sample_from_bernoulli'>sample_from_bernoulli</span>
   <span class='comment'># Compute conditional probability of visible layer.
@@ -2216,6 +2216,8 @@
       <pre class="lines">
 
 
+217
+218
 219
 220
 221
@@ -2229,12 +2231,10 @@
 229
 230
 231
-232
-233
-234</pre>
+232</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'models/RBM.rb', line 219</span>
+      <pre class="code"><span class="info file"># File '.\models\RBM.rb', line 217</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_sample_from_gaussian'>sample_from_gaussian</span>
   <span class='comment'># Compute product of hidden units and weights.
@@ -2299,6 +2299,8 @@
       <pre class="lines">
 
 
+184
+185
 186
 187
 188
@@ -2306,12 +2308,10 @@
 190
 191
 192
-193
-194
-195</pre>
+193</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'models/RBM.rb', line 186</span>
+      <pre class="code"><span class="info file"># File '.\models\RBM.rb', line 184</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_sample_hidden_units'>sample_hidden_units</span>
   <span class='comment'># Compute conditional probability of hidden layer.             
@@ -2370,12 +2370,12 @@
       <pre class="lines">
 
 
-199
-200
-201</pre>
+197
+198
+199</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'models/RBM.rb', line 199</span>
+      <pre class="code"><span class="info file"># File '.\models\RBM.rb', line 197</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_sample_visible_units'>sample_visible_units</span>
   <span class='ivar'>@sampling_method</span><span class='period'>.</span><span class='id identifier rubyid_call'>call</span>
@@ -2447,18 +2447,18 @@
       <pre class="lines">
 
 
+329
+330
 331
 332
 333
 334
 335
 336
-337
-338
-339</pre>
+337</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'models/RBM.rb', line 331</span>
+      <pre class="code"><span class="info file"># File '.\models\RBM.rb', line 329</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_save_network'>save_network</span><span class='lparen'>(</span><span class='id identifier rubyid_path'>path</span><span class='rparen'>)</span>
   <span class='comment'># Make hash of parameters.
@@ -2538,12 +2538,12 @@
       <pre class="lines">
 
 
-324
-325
-326</pre>
+322
+323
+324</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'models/RBM.rb', line 324</span>
+      <pre class="code"><span class="info file"># File '.\models\RBM.rb', line 322</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_set_batch_size'>set_batch_size</span><span class='lparen'>(</span><span class='id identifier rubyid_size'>size</span> <span class='op'>=</span> <span class='int'>1</span><span class='rparen'>)</span>
   <span class='ivar'>@batch_size</span> <span class='op'>=</span> <span class='id identifier rubyid_size'>size</span>
@@ -2617,12 +2617,12 @@
       <pre class="lines">
 
 
-316
-317
-318</pre>
+314
+315
+316</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'models/RBM.rb', line 316</span>
+      <pre class="code"><span class="info file"># File '.\models\RBM.rb', line 314</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_set_training_rate'>set_training_rate</span><span class='lparen'>(</span><span class='id identifier rubyid_rate'>rate</span> <span class='op'>=</span> <span class='float'>0.1</span><span class='rparen'>)</span>
   <span class='ivar'>@training_rate</span> <span class='op'>=</span> <span class='id identifier rubyid_rate'>rate</span>
@@ -2674,15 +2674,15 @@
       <pre class="lines">
 
 
+134
+135
 136
 137
 138
-139
-140
-141</pre>
+139</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'models/RBM.rb', line 136</span>
+      <pre class="code"><span class="info file"># File '.\models\RBM.rb', line 134</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_standardize'>standardize</span>
   <span class='ivar'>@mean</span> <span class='op'>=</span> <span class='ivar'>@units</span><span class='lbracket'>[</span><span class='int'>0</span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_mean'>mean</span><span class='lparen'>(</span><span class='int'>1</span><span class='rparen'>)</span><span class='lbracket'>[</span><span class='int'>0</span><span class='rbracket'>]</span>
@@ -2737,13 +2737,13 @@
       <pre class="lines">
 
 
+143
+144
 145
-146
-147
-148</pre>
+146</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'models/RBM.rb', line 145</span>
+      <pre class="code"><span class="info file"># File '.\models\RBM.rb', line 143</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_unstandardize'>unstandardize</span>
   <span class='ivar'>@units</span><span class='lbracket'>[</span><span class='int'>0</span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='ivar'>@units</span><span class='lbracket'>[</span><span class='int'>0</span><span class='rbracket'>]</span> <span class='op'>*</span> <span class='ivar'>@standard_deviation</span> <span class='op'>+</span> <span class='ivar'>@mean</span>
@@ -2796,13 +2796,13 @@
       <pre class="lines">
 
 
+257
+258
 259
-260
-261
-262</pre>
+260</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'models/RBM.rb', line 259</span>
+      <pre class="code"><span class="info file"># File '.\models\RBM.rb', line 257</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_update_biases'>update_biases</span>
   <span class='ivar'>@biases</span><span class='lbracket'>[</span><span class='int'>0</span><span class='rbracket'>]</span> <span class='op'>+=</span> <span class='ivar'>@derivative_biases</span><span class='lbracket'>[</span><span class='int'>1</span><span class='rbracket'>]</span> <span class='op'>/</span> <span class='ivar'>@batch_size</span><span class='period'>.</span><span class='id identifier rubyid_to_f'>to_f</span> <span class='op'>*</span> <span class='ivar'>@training_rate</span>
@@ -2855,13 +2855,13 @@
       <pre class="lines">
 
 
+250
+251
 252
-253
-254
-255</pre>
+253</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'models/RBM.rb', line 252</span>
+      <pre class="code"><span class="info file"># File '.\models\RBM.rb', line 250</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_update_parameters'>update_parameters</span>
   <span class='id identifier rubyid_update_biases'>update_biases</span>
@@ -2914,12 +2914,12 @@
       <pre class="lines">
 
 
-266
-267
-268</pre>
+264
+265
+266</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'models/RBM.rb', line 266</span>
+      <pre class="code"><span class="info file"># File '.\models\RBM.rb', line 264</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_update_weights'>update_weights</span>
   <span class='ivar'>@weights</span><span class='lbracket'>[</span><span class='int'>0</span><span class='rbracket'>]</span> <span class='op'>+=</span> <span class='ivar'>@derivative_weights</span> <span class='op'>/</span> <span class='ivar'>@batch_size</span><span class='period'>.</span><span class='id identifier rubyid_to_f'>to_f</span> <span class='op'>*</span> <span class='ivar'>@training_rate</span>
@@ -2934,7 +2934,7 @@
 </div>
 
       <div id="footer">
-  Generated on Sun Oct 25 04:56:23 2020 by
+  Generated on Wed Oct 28 17:54:35 2020 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.25 (ruby-2.6.3).
 </div>

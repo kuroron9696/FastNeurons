@@ -10,16 +10,16 @@ images = mnist.load_images
 puts "Initializing network"
 
 # Initialize a neural network.
-nn = FastNeurons::NN.new([784,15,784], [:Sigmoid, :Sigmoid])
+nn = FastNeurons::NN.new([784,15,784], [:ReLU, :Sigmoid])
 
 # Set learning rate.
-nn.set_learning_rate(0.1)
+nn.set_learning_rate(0.01)
 
 # Set mini-batch size.
 nn.set_batch_size(1)
 
 # Set up the parameters to random values.
-nn.randomize
+nn.randomize([:HeNormal, :GlorotNormal], :Zeros)
 
 # Load learned network.
 #nn.load_network("network.json")

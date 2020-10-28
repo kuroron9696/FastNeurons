@@ -25,13 +25,13 @@ module neural__network_00003aT0_00003a_00003alayer0_00003aT0( clk, rst, req, _00
    wire signed[7:0] _00003a156;
    wire _00003a157;
    reg _00003a154;
-   reg [0:-1] _00003a155;
+   reg [0:0] _00003a155;
    reg signed[7:0] _00003a184;
    reg signed[7:0] _00003a185;
    wire signed[7:0] _00003a171;
    wire _00003a172;
    reg _00003a169;
-   reg [0:-1] _00003a170;
+   reg [0:0] _00003a170;
    reg signed[7:0] value__z0;
    reg signed[7:0] value__z1;
    wire signed[7:0] value__a0;
@@ -67,12 +67,12 @@ module neural__network_00003aT0_00003a_00003alayer0_00003aT0( clk, rst, req, _00
    reg mac__n1_00003a145_00003a_00003arun;
    wire channel__b0_00003a152_00003a_00003atrig__r;
    reg signed[7:0] channel__b0_00003a152_00003a_00003adbus__r;
-   wire [0:-1] channel__b0_00003a152_00003a_00003aabus__r;
-   reg signed[7:0] channel__b0_00003a152_00003a_00003amem  :0[0:0] = $signed(32'd28);
+   wire [0:0] channel__b0_00003a152_00003a_00003aabus__r;
+   reg signed[7:0] channel__b0_00003a152_00003a_00003amem  :0[0:0] = $signed(-32'd3);
    wire channel__b1_00003a167_00003a_00003atrig__r;
    reg signed[7:0] channel__b1_00003a167_00003a_00003adbus__r;
-   wire [0:-1] channel__b1_00003a167_00003a_00003aabus__r;
-   reg signed[7:0] channel__b1_00003a167_00003a_00003amem  :0[0:0] = $signed(-32'd9);
+   wire [0:0] channel__b1_00003a167_00003a_00003aabus__r;
+   reg signed[7:0] channel__b1_00003a167_00003a_00003amem  :0[0:0] = $signed(32'd3);
    wire signed[7:0] channel__z_00003a182_00003a_00003areg__0;
    wire signed[7:0] channel__z_00003a182_00003a_00003areg__1;
    wire [0:0] channel__z_00003a182_00003a_00003arinc_00003a194_00003a_00003aabus__r;
@@ -88,39 +88,39 @@ module neural__network_00003aT0_00003a_00003alayer0_00003aT0( clk, rst, req, _00
    reg add__n_00003a212_00003a_00003arvok0;
    reg add__n_00003a212_00003a_00003arvok1;
    reg add__n_00003a212_00003a_00003arun;
-   wire _00005e_00006092;
-   wire _00005e_00006093;
-   wire _00005e_00006094;
    wire _00005e_00006095;
-   wire signed[7:0] _00005e_00006096;
-   wire signed[7:0] _00005e_00006097;
-   wire signed[7:0] _00005e_00006098;
+   wire _00005e_00006096;
+   wire _00005e_00006097;
+   wire _00005e_00006098;
    wire signed[7:0] _00005e_00006099;
+   wire signed[7:0] _00005e_000060100;
+   wire signed[7:0] _00005e_000060101;
+   wire signed[7:0] _00005e_000060102;
 
-   neural__network_00003aT0_00003a_00003alayer0_00003aT0_00003a_00003acounter_00003aT1 counter(.clk(_00005e_00006092),.ack(_00005e_00006093),.rst(_00005e_00006094),.ack__mac(_00005e_00006095));
-   neural__network_00003aT0_00003a_00003alayer0_00003aT0_00003a_00003afunc0_00003aT1 func0(.z__value(_00005e_00006096),.a(_00005e_00006097));
-   neural__network_00003aT0_00003a_00003alayer0_00003aT0_00003a_00003afunc1_00003aT0 func1(.z__value(_00005e_00006098),.a(_00005e_00006099));
+   neural__network_00003aT0_00003a_00003alayer0_00003aT0_00003a_00003acounter_00003aT1 counter(.clk(_00005e_00006095),.ack(_00005e_00006096),.rst(_00005e_00006097),.ack__mac(_00005e_00006098));
+   neural__network_00003aT0_00003a_00003alayer0_00003aT0_00003a_00003afunc0_00003aT1 func0(.z__value(_00005e_00006099),.a(_00005e_000060100));
+   neural__network_00003aT0_00003a_00003alayer0_00003aT0_00003a_00003afunc1_00003aT0 func1(.z__value(_00005e_000060101),.a(_00005e_000060102));
    assign req__mac = (req & ~ack__mac);
 
-   assign _00005e_00006092 = clk;
+   assign _00005e_00006095 = clk;
 
-   assign _00005e_00006093 = ack;
+   assign _00005e_00006096 = ack;
 
-   assign _00005e_00006094 = rst;
+   assign _00005e_00006097 = rst;
 
-   assign ack__mac = _00005e_00006095;
+   assign ack__mac = _00005e_00006098;
 
    assign _00003a157 = rst;
 
    assign _00003a172 = rst;
 
-   assign _00005e_00006096 = value__z0;
+   assign _00005e_00006099 = value__z0;
 
-   assign value__a0 = _00005e_00006097;
+   assign value__a0 = _00005e_000060100;
 
-   assign _00005e_00006098 = value__z1;
+   assign _00005e_000060101 = value__z1;
 
-   assign value__a1 = _00005e_00006099;
+   assign value__a1 = _00005e_000060102;
 
    assign ack__layer = (ack__a0 & ack__a1);
 
@@ -249,7 +249,7 @@ module neural__network_00003aT0_00003a_00003alayer0_00003aT0( clk, rst, req, _00
                   mac__n1_00003a145_00003a_00003arvok <= 32'd1;
                end
                else begin
-                  _00003a14 <= (_00003a14 + 32'd1);
+                  _00003a14 <= ((_00003a14 + 32'd1) == 32'd2) == 1 ? (_00003a14 + 32'd1) : 32'd0;
                   _00003a13 <= 32'd1;
                end
             end
@@ -261,7 +261,7 @@ module neural__network_00003aT0_00003a_00003alayer0_00003aT0( clk, rst, req, _00
                   mac__n1_00003a145_00003a_00003alvok0 <= 32'd1;
                end
                else begin
-                  _00003a91 <= (_00003a91 + 32'd1);
+                  _00003a91 <= ((_00003a91 + 32'd1) == 32'd2) == 1 ? (_00003a91 + 32'd1) : 32'd0;
                   _00003a90 <= 32'd1;
                end
             end
@@ -287,7 +287,7 @@ module neural__network_00003aT0_00003a_00003alayer0_00003aT0( clk, rst, req, _00
                   mac__n1_00003a145_00003a_00003alvok1 <= 32'd1;
                end
                else begin
-                  _00003a106 <= (_00003a106 + 32'd1);
+                  _00003a106 <= ((_00003a106 + 32'd1) == 32'd2) == 1 ? (_00003a106 + 32'd1) : 32'd0;
                   _00003a105 <= 32'd1;
                end
             end
@@ -386,13 +386,13 @@ module neural__network_00003aT0_00003a_00003alayer0_00003aT0( clk, rst, req, _00
 
    initial begin
 
-      channel__w0_00003a83_00003a_00003amem[32'd0] = $signed(-32'd19);
+      channel__w0_00003a83_00003a_00003amem[32'd0] = $signed(32'd3);
 
-      channel__w0_00003a83_00003a_00003amem[32'd1] = $signed(-32'd18);
+      channel__w0_00003a83_00003a_00003amem[32'd1] = $signed(32'd1);
 
-      channel__w1_00003a98_00003a_00003amem[32'd0] = $signed(32'd31);
+      channel__w1_00003a98_00003a_00003amem[32'd0] = $signed(32'd14);
 
-      channel__w1_00003a98_00003a_00003amem[32'd1] = $signed(32'd31);
+      channel__w1_00003a98_00003a_00003amem[32'd1] = $signed(32'd0);
 
    end
 
