@@ -30,6 +30,7 @@ puts "Runnning..."
 
     puts "input: #{inputs}, ans: #{t[i]}, expected: #{nn.get_outputs}"
   end
+  nn.initialize_loss
 end
 
 puts "Understood!"

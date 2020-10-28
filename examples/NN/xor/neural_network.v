@@ -121,7 +121,7 @@ module neural__network_00003aT0( clk, rst, req, fill, ack__network );
       else begin
          if (fill__inputs) begin
             if ((rst == 32'd0)) begin
-               _00003a18 <= (_00003a18 + 32'd1);
+               _00003a18 <= ((_00003a18 + 32'd1) == 32'd2) == 1 ? (_00003a18 + 32'd1) : 32'd0;
                _00003a17 <= 32'd1;
                _00003a19 <= rom__inputs[address__inputs];
             end
