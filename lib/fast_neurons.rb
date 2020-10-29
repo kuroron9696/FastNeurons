@@ -207,16 +207,25 @@ module FastNeurons
   # Compute the mean squared error.
   # @param [NMatrix] t a vector of NMatrix containing teaching data
   # @param [NMatrix] a a vector of NMatrix containing outputs of neural network
-  # @return [Float] loss
+  # @return [Float] loss value
   # @since 1.5.0
   def self.mean_square(t, a)
     return ((t - a) ** 2).sum[0] / a.size
   end
 
+  # Compute the squared error.
+  # @param [NMatrix] t a vector of NMatrix containing teaching data
+  # @param [NMatrix] a a vector of NMatrix containing outputs of neural network
+  # @return [Float] loss value
+  # @since 1.9.0
+  def self.squared_error(t, a)
+    return ((t - a) ** 2).sum[0] / 2.0
+  end
+
   # Compute the cross entropy error.
   # @param [NMatrix] t a vector of NMatrix containing teaching data
   # @param [NMatrix] a a vector of NMatrix containing outputs of neural network
-  # @return [Float] loss 
+  # @return [Float] loss value
   # @since 1.5.0
   def self.cross_entropy(t, a)
     delta = 1e-7
@@ -229,7 +238,16 @@ module FastNeurons
   # @return [NMatrix] a vector of NMatrix that each elements are differentiated
   # @since 1.5.0
   def self.differentiate_mean_square(t, a)
-    return (t - a) * (2 / a.size)
+    return -(t - a) * (2.0 / a.size)
+  end
+
+  # Differentiate the squared error function.
+  # @param [NMatrix] t a vector of NMatrix containing teaching data
+  # @param [NMatrix] a a vector of NMatrix containing outputs of neural network
+  # @return [NMatrix] a vector of NMatrix that each elements are differentiated
+  # @since 1.5.0
+  def self.differentiate_squared_error(t, a)
+    return -(t - a)
   end
 
   # Differentiate the cross entropy error function.
@@ -243,5 +261,6 @@ module FastNeurons
 
   # loss functions
   MeanSquare = { antiderivative: method(:mean_square), derivative: method(:differentiate_mean_square) }
+  SquaredError = { antiderivative: method(:squared_error), derivative: method(:differentiate_squared_error) }
   CrossEntropy = { antiderivative: method(:cross_entropy), derivative: method(:differentiate_cross_entropy) }
 end

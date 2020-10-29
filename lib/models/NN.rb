@@ -75,7 +75,7 @@ module FastNeurons
       @derivatives = @keys.map{ |key| @activation_functions[key][:derivative] }.to_a
 
       # Make the hash of loss functions.
-      @loss_functions = { MeanSquare: MeanSquare, CrossEntropy: CrossEntropy }
+      @loss_functions = { MeanSquare: MeanSquare, SquaredError: SquaredError, CrossEntropy: CrossEntropy }
 
       # Set the proc object of antiderivative of a specified loss function.
       @loss_antiderivative = @loss_functions[loss_function][:antiderivative]
@@ -362,7 +362,7 @@ module FastNeurons
       @z[row] = NMatrix::BLAS.gemm(@idm[row], @biases[row])
       
       # Compute the values before the activation function is applied.  
-      @z[row] = NMatrix::BLAS.gemm(@weights[row], @a[row], @z[row], 1.0, 1.0)                        
+      @z[row] = NMatrix::BLAS.gemm(@weights[row], @a[row], @z[row], 1.0, 1.0)                              
     end
 
     # Compute neurons statuses.
@@ -479,7 +479,7 @@ module FastNeurons
     # @since 1.0.0
     def update_weights(row)
       @loss_derivative_weights[row] = @loss_derivative_weights[row] / @batch_size.to_f
-      @weights[row] = NMatrix::BLAS.gemm(@idm[row], @loss_derivative_weights[row], @weights[row], @learning_rate, 1.0)
+      @weights[row] = NMatrix::BLAS.gemm(@idm[row], @loss_derivative_weights[row], @weights[row], -(@learning_rate), 1.0)
     end
 
     # Update biases.
@@ -487,7 +487,7 @@ module FastNeurons
     # @since 1.0.0
     def update_biases(row)
       @loss_derivative_biases[row] = @loss_derivative_biases[row] / @batch_size.to_f      
-      @biases[row] = NMatrix::BLAS.gemm(@idm[row], @loss_derivative_biases[row], @biases[row], @learning_rate, 1.0)            
+      @biases[row] = NMatrix::BLAS.gemm(@idm[row], @loss_derivative_biases[row], @biases[row], -(@learning_rate), 1.0)            
     end
 
     # Update biases and weights.
@@ -510,6 +510,12 @@ module FastNeurons
     def initialize_loss
       puts "loss : #{@loss}"
       @loss = 0.0
+    end
+    
+    # Get loss value.
+    # @since 1.9.0
+    def get_loss
+      return @loss
     end
 
     # Get outputs of the layer of neural network.

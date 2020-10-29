@@ -14,12 +14,10 @@ t = [[0],[1],[1],[0]]
 nn = FastNeurons::NN.new([2, 2, 1], [:ReLU, :Linear])
 
 # Set up the parameters to random values.
-nn.randomize
-
-# Load learned network.
-#nn.load_network("xor.json")
+nn.randomize(:HeNormal, :Zeros)
 
 puts "Runnning..."
+
 # learning
 1000.times do
   data.each_with_index do |inputs,i|
@@ -45,8 +43,6 @@ data.each_with_index do |inputs,i|
 
   puts "input: #{inputs}, ans: #{t[i]}, expected: #{nn.get_outputs}"
 end
-
-#nn.save_network("xor.json") # save learned network
 
 # Instantiate neural network module written by HDLRuby.
 nn.instantiate([relu, linear], 4, 4, 4, [1, 1])
