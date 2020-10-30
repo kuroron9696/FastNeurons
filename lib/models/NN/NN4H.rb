@@ -21,10 +21,10 @@ require 'HDLRuby/backend/hruby_allocator'
 require 'HDLRuby/backend/hruby_c_allocator'
 
 configure_high
-require_relative '../modules/network_constructor.rb'
+require_relative '../modules/network_simulator.rb'
 
 # A proc object for instantiating module written by HDLRuby.
-$network_constructor_caller = proc{ |*args, &blk| network_constructor(*args, &blk) }
+$network_simulator_caller = proc{ |*args, &blk| network_simulator(*args, &blk) }
 
 module FastNeurons
   class NN
@@ -50,7 +50,7 @@ module FastNeurons
       @module_biases = biases.nil? ? @biases.map{ |b| b.to_a.flatten } : biases
   
   
-      @instance =  $network_constructor_caller.(@columns, @functions, @types, @integer_width, @decimal_width, @address_width, @inputs, @module_weights, @module_biases).(:neural_network)
+      @instance =  $network_simulator_caller.(@columns, @functions, @types, @integer_width, @decimal_width, @address_width, @inputs, @module_weights, @module_biases).(:neural_network)
     end
   
     # Generate the Verilog files of neural network module.

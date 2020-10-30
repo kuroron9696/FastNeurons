@@ -94,7 +94,7 @@
   
   <dl>
     <dt>Defined in:</dt>
-    <dd>.\idx_loader.rb</dd>
+    <dd>idx_loader.rb</dd>
   </dl>
   
 </div>
@@ -262,7 +262,7 @@
 23</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File '.\idx_loader.rb', line 9</span>
+      <pre class="code"><span class="info file"># File 'idx_loader.rb', line 9</span>
 
 <span class='kw'>def</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_load'>load</span><span class='lparen'>(</span><span class='id identifier rubyid_input_stream'>input_stream</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_header'>header</span> <span class='op'>=</span> <span class='id identifier rubyid_input_stream'>input_stream</span><span class='period'>.</span><span class='id identifier rubyid_read'>read</span><span class='lparen'>(</span><span class='const'><span class='object_link'><a href="#DWORD_SIZE-constant" title="IdxLoader::DWORD_SIZE (constant)">DWORD_SIZE</a></span></span><span class='rparen'>)</span>
@@ -308,7 +308,7 @@
 31</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File '.\idx_loader.rb', line 25</span>
+      <pre class="code"><span class="info file"># File 'idx_loader.rb', line 25</span>
 
 <span class='kw'>def</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_unpack_images'>unpack_images</span><span class='lparen'>(</span><span class='id identifier rubyid_images_count'>images_count</span><span class='comma'>,</span> <span class='id identifier rubyid_row_length'>row_length</span><span class='comma'>,</span> <span class='id identifier rubyid_column_length'>column_length</span><span class='comma'>,</span> <span class='id identifier rubyid_input_stream'>input_stream</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_images_count'>images_count</span><span class='period'>.</span><span class='id identifier rubyid_times'>times</span><span class='period'>.</span><span class='id identifier rubyid_map'>map</span> <span class='kw'>do</span> 
@@ -344,7 +344,7 @@
 37</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File '.\idx_loader.rb', line 33</span>
+      <pre class="code"><span class="info file"># File 'idx_loader.rb', line 33</span>
 
 <span class='kw'>def</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_unpack_labels'>unpack_labels</span><span class='lparen'>(</span><span class='id identifier rubyid_labels_count'>labels_count</span><span class='comma'>,</span> <span class='id identifier rubyid_input_stream'>input_stream</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_input_stream'>input_stream</span><span class='period'>.</span><span class='id identifier rubyid_read'>read</span><span class='lparen'>(</span><span class='id identifier rubyid_labels_count'>labels_count</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_chars'>chars</span><span class='period'>.</span><span class='id identifier rubyid_map'>map</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_byte'>byte</span><span class='op'>|</span>
@@ -361,7 +361,7 @@
 </div>
 
       <div id="footer">
-  Generated on Wed Oct 28 17:54:35 2020 by
+  Generated on Sat Oct 31 04:48:45 2020 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.25 (ruby-2.6.3).
 </div>

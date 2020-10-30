@@ -26,16 +26,20 @@ system :activation_function do |func, typ, integer_width, decimal_width, address
   # アドレスは入力データの整数部に対応
   [address_width].inner :address
   typ.inner :remaining
+  typ.inner :change
 
   # 入力データからアドレスとアドレスでない残りを取り出す
-  address <= z_value[z_value.width - 1..z_value.width - address_width]
-  remaining <= [[_b1b0] * address_width, z_value[z_value.width - address_width - 1..0]]
+  address <= z_value[(z_value.width - 1)..(z_value.width - address_width)]
+  remaining <= [[_b1b0] * address_width, z_value[(z_value.width - address_width - 1)..0]]
+
+  # アドレスの変化量
+  change <= [[_b1b0] * (address_width - 1), _b1b1, [_b1b0] * (z_value.width - address_width)]
 
   # 活性化関数のLUT
   lut(func, typ, integer_width, decimal_width, address_width).(:my_lut).(address, base, next_data)
 
   # 線形補間
-  interpolator(typ).(:my_interpolator).(remaining, base, next_data, a)
+  interpolator(typ).(:my_interpolator).(base, next_data, change, remaining, a)
 end
 
 # module of activation function's LUT
@@ -88,15 +92,17 @@ system :interpolator do |typ|
   typ = typ.to_type
 
   # アドレスに対応する値など
-  typ.input :remaining, :base, :next_data
+  typ.input :base, :next_data, :change, :remaining
 
   # 線形補間した値
   typ.output :interpolated_value
 
   # 線形補間
-  # y = x1 + ( (y2 - y1) / (x2 - x1) ) * (x - x1)
+  # y = y0 + ( (y1 - y0) / (x1 - x0) ) * (x - x0)
   # y => 線形補間した値
-  # x => x2とx1の間の値
+  # x => x0とx1の間の値
+  # changeはアドレスの変化量
+  # シミュレーションで除算が実装されていないため、一時的に除外
   interpolated_value <= base + (next_data - base) * remaining
 end
 

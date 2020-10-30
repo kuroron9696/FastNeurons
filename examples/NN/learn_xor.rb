@@ -1,15 +1,17 @@
 require_relative '../../lib/fast_neurons'
+require "gnuplot"
 
 puts "Initializing network"
 
 data = [[0,0],[0,1],[1,0],[1,1]]
 t = [[0],[1],[1],[0]]
+loss = []
 
 # Make a neural network.
-nn = FastNeurons::NN.new([2, 2, 1], [:ReLU, :Linear], :MeanSquare)
+nn = FastNeurons::NN.new([2, 2, 1], [:Tanh, :Linear], :MeanSquare)
 
 # Set up the parameters to random values.
-nn.randomize(:HeNormal, :Zeros)
+nn.randomize(:GlorotNormal, :Zeros)
 
 # Load learned network.
 #nn.load_network("xor.json")
@@ -30,6 +32,7 @@ puts "Runnning..."
 
     puts "input: #{inputs}, ans: #{t[i]}, expected: #{nn.get_outputs}"
   end
+  loss << nn.get_loss
   nn.initialize_loss
 end
 
@@ -43,4 +46,24 @@ data.each_with_index do |inputs,i|
   puts "input: #{inputs}, ans: #{t[i]}, expected: #{nn.get_outputs}"
 end
 
-#nn.save_network("xor.json") # save learned network
+num = Array.new(1000){ |i| i }
+
+Gnuplot.open do |gp|
+  Gnuplot::Plot.new( gp ) do |plot|    
+    plot.terminal "png"
+    plot.output "learning_curve_xor.png"
+    plot.xlabel "Epochs"
+    plot.ylabel "Loss"
+    plot.yrange "[0:#{loss.max}]"
+    plot.xrange "[0:#{loss.size}]"
+
+    plot.data << Gnuplot::DataSet.new( [num, loss] ) do |ds|
+      ds.with = "lines"
+      ds.linecolor = "black"
+      ds.linewidth = 3
+      ds.notitle
+    end
+  end
+end
+
+nn.save_network("xor.json") # save learned network
