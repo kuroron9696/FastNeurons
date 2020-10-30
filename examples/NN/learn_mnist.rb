@@ -10,22 +10,21 @@ images = mnist.load_images
 
 puts "Initializing network"
 loss = []
+
 # Initialize a neural network.
 nn = FastNeurons::NN.new([784, 15, 784], [:Sigmoid, :Sigmoid], :SquaredError)
 
 # Set learning rate.
 nn.set_learning_rate(0.1)
 
-nn.randomize(:GlorotNormal, :Zeros)
-
 # Set mini-batch size.
 #nn.set_batch_size(1)
 
 # Set up the parameters to random values.
-nn.randomize
+nn.randomize(:GlorotNormal, :Zeros)
 
 # Load learned network.
-nn.load_network("network.json")
+#nn.load_network("network.json")
 
 # Normalize pixel values.
 imgs = images.map { |image| mnist.normalize(image).flatten }
@@ -40,8 +39,8 @@ puts "Runnning..."
     nn.input(inputs,inputs) # Input training data and teaching data.
     nn.run(1) # Compute feed forward propagation and backpropagation.
 
-    mnist.print_ascii(inputs) # Output training data.
-    mnist.print_ascii(nn.get_outputs) # Output the output of neural network.
+    #mnist.print_ascii(inputs) # Output training data.
+    #mnist.print_ascii(nn.get_outputs) # Output the output of neural network.
     nn.compute_loss
     loss << nn.get_loss
     nn.initialize_loss
@@ -54,20 +53,21 @@ gets
 
 # confirmation of network
 10.times do
-  nn.input_hidden(1,15.times.map{rand()})
-  nn.propagate_from_hidden(1)
+  nn.input_to(1,15.times.map{rand()})
+  nn.propagate_from(1)
   mnist.print_ascii(nn.get_outputs)
 end
 
-num = Array.new(10000){ |i| i }
+num = Array.new(loss.size){ |i| i }
 
 Gnuplot.open do |gp|
   Gnuplot::Plot.new( gp ) do |plot|    
     plot.terminal "png"
     plot.output "learning_curve_mnist.png"
-    plot.xlabel "epoch"
-    plot.ylabel "loss"
-    plot.xrange "[0:10000]"
+    plot.xlabel "Steps"
+    plot.ylabel "Loss"
+    plot.yrange "[0:#{loss.max}]"
+    plot.xrange "[0:#{loss.size}]"
 
     plot.data << Gnuplot::DataSet.new( [num, loss] ) do |ds|
       ds.with = "lines"

@@ -51,10 +51,11 @@ num = Array.new(1000){ |i| i }
 Gnuplot.open do |gp|
   Gnuplot::Plot.new( gp ) do |plot|    
     plot.terminal "png"
-    plot.output "learning_curve.png"
-    plot.xlabel "epoch"
-    plot.ylabel "loss"
-    plot.xrange "[0:1000]"
+    plot.output "learning_curve_xor.png"
+    plot.xlabel "Epochs"
+    plot.ylabel "Loss"
+    plot.yrange "[0:#{loss.max}]"
+    plot.xrange "[0:#{loss.size}]"
 
     plot.data << Gnuplot::DataSet.new( [num, loss] ) do |ds|
       ds.with = "lines"
@@ -65,4 +66,4 @@ Gnuplot.open do |gp|
   end
 end
 
-#nn.save_network("xor.json") # save learned network
+nn.save_network("xor.json") # save learned network

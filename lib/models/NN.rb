@@ -89,6 +89,10 @@ module FastNeurons
       # Create the geometry of the weight matrices
       @weights_geometry = @neuron_columns.zip(@columns[0..-2])
 
+      # These are need for storing and restoring parameters.
+      @stored_weights = @weights_geometry.map{ |geo| NMatrix.new(geo, 0.0) }
+      @stored_biases = @biases_geometry.map{ |geo| NMatrix.new(geo, 0.0) }
+
       # Create the geometry of the linear results (z)
       # NOTE: shoud be the same as the biases.
       @z = @biases_geometry.clone
@@ -339,17 +343,17 @@ module FastNeurons
       set_teaching_data(teaching_data)
     end
 
-    # Input to the hidden layer.
+    # Input to the any layer.
     # The main use is for post-learning confirmation.
     # @param [Integer] row the number of the hidden layer you want to input
-    # @param [Array] values inputs of the hidden layer
+    # @param [Array] values outputs of row-th layer's neurons
     # @since 1.0.0
-    def input_hidden(row,*values)
+    def input_to(row, *values)
       @a[row] = N[values.flatten, :dtype => :float64].transpose
     end
 
     # Compute multiply accumulate of inputs, weights and biases.
-    # z = inputs * weights + biases
+    # z = weights * inputs + biases
     # @param [Integer] row the number of layer currently computing
     # @since 1.0.0
     def compute_z(row)      
@@ -385,19 +389,19 @@ module FastNeurons
       @count += 1
     end
 
-    # Compute from the hidden layer to the output layer.
+    # Compute from the any layer to the output layer.
     # The main use is for post-learning confirmation.
     # @param [Integer] row the number of layer you want to begin computing
     # row's range -> 1 ~ @neuron_columns.size - 1
     # @since 1.0.0
-    def propagate_from_hidden(row)
+    def propagate_from(row)
       (row).upto(@neuron_columns.size-1) do |i|
         compute_z(i)
         compute_a(i)
       end
     end
 
-    # Compute backpropagation.
+    # Compute backpropagation and update parameters.
     # @since 1.0.0
     def backpropagate
       # If Softmax function is used on output layer with cross entropy function as loss function, do the following process.
@@ -409,9 +413,9 @@ module FastNeurons
         @delta[@neuron_columns.size-1] = @loss_derivative.call(@T, @a[-1]) * @derivative_activation_function[@neuron_columns.size-1] * @coefficients
       end
 
-      # Compute loss derivatives.            
-      @loss_derivative_weights[@neuron_columns.size-1] += NMatrix::BLAS.gemm(@delta[@neuron_columns.size-1], @a[@neuron_columns.size-1].transpose)      
-      @loss_derivative_biases[@neuron_columns.size-1] += @delta[@neuron_columns.size-1]
+      # Compute loss derivatives. 
+      compute_weights_derivatives(@neuron_columns.size-1)
+      compute_biases_derivatives(@neuron_columns.size-1)
 
       (@neuron_columns.size-2).downto(0) do |i|
         differentiate_activation_function(i)
@@ -425,7 +429,69 @@ module FastNeurons
         if @count == @batch_size
           @count = 0
           update_parameters
-          initialize_loss_derivatives
+        end
+      end
+    end
+
+    # Compute backpropagation from any layer.
+    # @param [Integer] row the number of layer you want to begin computing
+    # row's range -> @neuron_columns.size ~ 0
+    # @since 1.9.0
+    def backpropagate_from(row)
+      if (row-1) == @neuron_columns.size-1
+        # If Softmax function is used on output layer with cross entropy function as loss function, do the following process.
+        if @keys[-1] == :Softmax
+          @delta[@neuron_columns.size-1] = @derivatives[-1].call(@T, @a[-1])
+        else
+          # the process in all cases except Softmax with cross entropy
+          differentiate_activation_function(@neuron_columns.size-1)
+          @delta[@neuron_columns.size-1] = @loss_derivative.call(@T, @a[-1]) * @derivative_activation_function[@neuron_columns.size-1] * @coefficients
+        end
+  
+        # Compute loss derivatives. 
+        compute_weights_derivatives(@neuron_columns.size-1)
+        compute_biases_derivatives(@neuron_columns.size-1)
+  
+        (@neuron_columns.size-2).downto(0) do |i|
+          differentiate_activation_function(i)
+          compute_delta(i)
+          compute_weights_derivatives(i)
+          compute_biases_derivatives(i)
+        end
+      elsif (row-1) < (@neuron_columns.size-1)
+        (row-1).downto(0) do |i|
+          differentiate_activation_function(i)
+          compute_delta(i)
+          compute_weights_derivatives(i)
+          compute_biases_derivatives(i)
+        end
+      end
+    end
+
+    # Compute backpropagation from output layer until any layer.
+    # @param [Integer] row the number of layer you want to compute backpropagation
+    # row's range -> @neuron_columns.size - 1 ～ 0
+    # @since 1.9.0
+    def backpropagate_until(row)
+      if row < @neuron_columns.size
+        # If Softmax function is used on output layer with cross entropy function as loss function, do the following process.
+        if @keys[-1] == :Softmax
+          @delta[@neuron_columns.size-1] = @derivatives[-1].call(@T, @a[-1])
+        else
+          # the process in all cases except Softmax with cross entropy
+          differentiate_activation_function(@neuron_columns.size-1)
+          @delta[@neuron_columns.size-1] = @loss_derivative.call(@T, @a[-1]) * @derivative_activation_function[@neuron_columns.size-1] * @coefficients
+        end
+
+        # Compute loss derivatives. 
+        compute_weights_derivatives(@neuron_columns.size-1)
+        compute_biases_derivatives(@neuron_columns.size-1)
+
+        (@neuron_columns.size-2).downto(row) do |i|
+          differentiate_activation_function(i)
+          compute_delta(i)
+          compute_weights_derivatives(i)
+          compute_biases_derivatives(i)
         end
       end
     end
@@ -497,6 +563,45 @@ module FastNeurons
         update_weights(i)
         update_biases(i)
       end
+      initialize_loss_derivatives
+    end
+
+    # Update biases and weights from any layer.
+    # @param [Integer] row the number of layer you want to begin updating
+    # row's range -> @neuron_columns.size ~ 0
+    # @since 1.9.0
+    def update_parameters_from(row)
+      (row-1).downto(0) do |i|
+        update_weights(i)
+        update_biases(i)
+      end
+    end
+    
+    # Compute backpropagation from output layer until any layer.
+    # @param [Integer] row the number of layer you want to begin updating
+    # row's range -> @neuron_columns.size - 1 ～ 0
+    # @since 1.9.0
+    def update_parameters_until(row)
+      (@neuron_columns.size-1).downto(row) do |i|
+        update_weights(i)
+        update_biases(i)
+      end
+    end
+
+    # Store parameters(biases and weights).
+    # @param [Integer] row the number of layer you want to store parameters
+    # @since 1.9.0
+    def store_parameters(row)
+      @stored_weights[row] = @weights[row].clone
+      @stored_biases[row] = @biases[row].clone
+    end
+
+    # Restore parameters(biases and weights).
+    # @param [Integer] row the number of layer you want to restore parameters
+    # @since 1.9.0
+    def restore_parameters(row)
+      @weights[row] = @stored_weights[row]
+      @biases[row] = @stored_biases[row]
     end
 
     # Compute loss by loss function.
