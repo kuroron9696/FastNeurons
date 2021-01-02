@@ -62,7 +62,7 @@ class MNISTLoader
     inputs = inputs.map {|pixel| pixel*255}
     outputs = inputs.each_slice(28).map do |row|
       row.map do |darkness|
-        darkness < 64 ?  " " : ( darkness < 128 ? "・" : "X" )
+        darkness < 64 ?  " " : ( darkness < 128 ? "." : "X" )
       end.join
     end.join("\n")
     puts outputs

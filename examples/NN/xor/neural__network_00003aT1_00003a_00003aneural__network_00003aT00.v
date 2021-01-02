@@ -28,19 +28,19 @@ module neural__network_00003aT1_00003a_00003aneural__network_00003aT00( clk, rst
    reg [0:0] address__outputs;
    reg flag__outputs;
    wire signed[7:0] _00003a84;
-   reg [0:-1] _00003a85;
+   reg [0:0] _00003a85;
    wire channel__inputs_00003a45_00003a_00003atrig__r;
    wire channel__inputs_00003a45_00003a_00003atrig__w;
    reg signed[7:0] channel__inputs_00003a45_00003a_00003adbus__r;
    wire signed[7:0] channel__inputs_00003a45_00003a_00003adbus__w;
    wire [0:0] channel__inputs_00003a45_00003a_00003aabus__r;
    wire [0:0] channel__inputs_00003a45_00003a_00003aabus__w;
-   wire signed[7:0] channel__inputs_00003a45_00003a_00003amem  :0[0:1];
+   reg signed[7:0] channel__inputs_00003a45_00003a_00003amem  [0:1];
    wire signed[7:0] channel__outputs_00003a74_00003a_00003areg__0;
-   wire [0:-1] channel__outputs_00003a74_00003a_00003arinc_00003a83_00003a_00003aabus__r;
-   wire [0:-1] channel__outputs_00003a74_00003a_00003awinc_00003a86_00003a_00003aabus__w;
-   wire [0:-1] channel__outputs_00003a74_00003a_00003ardec_00003a89_00003a_00003aabus__r;
-   wire [0:-1] channel__outputs_00003a74_00003a_00003awdec_00003a93_00003a_00003aabus__w;
+   wire [0:0] channel__outputs_00003a74_00003a_00003arinc_00003a83_00003a_00003aabus__r;
+   wire [0:0] channel__outputs_00003a74_00003a_00003awinc_00003a86_00003a_00003aabus__w;
+   wire [0:0] channel__outputs_00003a74_00003a_00003ardec_00003a89_00003a_00003aabus__r;
+   wire [0:0] channel__outputs_00003a74_00003a_00003awdec_00003a93_00003a_00003aabus__w;
    wire signed[7:0] channel__a0_00003a97_00003a_00003areg__0;
    wire signed[7:0] channel__a0_00003a97_00003a_00003areg__1;
    wire [0:0] channel__a0_00003a97_00003a_00003arinc_00003a109_00003a_00003aabus__r;
@@ -136,9 +136,8 @@ module neural__network_00003aT1_00003a_00003aneural__network_00003aT00( clk, rst
 
       if ((rst == 32'd1)) begin
          _00003a9 <= -32'd1;
+         _00003a8 <= 32'd0;
       end
-
-      _00003a8 <= 32'd0;
 
       if (rst) begin
          address__inputs <= 32'd0;
@@ -148,6 +147,7 @@ module neural__network_00003aT1_00003a_00003aneural__network_00003aT00( clk, rst
       else if (fill__inputs) begin
          if ((rst == 32'd0)) begin
             if ((_00003a8 == 32'd1)) begin
+               _00003a8 <= 32'd0;
                value__inputs <= _00003a10;
                flag__inputs <= 32'd1;
             end

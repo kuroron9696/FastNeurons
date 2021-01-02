@@ -43,11 +43,11 @@ module neural__network_00003aT1_00003a_00003aneural__network_00003aT00_00003a_00
    wire channel__w0_00003a127_00003a_00003atrig__r;
    reg signed[7:0] channel__w0_00003a127_00003a_00003adbus__r;
    wire [0:0] channel__w0_00003a127_00003a_00003aabus__r;
-   wire signed[7:0] channel__w0_00003a127_00003a_00003amem  :0[0:1];
+   reg signed[7:0] channel__w0_00003a127_00003a_00003amem  [0:1];
    wire channel__w1_00003a142_00003a_00003atrig__r;
    reg signed[7:0] channel__w1_00003a142_00003a_00003adbus__r;
    wire [0:0] channel__w1_00003a142_00003a_00003aabus__r;
-   wire signed[7:0] channel__w1_00003a142_00003a_00003amem  :0[0:1];
+   reg signed[7:0] channel__w1_00003a142_00003a_00003amem  [0:1];
    wire signed[7:0] channel__accum_00003a157_00003a_00003areg__0;
    wire signed[7:0] channel__accum_00003a157_00003a_00003areg__1;
    wire [0:0] channel__accum_00003a157_00003a_00003arinc_00003a169_00003a_00003aabus__r;
@@ -68,11 +68,11 @@ module neural__network_00003aT1_00003a_00003aneural__network_00003aT00_00003a_00
    wire channel__b0_00003a196_00003a_00003atrig__r;
    reg signed[7:0] channel__b0_00003a196_00003a_00003adbus__r;
    wire [0:0] channel__b0_00003a196_00003a_00003aabus__r;
-   reg signed[7:0] channel__b0_00003a196_00003a_00003amem  :0[0:0] = $signed(32'd0);
+   reg signed[7:0] channel__b0_00003a196_00003a_00003amem  [0:0] = 32'd0;
    wire channel__b1_00003a211_00003a_00003atrig__r;
    reg signed[7:0] channel__b1_00003a211_00003a_00003adbus__r;
    wire [0:0] channel__b1_00003a211_00003a_00003aabus__r;
-   reg signed[7:0] channel__b1_00003a211_00003a_00003amem  :0[0:0] = $signed(32'd0);
+   reg signed[7:0] channel__b1_00003a211_00003a_00003amem  [0:0] = 32'd0;
    wire signed[7:0] channel__z_00003a226_00003a_00003areg__0;
    wire signed[7:0] channel__z_00003a226_00003a_00003areg__1;
    wire [0:0] channel__z_00003a226_00003a_00003arinc_00003a238_00003a_00003aabus__r;
@@ -212,15 +212,13 @@ module neural__network_00003aT1_00003a_00003aneural__network_00003aT00_00003a_00
 
       if ((rst == 32'd1)) begin
          _00003a150 <= -32'd1;
+         _00003a149 <= 32'd0;
       end
-
-      _00003a149 <= 32'd0;
 
       if ((rst == 32'd1)) begin
          _00003a135 <= -32'd1;
+         _00003a134 <= 32'd0;
       end
-
-      _00003a134 <= 32'd0;
 
       if ((rst == 32'd1)) begin
          _00003a58 <= -32'd1;
@@ -257,6 +255,7 @@ module neural__network_00003aT1_00003a_00003aneural__network_00003aT00_00003a_00
          if (~mac__n1_00003a189_00003a_00003alvok0) begin
             if ((rst == 32'd0)) begin
                if ((_00003a134 == 32'd1)) begin
+                  _00003a134 <= 32'd0;
                   mac__n1_00003a189_00003a_00003alv0 <= _00003a136;
                   mac__n1_00003a189_00003a_00003alvok0 <= 32'd1;
                end
@@ -269,8 +268,8 @@ module neural__network_00003aT1_00003a_00003aneural__network_00003aT00_00003a_00
          if (((mac__n1_00003a189_00003a_00003alvok0 & mac__n1_00003a189_00003a_00003arvok) & ~mac__n1_00003a189_00003a_00003awok0)) begin
             ack <= 32'd1;
             mac__n1_00003a189_00003a_00003arun <= 32'd0;
-            mac__n1_00003a189_00003a_00003aav0 <= (mac__n1_00003a189_00003a_00003aav0 + (($signed(mac__n1_00003a189_00003a_00003alv0) * mac__n1_00003a189_00003a_00003arv) >> 32'd4));
-            _00003a159 <= ((mac__n1_00003a189_00003a_00003aav0 + (($signed(mac__n1_00003a189_00003a_00003alv0) * mac__n1_00003a189_00003a_00003arv) >> 32'd4)) + (($signed(mac__n1_00003a189_00003a_00003alv0) * mac__n1_00003a189_00003a_00003arv) >> 32'd4));
+            mac__n1_00003a189_00003a_00003aav0 <= (mac__n1_00003a189_00003a_00003aav0 + (($signed({{4{mac__n1_00003a189_00003a_00003alv0[7]}},mac__n1_00003a189_00003a_00003alv0}) * mac__n1_00003a189_00003a_00003arv) >> 32'd4));
+            _00003a159 <= ((mac__n1_00003a189_00003a_00003aav0 + (($signed({{4{mac__n1_00003a189_00003a_00003alv0[7]}},mac__n1_00003a189_00003a_00003alv0}) * mac__n1_00003a189_00003a_00003arv) >> 32'd4)) + (($signed({{4{mac__n1_00003a189_00003a_00003alv0[7]}},mac__n1_00003a189_00003a_00003alv0}) * mac__n1_00003a189_00003a_00003arv) >> 32'd4));
             mac__n1_00003a189_00003a_00003awok0 <= 32'd1;
          end
          if ((mac__n1_00003a189_00003a_00003awok0 & mac__n1_00003a189_00003a_00003awok1)) begin
@@ -283,6 +282,7 @@ module neural__network_00003aT1_00003a_00003aneural__network_00003aT00_00003a_00
          if (~mac__n1_00003a189_00003a_00003alvok1) begin
             if ((rst == 32'd0)) begin
                if ((_00003a149 == 32'd1)) begin
+                  _00003a149 <= 32'd0;
                   mac__n1_00003a189_00003a_00003alv1 <= _00003a151;
                   mac__n1_00003a189_00003a_00003alvok1 <= 32'd1;
                end
@@ -295,8 +295,8 @@ module neural__network_00003aT1_00003a_00003aneural__network_00003aT00_00003a_00
          if (((mac__n1_00003a189_00003a_00003alvok1 & mac__n1_00003a189_00003a_00003arvok) & ~mac__n1_00003a189_00003a_00003awok1)) begin
             ack <= 32'd1;
             mac__n1_00003a189_00003a_00003arun <= 32'd0;
-            mac__n1_00003a189_00003a_00003aav1 <= (mac__n1_00003a189_00003a_00003aav1 + (($signed(mac__n1_00003a189_00003a_00003alv1) * mac__n1_00003a189_00003a_00003arv) >> 32'd4));
-            _00003a160 <= ((mac__n1_00003a189_00003a_00003aav1 + (($signed(mac__n1_00003a189_00003a_00003alv1) * mac__n1_00003a189_00003a_00003arv) >> 32'd4)) + (($signed(mac__n1_00003a189_00003a_00003alv1) * mac__n1_00003a189_00003a_00003arv) >> 32'd4));
+            mac__n1_00003a189_00003a_00003aav1 <= (mac__n1_00003a189_00003a_00003aav1 + (($signed({{4{mac__n1_00003a189_00003a_00003alv1[7]}},mac__n1_00003a189_00003a_00003alv1}) * mac__n1_00003a189_00003a_00003arv) >> 32'd4));
+            _00003a160 <= ((mac__n1_00003a189_00003a_00003aav1 + (($signed({{4{mac__n1_00003a189_00003a_00003alv1[7]}},mac__n1_00003a189_00003a_00003alv1}) * mac__n1_00003a189_00003a_00003arv) >> 32'd4)) + (($signed({{4{mac__n1_00003a189_00003a_00003alv1[7]}},mac__n1_00003a189_00003a_00003alv1}) * mac__n1_00003a189_00003a_00003arv) >> 32'd4));
             mac__n1_00003a189_00003a_00003awok1 <= 32'd1;
          end
          if ((mac__n1_00003a189_00003a_00003awok0 & mac__n1_00003a189_00003a_00003awok1)) begin
@@ -386,13 +386,13 @@ module neural__network_00003aT1_00003a_00003aneural__network_00003aT00_00003a_00
 
    initial begin
 
-      channel__w0_00003a127_00003a_00003amem[32'd0] = $signed(32'd7);
+      channel__w0_00003a127_00003a_00003amem[32'd0] = -32'd12;
 
-      channel__w0_00003a127_00003a_00003amem[32'd1] = $signed(-32'd12);
+      channel__w0_00003a127_00003a_00003amem[32'd1] = 32'd12;
 
-      channel__w1_00003a142_00003a_00003amem[32'd0] = $signed(-32'd12);
+      channel__w1_00003a142_00003a_00003amem[32'd0] = 32'd17;
 
-      channel__w1_00003a142_00003a_00003amem[32'd1] = $signed(-32'd15);
+      channel__w1_00003a142_00003a_00003amem[32'd1] = -32'd17;
 
    end
 

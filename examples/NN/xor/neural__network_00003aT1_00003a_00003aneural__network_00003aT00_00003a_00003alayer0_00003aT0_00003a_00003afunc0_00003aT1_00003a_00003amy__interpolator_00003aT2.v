@@ -7,6 +7,6 @@ module neural__network_00003aT1_00003a_00003aneural__network_00003aT00_00003a_00
    input signed[7:0] remaining;
    output signed[7:0] interpolated__value;
 
-   assign interpolated__value = (base + (($signed((next__data - base)) * remaining) >> 32'd4));
+   assign interpolated__value = (base + (($signed({{4{(next__data - base)[7]}},(next__data - base)}) * remaining) >> 32'd4));
 
 endmodule
