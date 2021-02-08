@@ -31,7 +31,6 @@ system :neurons_layer do |func, typ, integer_width, decimal_width, address_width
   par(clk.posedge) do
     hif(rst) do
       ack <= 0
-      ack_mac <= 0
       ack_add <= 0
     end    
   end
@@ -61,7 +60,7 @@ system :neurons_layer do |func, typ, integer_width, decimal_width, address_width
   #---------------------------------------------------------------------------
   # バイアスの計算
   bias = quantize(bias, typ, decimal_width)
-  channel_b = output_size.times.map{ |i| mem_rom(typ, 1, clk, rst, bias[i], rinc: :rst, winc: :rst).(:"channel_b#{i}") }
+  channel_b = output_size.times.map{ |i| mem_rom(typ, 1, clk, rst, [bias[i]], rinc: :rst, winc: :rst).(:"channel_b#{i}") }
 
   mem_file(typ, output_size, clk, rst, rinc: :rst, winc: :rst, anum: :rst).(:channel_z)
 
