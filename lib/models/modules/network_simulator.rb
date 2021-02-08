@@ -1,4 +1,5 @@
 # シミュレーション用モジュール
+# インターフェース用
 require "std/memory.rb"
 require "std/fixpoint.rb"
 require_relative "network_constructor.rb"

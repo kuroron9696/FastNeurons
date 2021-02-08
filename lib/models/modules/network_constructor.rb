@@ -36,13 +36,6 @@ system :network_constructor do |columns, functions, types, integer_width, decima
   # 隠れ層と出力層の数だけ宣言
   ack = neuron_columns.size.times.map{ |i| inner :"ack_#{i}"}  
 
-  par(clk.posedge) do
-    hif(rst) do
-      neuron_columns.size.times do |i|
-        ack[i] <= 0
-      end
-    end
-  end
   #---------------チャンネルの宣言-------------------
   # ニューラルネットワークへの入力を格納するメモリ
   mem_dual(types[0], columns[0], clk, rst, rinc: :rst, winc: :rst).(:channel_inputs)
